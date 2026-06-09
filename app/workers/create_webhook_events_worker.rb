@@ -38,7 +38,7 @@ class CreateWebhookEventsWorker < BaseWorker
       )
 
       # serialize the event and decode so we can use in webhook job
-      webhook = Keygen::JSONAPI::Renderer.new(account:, api_version: webhook_endpoint.api_version, context: :webhook)
+      webhook = AtLicense::JSONAPI::Renderer.new(account:, api_version: webhook_endpoint.api_version, context: :webhook)
                                          .render(webhook_event)
 
       # migrate the resource payload (right now it's for the current API version and it needs

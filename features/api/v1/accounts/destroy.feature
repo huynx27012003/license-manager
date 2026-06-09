@@ -33,7 +33,7 @@ Feature: Delete account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a DELETE request to "/accounts/test1"
     Then the response status should be "403"

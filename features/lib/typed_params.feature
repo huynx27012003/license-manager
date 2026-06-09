@@ -158,7 +158,7 @@ Feature: Typed parameters
                   "type": "user",
                   "attributes": {
                     "name": "Larry Page",
-                    "email": "lpage@keygen.sh",
+                    "email": "lpage@atlicense.vn",
                     "password": "goog"
                   }
                 }

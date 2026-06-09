@@ -21,7 +21,7 @@ describe AddConcurrentAttributeToPolicyMigration do
 
     it "should migrate a policy's attributes" do
       migrator = RequestMigrations::Migrator.new(from: '1.1', to: '1.1')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to_not include(
         data: include(
@@ -48,7 +48,7 @@ describe AddConcurrentAttributeToPolicyMigration do
 
     it "should migrate a policy's attributes" do
       migrator = RequestMigrations::Migrator.new(from: '1.1', to: '1.1')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to_not include(
         data: include(

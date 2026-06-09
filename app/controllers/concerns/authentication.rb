@@ -123,18 +123,18 @@ module Authentication
     @current_http_scheme = :session
     @current_http_token  = nil
 
-    raise Keygen::Error::UnauthorizedError.new(code: 'SESSION_INVALID') if
+    raise AtLicense::Error::UnauthorizedError.new(code: 'SESSION_INVALID') if
       session.nil? || session.bearer.nil?
 
-    raise Keygen::Error::UnauthorizedError.new(code: 'SESSION_EXPIRED', detail: 'Session is expired') if
+    raise AtLicense::Error::UnauthorizedError.new(code: 'SESSION_EXPIRED', detail: 'Session is expired') if
       session.expired?
 
-    raise Keygen::Error::ForbiddenError.new(code: 'USER_BANNED', detail: 'User is banned') if
+    raise AtLicense::Error::ForbiddenError.new(code: 'USER_BANNED', detail: 'User is banned') if
       session.bearer.respond_to?(:banned?) && session.bearer.banned?
 
     case
     when session.bearer.has_role?(:license)
-      raise Keygen::Error::ForbiddenError.new(code: 'SESSION_NOT_ALLOWED', detail: 'Session authentication is not allowed by policy') unless
+      raise AtLicense::Error::ForbiddenError.new(code: 'SESSION_NOT_ALLOWED', detail: 'Session authentication is not allowed by policy') unless
         session.bearer.supports_session_auth?
     end
 
@@ -163,7 +163,7 @@ module Authentication
 
     # save a query in case the username isn't a valid email
     unless username in EMAIL_RE => email
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'email is required',
         code: 'EMAIL_REQUIRED',
         header: 'Authorization',
@@ -175,14 +175,14 @@ module Authentication
       redirect = sso_redirect_url_for(email)
 
       unless redirect.present?
-        raise Keygen::Error::UnauthorizedError.new(
+        raise AtLicense::Error::UnauthorizedError.new(
           detail: 'single sign on is unsupported',
           code: 'SSO_NOT_SUPPORTED',
           header: 'Authorization',
         )
       end
 
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'single sign on is required',
         code: 'SSO_REQUIRED',
         header: 'Authorization',
@@ -202,7 +202,7 @@ module Authentication
 
     # see below comment i.r.t. leaking user existence being a requirement for determining authn flow
     unless user.present?
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'email must be valid',
         code: 'EMAIL_INVALID',
         header: 'Authorization',
@@ -214,14 +214,14 @@ module Authentication
       redirect = sso_redirect_url_for(user)
 
       unless redirect.present?
-        raise Keygen::Error::UnauthorizedError.new(
+        raise AtLicense::Error::UnauthorizedError.new(
           detail: 'single sign on is unsupported',
           code: 'SSO_NOT_SUPPORTED',
           header: 'Authorization',
         )
       end
 
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'single sign on is required',
         code: 'SSO_REQUIRED',
         header: 'Authorization',
@@ -231,7 +231,7 @@ module Authentication
 
     # verify password only if the user has one set i.e. they're not a managed user
     unless user.password?
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'password is unsupported',
         code: 'PASSWORD_NOT_SUPPORTED',
         header: 'Authorization',
@@ -241,7 +241,7 @@ module Authentication
     # NOTE(ezekg) yes, this leaks existence of a user... but we send this so that we can
     #             determine authn flow for an email e.g. password vs single-sign-on
     if user.password? && password.blank?
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'password is required',
         code: 'PASSWORD_REQUIRED',
         header: 'Authorization',
@@ -252,7 +252,7 @@ module Authentication
     if user.second_factor_enabled?
       otp = params.dig(:meta, :otp)
       if otp.nil?
-        raise Keygen::Error::UnauthorizedError.new(
+        raise AtLicense::Error::UnauthorizedError.new(
           detail: 'second factor is required',
           code: 'OTP_REQUIRED',
           pointer: '/meta/otp',
@@ -260,7 +260,7 @@ module Authentication
       end
 
       unless user.verify_second_factor(otp)
-        raise Keygen::Error::UnauthorizedError.new(
+        raise AtLicense::Error::UnauthorizedError.new(
           detail: 'second factor must be valid',
           code: 'OTP_INVALID',
           pointer: '/meta/otp',
@@ -269,7 +269,7 @@ module Authentication
     end
 
     unless user.authenticate(password)
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: 'password must be valid',
         code: 'PASSWORD_INVALID',
         header: 'Authorization',
@@ -301,7 +301,7 @@ module Authentication
     # Make sure token matches our expected format. This is also here to help users
     # who may be mistakenly using a UUID as a token, which is a common mistake.
     if http_token.present? && http_token =~ UUID_RE
-      raise Keygen::Error::UnauthorizedError.new(
+      raise AtLicense::Error::UnauthorizedError.new(
         detail: "Token format is invalid (make sure that you're providing a token value, not a token's UUID identifier)",
         code: 'TOKEN_FORMAT_INVALID',
       )
@@ -316,7 +316,7 @@ module Authentication
     )
 
     # If a token was provided but was not found, fail early.
-    raise Keygen::Error::UnauthorizedError.new(code: 'TOKEN_INVALID') if
+    raise AtLicense::Error::UnauthorizedError.new(code: 'TOKEN_INVALID') if
       http_token.present? &&
       current_token.nil?
 
@@ -325,24 +325,24 @@ module Authentication
     # Sanity check
     if (current_bearer.present? && current_bearer.account_id != current_account.id) ||
        (current_token.present? && current_token.account_id != current_account.id)
-      Keygen.logger.error "[authentication] Account mismatch: account=#{current_account&.id || 'N/A'} token=#{current_token&.id || 'N/A'} bearer=#{current_bearer&.id || 'N/A'}"
+      AtLicense.logger.error "[authentication] Account mismatch: account=#{current_account&.id || 'N/A'} token=#{current_token&.id || 'N/A'} bearer=#{current_bearer&.id || 'N/A'}"
 
-      raise Keygen::Error::UnauthorizedError.new(code: 'TOKEN_INVALID')
+      raise AtLicense::Error::UnauthorizedError.new(code: 'TOKEN_INVALID')
     end
 
     Current.bearer = current_bearer
     Current.token  = current_token
 
-    raise Keygen::Error::UnauthorizedError.new(code: 'TOKEN_EXPIRED', detail: 'Token is expired') if
+    raise AtLicense::Error::UnauthorizedError.new(code: 'TOKEN_EXPIRED', detail: 'Token is expired') if
       current_token&.expired?
 
-    raise Keygen::Error::ForbiddenError.new(code: 'USER_BANNED', detail: 'User is banned') if
+    raise AtLicense::Error::ForbiddenError.new(code: 'USER_BANNED', detail: 'User is banned') if
       current_bearer.respond_to?(:banned?) &&
       current_bearer.banned?
 
     case
     when current_bearer&.has_role?(:license)
-      raise Keygen::Error::ForbiddenError.new(code: 'TOKEN_NOT_ALLOWED', detail: 'Token authentication is not allowed by policy') unless
+      raise AtLicense::Error::ForbiddenError.new(code: 'TOKEN_NOT_ALLOWED', detail: 'Token authentication is not allowed by policy') unless
         current_bearer.supports_token_auth?
     end
 
@@ -364,59 +364,59 @@ module Authentication
     )
 
     # Fail early if license key was provided but not found
-    raise Keygen::Error::UnauthorizedError.new(code: 'LICENSE_INVALID') if
+    raise AtLicense::Error::UnauthorizedError.new(code: 'LICENSE_INVALID') if
       license_key.present? &&
       current_license.nil?
 
     # Sanity check
     if current_license.present? && current_license.account_id != current_account.id
-     Keygen.logger.error "[authentication] Account mismatch: account=#{current_account&.id || 'N/A'} license=#{current_license&.id || 'N/A'}"
+     AtLicense.logger.error "[authentication] Account mismatch: account=#{current_account&.id || 'N/A'} license=#{current_license&.id || 'N/A'}"
 
-     raise Keygen::Error::UnauthorizedError.new(code: 'LICENSE_INVALID')
+     raise AtLicense::Error::UnauthorizedError.new(code: 'LICENSE_INVALID')
     end
 
     Current.bearer = current_license
 
     if current_license.present?
-      raise Keygen::Error::ForbiddenError.new(code: 'LICENSE_BANNED', detail: 'License is banned') if
+      raise AtLicense::Error::ForbiddenError.new(code: 'LICENSE_BANNED', detail: 'License is banned') if
         current_license.banned?
 
-      raise Keygen::Error::ForbiddenError.new(code: 'LICENSE_SUSPENDED', detail: 'License is suspended') if
+      raise AtLicense::Error::ForbiddenError.new(code: 'LICENSE_SUSPENDED', detail: 'License is suspended') if
         current_license.suspended?
 
-      raise Keygen::Error::ForbiddenError.new(code: 'LICENSE_EXPIRED', detail: 'License is expired') if
+      raise AtLicense::Error::ForbiddenError.new(code: 'LICENSE_EXPIRED', detail: 'License is expired') if
         current_license.revoke_access? &&
         current_license.expired?
 
-      raise Keygen::Error::ForbiddenError.new(code: 'LICENSE_NOT_ALLOWED', detail: 'License key authentication is not allowed by policy') unless
+      raise AtLicense::Error::ForbiddenError.new(code: 'LICENSE_NOT_ALLOWED', detail: 'License key authentication is not allowed by policy') unless
         current_license.supports_license_auth?
     end
 
     @current_bearer = current_license
   end
 
-  def request_http_token_authentication(realm = 'keygen', message = nil)
+  def request_http_token_authentication(realm = 'at_license', message = nil)
     headers['WWW-Authenticate'] = %(Bearer realm="#{realm.gsub(/"/, "")}")
 
     case
     when current_http_token.blank?
-      raise Keygen::Error::UnauthorizedError.new(code: 'TOKEN_MISSING')
+      raise AtLicense::Error::UnauthorizedError.new(code: 'TOKEN_MISSING')
     else
-      raise Keygen::Error::UnauthorizedError.new(code: 'TOKEN_INVALID')
+      raise AtLicense::Error::UnauthorizedError.new(code: 'TOKEN_INVALID')
     end
   end
 
-  def request_http_basic_authentication(realm = 'keygen', message = nil)
+  def request_http_basic_authentication(realm = 'at_license', message = nil)
     headers['WWW-Authenticate'] = %(Bearer realm="#{realm.gsub(/"/, "")}")
 
-    raise Keygen::Error::UnauthorizedError.new(code: 'TOKEN_INVALID')
+    raise AtLicense::Error::UnauthorizedError.new(code: 'TOKEN_INVALID')
   end
 
   # NOTE(ezekg) we only support cookie authn from portal origin to prevent CSRF
   #
   #             see: https://scotthelme.co.uk/csrf-is-dead/
   def has_cookie_credentials?
-    request.origin == Keygen::Portal::ORIGIN && cookies.key?(session_cookie_name_for(current_environment))
+    request.origin == AtLicense::Portal::ORIGIN && cookies.key?(session_cookie_name_for(current_environment))
   end
 
   def has_bearer_credentials?
@@ -464,7 +464,7 @@ module Authentication
     auth_value
   end
 
-  def sso_redirect_url(email) = Keygen::EE::SSO.redirect_url(account: current_account, environment: current_environment, callback_url: sso_callback_url, email:)
+  def sso_redirect_url(email) = AtLicense::EE::SSO.redirect_url(account: current_account, environment: current_environment, callback_url: sso_callback_url, email:)
   def sso_redirect_url_for(user_or_email)
     case user_or_email
     in User => user

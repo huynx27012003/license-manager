@@ -38,7 +38,7 @@ Feature: Group owners relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/groups/$0/owners"
     Then the response status should be "200"
@@ -347,7 +347,7 @@ Feature: Group owners relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/groups/$0/owners" with the following:
       """
@@ -371,7 +371,7 @@ Feature: Group owners relationship
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 2 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -388,7 +388,7 @@ Feature: Group owners relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/groups/$0/owners" with the following:
       """
@@ -409,7 +409,7 @@ Feature: Group owners relationship
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -427,7 +427,7 @@ Feature: Group owners relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/groups/$0/owners" with the following:
       """
@@ -451,7 +451,7 @@ Feature: Group owners relationship
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 2 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -469,7 +469,7 @@ Feature: Group owners relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/groups/$0/owners" with the following:
       """
@@ -490,7 +490,7 @@ Feature: Group owners relationship
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -825,7 +825,7 @@ Feature: Group owners relationship
     Then the response status should be "204"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -863,7 +863,7 @@ Feature: Group owners relationship
     Then the response status should be "204"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -901,7 +901,7 @@ Feature: Group owners relationship
     Then the response status should be "204"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -946,7 +946,7 @@ Feature: Group owners relationship
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   Scenario: License attempts to detach owners of a group (is not member)

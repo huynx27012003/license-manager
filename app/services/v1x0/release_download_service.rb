@@ -67,7 +67,7 @@ class V1x0::ReleaseDownloadService < BaseService
     raise InvalidArtifactError.new('artifact does not exist (ensure it has been uploaded)')
   rescue Aws::S3::Errors::NotFound,
          Timeout::Error => e
-    Keygen.logger.warn "[release_download_service] No artifact found: account=#{account.id} release=#{release.id} version=#{release.version} reason=#{e.class.name}"
+    AtLicense.logger.warn "[release_download_service] No artifact found: account=#{account.id} release=#{release.id} version=#{release.version} reason=#{e.class.name}"
 
     raise InvalidArtifactError.new('artifact is unavailable (ensure it has been fully uploaded)')
   end

@@ -35,7 +35,7 @@ class ApplicationController < ActionController::API
       detail: 'unsupported API version requested',
       code: 'INVALID_API_VERSION',
       links: {
-        about: 'https://keygen.sh/docs/api/versioning/',
+        about: 'https://atenergy.vn/docs/api/versioning/',
       },
     )
   }
@@ -138,7 +138,7 @@ class ApplicationController < ActionController::API
     default_challenge_scheme = oci? ? 'Basic' : 'Bearer'
 
     challenge_scheme = authentication_scheme&.capitalize || default_challenge_scheme
-    challenge_realm  = 'keygen'
+    challenge_realm  = 'at_license'
     challenge        = %(#{challenge_scheme} realm="#{challenge_realm}")
 
     response.headers['WWW-Authenticate'] = challenge
@@ -322,7 +322,7 @@ class ApplicationController < ActionController::API
           meta: { id: request.request_id },
           errors: errors.presence || [{
             title: 'Internal server error',
-            detail: 'Looks like something went wrong! Our engineers have been notified. If you continue to have problems, please contact support@keygen.sh.',
+            detail: 'Looks like something went wrong! Our engineers have been notified. If you continue to have problems, please contact support@atenergy.vn.',
             **error,
           }],
         }
@@ -345,7 +345,7 @@ class ApplicationController < ActionController::API
           meta: { id: request.request_id },
           errors: errors.presence || [{
             title: 'Service unavailable',
-            detail: 'Our services are currently unavailable. Please see https://status.keygen.sh for our uptime status and contact support@keygen.sh with any questions.',
+            detail: 'Our services are currently unavailable. Please see https://status.atenergy.vn for our uptime status and contact support@atenergy.vn with any questions.',
             **error,
           }],
         }
@@ -447,7 +447,7 @@ class ApplicationController < ActionController::API
       }
 
       error.links = {
-        about: "https://keygen.sh/docs/api/#{topic}/##{hash}",
+        about: "https://atenergy.vn/docs/api/#{topic}/##{hash}",
       }
     end
 
@@ -472,14 +472,14 @@ class ApplicationController < ActionController::API
     path   = e.source == :query ? e.path.to_bracket_notation : e.path.to_json_pointer
 
     render_bad_request detail: e.message, source: { source => path }
-  rescue Keygen::Error::BadRequestError,
+  rescue AtLicense::Error::BadRequestError,
          ActionController::UnpermittedParameters,
          ActionController::ParameterMissing => e
     render_bad_request detail: e.message
-  rescue Keygen::Error::UnsupportedParameterError,
-         Keygen::Error::InvalidParameterError,
-         Keygen::Error::UnsupportedHeaderError,
-         Keygen::Error::InvalidHeaderError => e
+  rescue AtLicense::Error::UnsupportedParameterError,
+         AtLicense::Error::InvalidParameterError,
+         AtLicense::Error::UnsupportedHeaderError,
+         AtLicense::Error::InvalidHeaderError => e
     kwargs = { detail: e.message, source: e.source }
 
     kwargs[:code] = e.code if
@@ -488,12 +488,12 @@ class ApplicationController < ActionController::API
     render_bad_request(**kwargs)
   rescue KeysetPagination::InvalidParameterError => e
     render_bad_request(detail: e.message, source: { parameter: e.parameter })
-  rescue Keygen::Error::InvalidSingleSignOnError => e
-    Keygen.logger.warn { "[sso] error=#{e.class.inspect} code=#{e.code.inspect} message=#{e.message.inspect}" }
+  rescue AtLicense::Error::InvalidSingleSignOnError => e
+    AtLicense.logger.warn { "[sso] error=#{e.class.inspect} code=#{e.code.inspect} message=#{e.message.inspect}" }
 
     # we want to redirect to Portal to display the SSO error message in a helpful way
     redirect_to portal_url('/sso/error', query: { code: e.code }), status: :see_other, allow_other_host: true
-  rescue Keygen::Error::UnauthorizedError => e
+  rescue AtLicense::Error::UnauthorizedError => e
     kwargs = { code: e.code }
 
     kwargs[:detail] = e.detail if
@@ -519,7 +519,7 @@ class ApplicationController < ActionController::API
     end
 
     render_unauthorized(**kwargs)
-  rescue Keygen::Error::ForbiddenError => e
+  rescue AtLicense::Error::ForbiddenError => e
     kwargs = { code: e.code }
 
     kwargs[:detail] = e.detail if
@@ -540,7 +540,7 @@ class ApplicationController < ActionController::API
     end
 
     render_forbidden(**kwargs)
-  rescue Keygen::Error::NotFoundError,
+  rescue AtLicense::Error::NotFoundError,
          ActiveRecord::RecordNotFound => e
     if e.model.present?
       resource = e.model.constantize.model_name.singular.humanize(capitalize: false)
@@ -555,11 +555,11 @@ class ApplicationController < ActionController::API
     else
       render_not_found detail: 'The requested resource was not found'
     end
-  rescue Keygen::Error::InvalidAccountDomainError,
-         Keygen::Error::InvalidAccountIdError => e
+  rescue AtLicense::Error::InvalidAccountDomainError,
+         AtLicense::Error::InvalidAccountIdError => e
     render_not_found detail: e.message
-  rescue Keygen::Error::InvalidEnvironmentError => e
-    render_bad_request detail: e.message, code: 'ENVIRONMENT_INVALID', source: { header: 'Keygen-Environment' }
+  rescue AtLicense::Error::InvalidEnvironmentError => e
+    render_bad_request detail: e.message, code: 'ENVIRONMENT_INVALID', source: { header: 'AtLicense-Environment' }
   rescue ActiveModel::RangeError
     render_bad_request detail: "integer is too large"
   rescue ActiveRecord::StatementInvalid => e
@@ -570,11 +570,11 @@ class ApplicationController < ActionController::API
     in PG::Error if e.message in /incomplete multibyte character/ | /invalid multibyte character/
       render_bad_request detail: 'The request could not be completed because it contains an invalid byte sequence (check encoding)', code: 'ENCODING_INVALID'
     in PG::UniqueViolation
-      Keygen.logger.warn { "[conflict] request_id=#{request.request_id} class=#{e.class} message=#{e.message}" }
+      AtLicense.logger.warn { "[conflict] request_id=#{request.request_id} class=#{e.class} message=#{e.message}" }
 
       render_conflict
     else
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       render_internal_server_error
     end
@@ -584,7 +584,7 @@ class ApplicationController < ActionController::API
          /invalid multibyte character/
       render_bad_request detail: 'The request could not be completed because it contains an invalid byte sequence (check encoding)', code: 'ENCODING_INVALID'
     else
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       render_internal_server_error
     end
@@ -592,7 +592,7 @@ class ApplicationController < ActionController::API
          ActiveRecord::RecordInvalid => e
     render_unprocessable_resource e.record
   rescue ActiveRecord::RecordNotUnique => e
-    Keygen.logger.warn { "[conflict] request_id=#{request.request_id} class=#{e.class} message=#{e.message}" }
+    AtLicense.logger.warn { "[conflict] request_id=#{request.request_id} class=#{e.class} message=#{e.message}" }
 
     render_conflict # Race condition on unique index
   rescue ActiveRecord::NestedAttributes::TooManyRecords
@@ -609,17 +609,17 @@ class ApplicationController < ActionController::API
     when /string contains null byte/
       render_bad_request detail: 'The request could not be completed because it contains an unexpected null byte (check encoding)', code: 'ENCODING_INVALID'
     else
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       render_internal_server_error
     end
   rescue ActionPolicy::NotFound => e
-    Keygen.logger.warn { "[action_policy] message=#{e.message}" }
-    Keygen.logger.exception(e)
+    AtLicense.logger.warn { "[action_policy] message=#{e.message}" }
+    AtLicense.logger.exception(e)
 
     render_internal_server_error
   rescue ActionPolicy::Unauthorized => e
-    Keygen.logger.warn { "[action_policy] policy=#{e.policy} rule=#{e.rule} message=#{e.message} reasons=#{e.result.reasons&.reasons}" }
+    AtLicense.logger.warn { "[action_policy] policy=#{e.policy} rule=#{e.rule} message=#{e.message} reasons=#{e.result.reasons&.reasons}" }
 
     # FIXME(ezekg) Does Action Policy provide a better API for fetching the reason?
     reasons = [].tap do |accum|
@@ -629,7 +629,7 @@ class ApplicationController < ActionController::API
           # We should always use inline_reasons: when calling allowed_to?().
           # Consider symbol reasons a bug, as they are noncommunicative.
           symbols.each do |symbol|
-            Keygen.logger.warn { "[action_policy] policy=#{policy} symbol=#{symbol}" }
+            AtLicense.logger.warn { "[action_policy] policy=#{policy} symbol=#{symbol}" }
           end
         in [String, *]
           rules.each { accum << it }
@@ -640,7 +640,7 @@ class ApplicationController < ActionController::API
         end
       end
     rescue => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
     end
 
     detail = case
@@ -670,7 +670,7 @@ class ApplicationController < ActionController::API
 
   def require_ee!(entitlements: [])
     return if
-      Keygen.ee? && Keygen.ee { it.entitled?(*entitlements) }
+      AtLicense.ee? && AtLicense.ee { it.entitled?(*entitlements) }
 
     if entitlements.any?
       render_forbidden(detail: "must have an EE license with the following entitlements to access this resource: #{entitlements.join(', ')}")

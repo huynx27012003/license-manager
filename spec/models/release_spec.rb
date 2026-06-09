@@ -302,7 +302,7 @@ describe Release, type: :model do
       subject { create(:release, :published, product:, account:) }
 
       it 'should not upgrade' do
-        expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+        expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
       end
     end
 
@@ -341,7 +341,7 @@ describe Release, type: :model do
       end
 
       it 'should not upgrade' do
-        expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+        expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
       end
     end
 
@@ -353,7 +353,7 @@ describe Release, type: :model do
       end
 
       it 'should not upgrade' do
-        expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+        expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
       end
     end
 
@@ -365,7 +365,7 @@ describe Release, type: :model do
       end
 
       it 'should not upgrade' do
-        expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+        expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
       end
     end
 
@@ -677,7 +677,7 @@ describe Release, type: :model do
           before { create(:release, :published, version: '3.1.0', product:, account:) }
 
           it 'should not upgrade to the latest version' do
-            expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+            expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
           end
         end
 
@@ -685,7 +685,7 @@ describe Release, type: :model do
           before { create(:release, :published, version: '3.1.0-rc.1', product:, account:) }
 
           it 'should not upgrade to the rc release' do
-            expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+            expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
           end
         end
 
@@ -693,7 +693,7 @@ describe Release, type: :model do
           before { create(:release, :published, version: '3.1.0-beta.1', product:, account:) }
 
           it 'should not upgrade to the beta release' do
-            expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+            expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
           end
         end
 
@@ -701,7 +701,7 @@ describe Release, type: :model do
           before { create(:release, :published, version: '3.1.0-alpha.1', product:, account:) }
 
           it 'should not upgrade to the alpha release' do
-            expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+            expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
           end
         end
 
@@ -755,7 +755,7 @@ describe Release, type: :model do
       end
 
       it 'should not upgrade to the same version' do
-        expect { subject.upgrade!(accessor:) }.to raise_error Keygen::Error::NotFoundError
+        expect { subject.upgrade!(accessor:) }.to raise_error AtLicense::Error::NotFoundError
       end
     end
 

@@ -81,7 +81,7 @@ Feature: Show event logs
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent/event-logs/$0"
     Then the response status should be "200"
@@ -95,7 +95,7 @@ Feature: Show event logs
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent/event-logs/$0"
     Then the response status should be "404"
@@ -108,7 +108,7 @@ Feature: Show event logs
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent/event-logs/$0"
     Then the response status should be "404"
@@ -121,7 +121,7 @@ Feature: Show event logs
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent/event-logs/$0"
     Then the response status should be "404"
@@ -134,7 +134,7 @@ Feature: Show event logs
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent/event-logs/$0"
     Then the response status should be "200"
@@ -148,7 +148,7 @@ Feature: Show event logs
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent/event-logs/$0"
     Then the response status should be "200"

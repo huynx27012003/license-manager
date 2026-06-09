@@ -5,7 +5,7 @@ Feature: OCI image tags
     Given the following "accounts" exist:
       | id                                   | slug      | name      |
       | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | linux     | Linux     |
-      | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | keygen    | Keygen    |
+      | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | at_license    | AtLicense    |
       | 9f3d711d-55ea-49ed-9155-9acf4e4a347b | microsoft | Microsoft |
     And the following "entitlements" exist:
       | id                                   | account_id                           | code    |
@@ -14,7 +14,7 @@ Feature: OCI image tags
       | id                                   | account_id                           | code    | name         | distribution_strategy |
       | 6198261a-48b5-4445-a045-9fed4afc7735 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | alpine  | Alpine Linux | OPEN                  |
       | 54dbf634-ba9a-44ca-9f2d-f69405bb139c | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | ubuntu  | Ubuntu Linux | LICENSED              |
-      | 1c59ac75-35ba-4752-ab69-9fd379a958b8 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | keygen  | Keygen       | LICENSED              |
+      | 1c59ac75-35ba-4752-ab69-9fd379a958b8 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | at_license  | AtLicense       | LICENSED              |
       | b753b26a-836a-410f-9b3d-74a95d27dbc0 | 9f3d711d-55ea-49ed-9155-9acf4e4a347b | windows | Windows      | CLOSED                |
     And the following "packages" exist:
       | id                                   | account_id                           | product_id                           | engine | key       | created_at               | updated_at               |
@@ -41,10 +41,10 @@ Feature: OCI image tags
       | c557e7f4-80fc-4fa1-bbbc-a8fc1a37a733 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | b180e2fd-49b1-4ace-8a5f-bdea2eb188db | ubuntu-22.04.0.tar | tar      |          | linux    |       |                                                                  | UPLOADED   | 2024-10-19T00:04:00.000Z | 2024-10-19T00:04:00.000Z |
       | 74ad090a-7cee-4227-96bc-4af939e8bfa7 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | a6a6d11d-d456-4a27-bade-90579d4cdf47 | ubuntu-24.10.0.tar | tar      |          | linux    |       |                                                                  | UPLOADED   | 2024-10-19T00:05:00.000Z | 2024-10-19T00:05:00.000Z |
       | f6ca6c81-2921-4d9b-9165-db8cef975154 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | 81d5e2fd-9b10-4995-802b-f54425551211 | ubuntu-24.10.1.tar | tar      |          | linux    |       | 37ff599634695e61549a5d050f4a08c58b2087d5f293fae9d7a7b787d870741c | WAITING    | 2024-11-15T00:05:00.000Z | 2024-11-15T00:05:00.000Z |
-      | 020763a0-1581-482f-b3b0-496c6d1a3bc2 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | c5efaaed-f13d-411f-bf6e-4a4706ca3010 | keygen-1.4.1.tar   | tar      |          | linux    |       |                                                                  | PROCESSING | 2024-11-15T11:11:00.000Z | 2024-11-15T11:11:00.000Z |
-      | 89d95ffe-7785-465a-bc26-2da411fe6e99 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | ce73cc94-6d9b-4cc9-a974-3ca738b7b655 | keygen-1.4.0.tar   | tar      |          | linux    |       |                                                                  | UPLOADED   | 2024-11-15T00:00:01.000Z | 2024-11-15T00:00:01.000Z |
-      | b33a6df6-91af-4b0a-8c0b-a383befe1dea | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 743f1204-c91a-41b6-86e0-07a5fce716d3 | keygen-1.3.0.tar   | tar      |          | linux    |       |                                                                  | UPLOADED   | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
-      | ecdefa87-85f0-49ad-bb22-be24c9872d0f | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 7a5e615a-7814-4ca5-9163-66231d54ab73 | keygen-1.2.0.tar   | tar      |          | linux    |       |                                                                  | YANKED     | 2024-01-20T11:11:00.000Z | 2024-01-20T11:11:00.000Z |
+      | 020763a0-1581-482f-b3b0-496c6d1a3bc2 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | c5efaaed-f13d-411f-bf6e-4a4706ca3010 | at_license-1.4.1.tar   | tar      |          | linux    |       |                                                                  | PROCESSING | 2024-11-15T11:11:00.000Z | 2024-11-15T11:11:00.000Z |
+      | 89d95ffe-7785-465a-bc26-2da411fe6e99 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | ce73cc94-6d9b-4cc9-a974-3ca738b7b655 | at_license-1.4.0.tar   | tar      |          | linux    |       |                                                                  | UPLOADED   | 2024-11-15T00:00:01.000Z | 2024-11-15T00:00:01.000Z |
+      | b33a6df6-91af-4b0a-8c0b-a383befe1dea | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 743f1204-c91a-41b6-86e0-07a5fce716d3 | at_license-1.3.0.tar   | tar      |          | linux    |       |                                                                  | UPLOADED   | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
+      | ecdefa87-85f0-49ad-bb22-be24c9872d0f | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 7a5e615a-7814-4ca5-9163-66231d54ab73 | at_license-1.2.0.tar   | tar      |          | linux    |       |                                                                  | YANKED     | 2024-01-20T11:11:00.000Z | 2024-01-20T11:11:00.000Z |
       | f789aaf5-3901-4ce4-9478-3756ad7f7500 | 9f3d711d-55ea-49ed-9155-9acf4e4a347b | d08b8b81-ae2b-49f7-a9c2-442f89b327b4 | windows-24H2.tar   | tar      |          | windows  |       |                                                                  | UPLOADED   | 2024-10-01T00:00:01.000Z | 2024-11-12T00:00:01.000Z |
     And the following "manifests" exist:
       | id                                   | account_id                           | release_artifact_id                  | release_id                           | content_path                                                                  | content_type                                              | content_digest                                                          | content_length | content                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | created_at               | updated_at               |
@@ -55,12 +55,12 @@ Feature: OCI image tags
       # ubuntu 24.10.0
       | 86df6c04-35ad-45dc-933e-4d33d9e260ad | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | 74ad090a-7cee-4227-96bc-4af939e8bfa7 | a6a6d11d-d456-4a27-bade-90579d4cdf47 | blobs/sha256/1ae80023cb591b3ee642fde7bef065a334c1da28fc739c148552e1c70b804616 | application/vnd.oci.image.index.v1+json                   | sha256:1ae80023cb591b3ee642fde7bef065a334c1da28fc739c148552e1c70b804616 | 21             | {"hello":"dimension"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 2024-10-19T00:05:00.000Z | 2024-10-19T00:05:00.000Z |
       | 87e96e5d-8530-4889-b55e-e72737ff4005 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | 74ad090a-7cee-4227-96bc-4af939e8bfa7 | a6a6d11d-d456-4a27-bade-90579d4cdf47 | blobs/sha256/93a23971a914e5eacbf0a8d25154cda309c3c1c72fbb9914d47c60f3cb681588 | application/vnd.oci.image.manifest.v1+json                | sha256:93a23971a914e5eacbf0a8d25154cda309c3c1c72fbb9914d47c60f3cb681588 | 17             | {"hello":"world"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
-      # keygen 1.4.0
+      # at_license 1.4.0
       | 22a36ef8-a557-4b5d-8a7b-3fc19373b3e5 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 89d95ffe-7785-465a-bc26-2da411fe6e99 | ce73cc94-6d9b-4cc9-a974-3ca738b7b655 | blobs/sha256/bc3e1d7a14473a77d5441941bf4ae3fde4e07128dd38978ac7d91d3ca8bfe651 | application/vnd.oci.image.index.v1+json                   | sha256:bc3e1d7a14473a77d5441941bf4ae3fde4e07128dd38978ac7d91d3ca8bfe651 | 20             | {"hello":"universe"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
-      # keygen 1.3.0
+      # at_license 1.3.0
       | 9e54ebf5-33f7-4065-80c0-b88275b3cc21 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/410e8b41faa7b09512984829d2721110f6fbefa9be77ba80162a07e7e0039ec1 | application/vnd.oci.image.index.v1+json                   | sha256:410e8b41faa7b09512984829d2721110f6fbefa9be77ba80162a07e7e0039ec1 | 1609           | {\n  "schemaVersion": 2,\n  "mediaType": "application/vnd.oci.image.index.v1+json",\n  "manifests": [\n    {\n      "mediaType": "application/vnd.oci.image.manifest.v1+json",\n      "digest": "sha256:9c74df62b4d5722f86c31ce8319f047bdced5af0da2e9403fb3154d2599736cd",\n      "size": 2196,\n      "platform": {\n        "architecture": "amd64",\n        "os": "linux"\n      }\n    },\n    {\n      "mediaType": "application/vnd.oci.image.manifest.v1+json",\n      "digest": "sha256:415654d92c281414cda9931cb7cb13027a5dadc63f8844944c53c6a4888d23d3",\n      "size": 2196,\n      "platform": {\n        "architecture": "arm64",\n        "os": "linux"\n      }\n    },\n    {\n      "mediaType": "application/vnd.oci.image.manifest.v1+json",\n      "digest": "sha256:5003a58c58d300b63dde62d24c40e56f0c12a23127373be0bfce904cfaf6cf46",\n      "size": 566,\n      "annotations": {\n        "vnd.docker.reference.digest": "sha256:9c74df62b4d5722f86c31ce8319f047bdced5af0da2e9403fb3154d2599736cd",\n        "vnd.docker.reference.type": "attestation-manifest"\n      },\n      "platform": {\n        "architecture": "unknown",\n        "os": "unknown"\n      }\n    },\n    {\n      "mediaType": "application/vnd.oci.image.manifest.v1+json",\n      "digest": "sha256:bec48978b2eb9496715615e4add1fa70f920c328032a370ccb90b588de4eb3de",\n      "size": 566,\n      "annotations": {\n        "vnd.docker.reference.digest": "sha256:415654d92c281414cda9931cb7cb13027a5dadc63f8844944c53c6a4888d23d3",\n        "vnd.docker.reference.type": "attestation-manifest"\n      },\n      "platform": {\n        "architecture": "unknown",\n        "os": "unknown"\n      }\n    }\n  ]\n}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
       | 800df9ff-a355-4354-8291-b964dbf00bdf | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/9c74df62b4d5722f86c31ce8319f047bdced5af0da2e9403fb3154d2599736cd | application/vnd.oci.image.manifest.v1+json                | sha256:9c74df62b4d5722f86c31ce8319f047bdced5af0da2e9403fb3154d2599736cd | 2196           | {\n  "schemaVersion": 2,\n  "mediaType": "application/vnd.oci.image.manifest.v1+json",\n  "config": {\n    "mediaType": "application/vnd.oci.image.config.v1+json",\n    "digest": "sha256:9ec80051ed72131fe1d3df8d47a29f4f259295267252e9c8d89968410ed26edc",\n    "size": 8939\n  },\n  "layers": [\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:d25f557d7f31bf7acfac935859b5153da41d13c41f2b468d16f729a5b883634f",\n      "size": 3622094\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:fcb16707477d8b1e3de1322a8996261e0fe9e3b6e139a51aeccccd58afa01cf6",\n      "size": 6686032\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:453bd37d6ebb12875a716b8d83bf4fd9b0ffa419d27c545e55d28e79f47efd46",\n      "size": 193\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:8ef1e9289c27a564a5df0923c486967488442cc4ed2d2f25b130591da7073739",\n      "size": 36221419\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:3db7b584f774d489e9b5bdabf9e229a4da5af8bf3bb1ba8c2b742e6231357861",\n      "size": 140\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:f25496d407c3a3193fb44b7e6e409fc95b0503bb76ea6360656081a0cd784ff9",\n      "size": 2654933\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:bb90333d2b9cdeda9d86da6b25dd713f6449716e24d6d656bd49d0cf36493ac0",\n      "size": 46263627\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",\n      "size": 32\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:f95430b152addc49861bd4277b22df465321b40557fb687de4527bb2585811bb",\n      "size": 748940\n    },\n    {\n      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",\n      "digest": "sha256:b302a583196ce8ed58fab12b74e36dd9eb7e9e13e57636349aa553f5617000fb",\n      "size": 749075\n    }\n  ]\n} | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
-      # keygen 1.2.0
+      # at_license 1.2.0
       # windows 26100.2314
       | 44f862a3-60fa-4111-a2fd-823d96c474f5 | 9f3d711d-55ea-49ed-9155-9acf4e4a347b | f789aaf5-3901-4ce4-9478-3756ad7f7500 | d08b8b81-ae2b-49f7-a9c2-442f89b327b4 | blobs/sha256/ca970908644e34be86cfd5b3196a069a365a2b715346d67bfab2a43455ddfb3a | application/vnd.oci.image.index.v1+json                   | sha256:ca970908644e34be86cfd5b3196a069a365a2b715346d67bfab2a43455ddfb3a | 19             | {"hello":"windows"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
     And the following "descriptors" exist:
@@ -79,11 +79,11 @@ Feature: OCI image tags
       | 5532cd0d-ba1e-4185-8b29-e2787def7ad8 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | 74ad090a-7cee-4227-96bc-4af939e8bfa7 | a6a6d11d-d456-4a27-bade-90579d4cdf47 | oci-layout                                                                    | application/vnd.oci.layout.header.v1+json                 | sha256:18f0797eab35a4597c1e9624aa4f15fd91f6254e5538c1e0d193b2a95dd4acc6 | 30             | 2024-10-19T00:05:00.000Z | 2024-10-19T00:05:00.000Z |
       | 9d691418-af60-440d-8425-c7667d149d22 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | 74ad090a-7cee-4227-96bc-4af939e8bfa7 | a6a6d11d-d456-4a27-bade-90579d4cdf47 | blobs/sha256/1ae80023cb591b3ee642fde7bef065a334c1da28fc739c148552e1c70b804616 | application/vnd.oci.image.index.v1+json                   | sha256:1ae80023cb591b3ee642fde7bef065a334c1da28fc739c148552e1c70b804616 | 21             | 2024-10-19T00:05:00.000Z | 2024-10-19T00:05:00.000Z |
       | 8f1ac175-3cf3-4bcf-9f42-b582ed1d9d25 | 14c038fd-b57e-432d-8c09-f50ebcd6a7bc | 74ad090a-7cee-4227-96bc-4af939e8bfa7 | a6a6d11d-d456-4a27-bade-90579d4cdf47 | blobs/sha256/93a23971a914e5eacbf0a8d25154cda309c3c1c72fbb9914d47c60f3cb681588 | application/vnd.oci.image.index.v1+json                   | sha256:93a23971a914e5eacbf0a8d25154cda309c3c1c72fbb9914d47c60f3cb681588 | 17             | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
-      # keygen 1.4.0
+      # at_license 1.4.0
       | 04918f24-376f-40b2-a1a1-5e72de5aac8f | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 89d95ffe-7785-465a-bc26-2da411fe6e99 | ce73cc94-6d9b-4cc9-a974-3ca738b7b655 | index.json                                                                    | application/vnd.oci.image.index.v1+json                   | sha256:63179218e5dab1bc90d0580256c5a3bf3b117de72c65d1841d49b283934b2179 | 415            | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
       | 3cc5d2d9-e92c-47b6-a680-0407bde2ced6 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 89d95ffe-7785-465a-bc26-2da411fe6e99 | ce73cc94-6d9b-4cc9-a974-3ca738b7b655 | oci-layout                                                                    | application/vnd.oci.layout.header.v1+json                 | sha256:18f0797eab35a4597c1e9624aa4f15fd91f6254e5538c1e0d193b2a95dd4acc6 | 30             | 2024-11-15T00:00:01.000Z | 2024-11-15T00:00:01.000Z |
       | e72c7e76-2360-4149-b083-98f5fa08b789 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | 89d95ffe-7785-465a-bc26-2da411fe6e99 | ce73cc94-6d9b-4cc9-a974-3ca738b7b655 | blobs/sha256/bc3e1d7a14473a77d5441941bf4ae3fde4e07128dd38978ac7d91d3ca8bfe651 | application/vnd.oci.image.index.v1+json                   | sha256:bc3e1d7a14473a77d5441941bf4ae3fde4e07128dd38978ac7d91d3ca8bfe651 | 20             | 2024-11-15T00:00:01.000Z | 2024-11-15T00:00:01.000Z |
-      # keygen 1.3.0
+      # at_license 1.3.0
       | a353caf7-37ba-46a2-bf31-d6c535de4300 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | index.json                                                                    | application/vnd.oci.image.index.v1+json                   | sha256:0262f48d059aa7c5c9da8629569cb732e4a7482da063f0f2ec4abd69ec67c711 | 415            | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
       | 21e01f7a-1900-41ca-8f5f-76917ffdf84a | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/410e8b41faa7b09512984829d2721110f6fbefa9be77ba80162a07e7e0039ec1 | application/vnd.oci.image.index.v1+json                   | sha256:410e8b41faa7b09512984829d2721110f6fbefa9be77ba80162a07e7e0039ec1 | 1609           | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
       | b7a2c50f-4953-4364-9f99-165cb3593b96 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/9c74df62b4d5722f86c31ce8319f047bdced5af0da2e9403fb3154d2599736cd | application/vnd.oci.image.manifest.v1+json                | sha256:9c74df62b4d5722f86c31ce8319f047bdced5af0da2e9403fb3154d2599736cd | 2196           | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
@@ -99,7 +99,7 @@ Feature: OCI image tags
       | be8c5f2f-2afc-4a3b-93d0-4dd09fa62cd2 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 | application/vnd.oci.image.layer.v1.tar+gzip               | sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 | 32             | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
       | 1c3e13ea-45ca-4df8-b564-453be0a22351 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/f95430b152addc49861bd4277b22df465321b40557fb687de4527bb2585811bb | application/vnd.oci.image.layer.v1.tar+gzip               | sha256:f95430b152addc49861bd4277b22df465321b40557fb687de4527bb2585811bb | 748940         | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
       | 210ebaa8-4c5e-43b0-a6f7-10b8ef171fb8 | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | b33a6df6-91af-4b0a-8c0b-a383befe1dea | 743f1204-c91a-41b6-86e0-07a5fce716d3 | blobs/sha256/b302a583196ce8ed58fab12b74e36dd9eb7e9e13e57636349aa553f5617000fb | application/vnd.oci.image.layer.v1.tar+gzip               | sha256:b302a583196ce8ed58fab12b74e36dd9eb7e9e13e57636349aa553f5617000fb | 749075         | 2024-06-18T02:52:00.000Z | 2024-06-18T02:52:00.000Z |
-      # keygen 1.2.0
+      # at_license 1.2.0
       | 5a2c5246-cc20-49c1-a24c-bca3bf6cfe6a | b8cd8416-6dfb-44dd-9b69-1d73ee65baed | ecdefa87-85f0-49ad-bb22-be24c9872d0f | 7a5e615a-7814-4ca5-9163-66231d54ab73 | oci-layout                                                                    | application/vnd.oci.layout.header.v1+json                 | sha256:18f0797eab35a4597c1e9624aa4f15fd91f6254e5538c1e0d193b2a95dd4acc6 | 30             | 2024-01-20T11:11:00.000Z | 2024-01-20T11:11:00.000Z |
       # windows 26100.2314
       | aec6088d-f095-4d71-8206-ad55ef5ae03d | 9f3d711d-55ea-49ed-9155-9acf4e4a347b | f789aaf5-3901-4ce4-9478-3756ad7f7500 | d08b8b81-ae2b-49f7-a9c2-442f89b327b4 | oci-layout                                                                    | application/vnd.oci.layout.header.v1+json                 | sha256:18f0797eab35a4597c1e9624aa4f15fd91f6254e5538c1e0d193b2a95dd4acc6 | 30             | 2024-10-01T00:00:01.000Z | 2024-11-12T00:00:01.000Z |
@@ -127,7 +127,7 @@ Feature: OCI image tags
     Given the current account is "linux"
     And I am an admin of account "linux"
     And I use an authentication token
-    When I send a GET request to "//oci.pkg.keygen.sh/v2/linux/alpine/tags/list"
+    When I send a GET request to "//oci.pkg.atlicense.vn/v2/linux/alpine/tags/list"
     Then the response status should be "200"
     And the response should contain the following raw headers:
       """
@@ -139,7 +139,7 @@ Feature: OCI image tags
     Given the current account is "linux"
     And I am an admin of account "linux"
     And I use an authentication token
-    When I send a GET request to "//oci.pkg.keygen.sh/v2/alpine/tags/list"
+    When I send a GET request to "//oci.pkg.atlicense.vn/v2/alpine/tags/list"
     Then the response status should be "200"
     And the response should contain the following raw headers:
       """
@@ -281,15 +281,15 @@ Feature: OCI image tags
       """
 
   Scenario: License retrieves their licensed package's tags (unentitled)
-    Given the current account is "keygen"
+    Given the current account is "at_license"
     And the current account has 1 "policy" for the first "product" with the following:
       """
       { "authenticationStrategy": "LICENSE" }
       """
     And the current account has 1 "license" for the first "policy"
-    And I am a license of account "keygen"
+    And I am a license of account "at_license"
     And I authenticate with my key
-    When I send a GET request to "/accounts/keygen/engines/oci/api/tags/list"
+    When I send a GET request to "/accounts/at_license/engines/oci/api/tags/list"
     Then the response status should be "200"
     And the response body should be a JSON document with the following content:
       """
@@ -303,16 +303,16 @@ Feature: OCI image tags
       """
 
   Scenario: License retrieves their licensed package's tags (entitled)
-    Given the current account is "keygen"
+    Given the current account is "at_license"
     And the current account has 1 "policy" for the first "product" with the following:
       """
       { "authenticationStrategy": "LICENSE" }
       """
     And the current account has 1 "license" for the first "policy"
     And the current account has 1 "license-entitlement" for the last "entitlement" and the last "license"
-    And I am a license of account "keygen"
+    And I am a license of account "at_license"
     And I authenticate with my key
-    When I send a GET request to "/accounts/keygen/engines/oci/api/tags/list"
+    When I send a GET request to "/accounts/at_license/engines/oci/api/tags/list"
     Then the response status should be "200"
     And the response body should be a JSON document with the following content:
       """
@@ -415,16 +415,16 @@ Feature: OCI image tags
       """
 
   Scenario: User retrieves their licensed package's tags (with unentitled owned license)
-    Given the current account is "keygen"
+    Given the current account is "at_license"
     And the current account has 1 "policy" for the first "product" with the following:
       """
       { "authenticationStrategy": "LICENSE" }
       """
     And the current account has 1 "user"
     And the current account has 1 "license" for the first "policy" and the last "user" as "owner"
-    And I am the last user of account "keygen"
+    And I am the last user of account "at_license"
     And I use an authentication token
-    When I send a GET request to "/accounts/keygen/engines/oci/api/tags/list"
+    When I send a GET request to "/accounts/at_license/engines/oci/api/tags/list"
     Then the response status should be "200"
     And the response body should be a JSON document with the following content:
       """
@@ -438,7 +438,7 @@ Feature: OCI image tags
       """
 
   Scenario: User retrieves their licensed package's tags (with entitled owned license)
-    Given the current account is "keygen"
+    Given the current account is "at_license"
     And the current account has 1 "policy" for the first "product" with the following:
       """
       { "authenticationStrategy": "LICENSE" }
@@ -446,9 +446,9 @@ Feature: OCI image tags
     And the current account has 1 "user"
     And the current account has 1 "license" for the first "policy" and the last "user" as "owner"
     And the current account has 1 "license-entitlement" for the first "entitlement" and the first "license"
-    And I am the last user of account "keygen"
+    And I am the last user of account "at_license"
     And I use an authentication token
-    When I send a GET request to "/accounts/keygen/engines/oci/api/tags/list"
+    When I send a GET request to "/accounts/at_license/engines/oci/api/tags/list"
     Then the response status should be "200"
     And the response body should be a JSON document with the following content:
       """
@@ -463,7 +463,7 @@ Feature: OCI image tags
       """
 
   Scenario: User retrieves their licensed package's tags (with unentitled license)
-    Given the current account is "keygen"
+    Given the current account is "at_license"
     And the current account has 1 "policy" for the first "product" with the following:
       """
       { "authenticationStrategy": "LICENSE" }
@@ -471,9 +471,9 @@ Feature: OCI image tags
     And the current account has 1 "user"
     And the current account has 1 "license" for the first "policy"
     And the current account has 1 "license-user" for the first "license" and the last "user"
-    And I am the last user of account "keygen"
+    And I am the last user of account "at_license"
     And I use an authentication token
-    When I send a GET request to "/accounts/keygen/engines/oci/api/tags/list"
+    When I send a GET request to "/accounts/at_license/engines/oci/api/tags/list"
     Then the response status should be "200"
     And the response body should be a JSON document with the following content:
       """
@@ -487,7 +487,7 @@ Feature: OCI image tags
       """
 
   Scenario: User retrieves their licensed package's tags (with entitled license)
-    Given the current account is "keygen"
+    Given the current account is "at_license"
     And the current account has 1 "policy" for the first "product" with the following:
       """
       { "authenticationStrategy": "LICENSE" }
@@ -496,9 +496,9 @@ Feature: OCI image tags
     And the current account has 1 "license" for the first "policy"
     And the current account has 1 "license-entitlement" for the first "entitlement" and the last "license"
     And the current account has 1 "license-user" for the first "license" and the last "user"
-    And I am the last user of account "keygen"
+    And I am the last user of account "at_license"
     And I use an authentication token
-    When I send a GET request to "/accounts/keygen/engines/oci/api/tags/list"
+    When I send a GET request to "/accounts/at_license/engines/oci/api/tags/list"
     Then the response status should be "200"
     And the response body should be a JSON document with the following content:
       """

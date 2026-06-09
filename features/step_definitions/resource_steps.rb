@@ -97,8 +97,8 @@ end
 Given /^the current account is "([^\"]*)"$/ do |id|
   @account = FindByAliasService.call(Account, id:, aliases: :slug)
 
-  if Keygen.singleplayer?
-    stub_env 'KEYGEN_ACCOUNT_ID', @account.id
+  if AtLicense.singleplayer?
+    stub_env 'AT_LICENSE_ACCOUNT_ID', @account.id
   end
 end
 
@@ -166,7 +166,7 @@ end
 
 Given /^the current account has SSO (?:configured|stubbed) for "([^\"]*)"$/ do |domain|
   allow(WorkOS::SSO).to receive(:authorization_url).and_wrap_original do |*, domain_hint:, login_hint:, state:, **|
-    dec = Keygen::EE::SSO.decrypt_state(state, secret_key: @account.secret_key)
+    dec = AtLicense::EE::SSO.decrypt_state(state, secret_key: @account.secret_key)
     enc = Base64.urlsafe_encode64(dec.to_json, padding: false)
 
     "https://api.workos.test/sso/authorize?domain_hint=#{domain_hint}&login_hint=#{login_hint}&state=#{enc}"
@@ -182,7 +182,7 @@ Given /^the account "([^\"]*)" has SSO (?:configured|stubbed) for "([^\"]*)"$/ d
   account = FindByAliasService.call(Account, id:, aliases: :slug)
 
   allow(WorkOS::SSO).to receive(:authorization_url).and_wrap_original do |*, domain_hint:, login_hint:, state:, **|
-    dec = Keygen::EE::SSO.decrypt_state(state, secret_key: account.secret_key)
+    dec = AtLicense::EE::SSO.decrypt_state(state, secret_key: account.secret_key)
     enc = Base64.urlsafe_encode64(dec.to_json, padding: false)
 
     "https://api.workos.test/sso/authorize?domain_hint=#{domain_hint}&login_hint=#{login_hint}&state=#{enc}"

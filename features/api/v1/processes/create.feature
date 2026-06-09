@@ -1896,7 +1896,7 @@ Feature: Spawn machine process
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/processes" with the following:
       """

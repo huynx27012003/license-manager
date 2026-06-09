@@ -3,7 +3,7 @@
 MAJOR_API_VERSION,
 MINOR_API_VERSION,
 PATCH_API_VERSION,
-*                   = Keygen.version.segments
+*                   = AtLicense.version.segments
 CURRENT_API_VERSION = "#{MAJOR_API_VERSION}.#{MINOR_API_VERSION}"
 DEFAULT_API_VERSION = CURRENT_API_VERSION
 
@@ -11,7 +11,7 @@ RequestMigrations.configure do |config|
   config.request_version_resolver = -> request {
     Current.account ||= ResolveAccountService.call(request:)
 
-    request.headers['Keygen-Version']&.delete_prefix('v') ||
+    request.headers['AtLicense-Version']&.delete_prefix('v') ||
       Current.account&.api_version ||
       CURRENT_API_VERSION
   }
@@ -40,7 +40,7 @@ RequestMigrations.configure do |config|
       rename_machine_uniqueness_strategy_to_fingerprint_uniqueness_strategy_for_policy_migration
       rename_machine_matching_strategy_to_fingerprint_matching_strategy_for_policies_migration
       rename_machine_matching_strategy_to_fingerprint_matching_strategy_for_policy_migration
-      rename_keygen_id_headers_for_responses_migration
+      rename_at_license_id_headers_for_responses_migration
     ],
     '1.2' => %i[
       change_alive_status_to_not_started_for_machine_migration

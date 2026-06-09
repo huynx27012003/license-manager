@@ -3,7 +3,7 @@
 Rails.application.configure do
   config.host_authorization = { exclude: -> req { req.path =~ %r(^/v\d+/health) } }
   config.hosts.concat(
-    [ENV.fetch('KEYGEN_HOST'), *ENV.fetch('KEYGEN_HOSTS', '').split(',')].then { |host|
+    [ENV.fetch('AT_LICENSE_HOST'), *ENV.fetch('AT_LICENSE_HOSTS', '').split(',')].then { |host|
       host.uniq.compact_blank.map { it.downcase.strip }
     },
   )
@@ -34,7 +34,7 @@ Rails.application.configure do
     reconnect_delay_max: ENV.fetch('REDIS_RECONNECT_DELAY_MAX') { 1 }.to_f,
     ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE },
     error_handler: -> (method:, returning:, exception:) {
-      Keygen.logger.exception exception
+      AtLicense.logger.exception exception
     },
   }
 

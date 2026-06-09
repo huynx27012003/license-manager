@@ -21,7 +21,7 @@ describe AddProductRelationshipToArtifactsMigration do
 
   it 'should migrate artifact relationships' do
     migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-    data     = Keygen::JSONAPI.render([
+    data     = AtLicense::JSONAPI.render([
       create(:artifact, account:, release: app_release),
       create(:artifact, account:, release: cli_release),
     ])

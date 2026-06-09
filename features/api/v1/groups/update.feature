@@ -32,7 +32,7 @@ Feature: Update groups
           "attributes": {
             "maxMachines": 100,
             "metadata": {
-              "namespace": "Keygen"
+              "namespace": "AtLicense"
             }
           }
         }
@@ -44,7 +44,7 @@ Feature: Update groups
       {
         "maxMachines": 100,
         "metadata": {
-          "namespace": "Keygen"
+          "namespace": "AtLicense"
         }
       }
       """
@@ -212,7 +212,7 @@ Feature: Update groups
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/groups/$0" with the following:
       """

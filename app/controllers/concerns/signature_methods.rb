@@ -62,7 +62,7 @@ module SignatureMethods
       sign_with_ecdsa_p256(key: account.ecdsa_private_key, data: data.to_s)
     end
   rescue => e
-    Keygen.logger.exception e
+    AtLicense.logger.exception e
 
     nil
   end

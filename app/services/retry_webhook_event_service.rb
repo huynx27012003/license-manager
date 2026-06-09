@@ -27,7 +27,7 @@ class RetryWebhookEventService < BaseService
       status: 'DELIVERING',
     )
 
-    payload = Keygen::JSONAPI::Renderer.new(account:, api_version: new_event.api_version, context: :webhook)
+    payload = AtLicense::JSONAPI::Renderer.new(account:, api_version: new_event.api_version, context: :webhook)
                                        .render(new_event)
                                        .to_json
 

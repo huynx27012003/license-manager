@@ -61,7 +61,7 @@ module Tokenable
       digest = Digest::SHA256.digest(token)
 
       if digest.include?("\x00") # null byte
-        Keygen.logger.warn { "[tokenable] v1 token must be regenerated: tokenable_type=#{self.class.name.inspect} tokenable_id=#{id.inspect} tokenable_attr=#{attribute.inspect}" }
+        AtLicense.logger.warn { "[tokenable] v1 token must be regenerated: tokenable_type=#{self.class.name.inspect} tokenable_id=#{id.inspect} tokenable_attr=#{attribute.inspect}" }
       end
 
       b = BCrypt::Engine.hash_secret digest, bcrypt.salt

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Role < ApplicationRecord
-  include Keygen::EE::ProtectedMethods[:permissions=, entitlements: %i[permissions]]
-  include Keygen::PortableClass
+  include AtLicense::EE::ProtectedMethods[:permissions=, entitlements: %i[permissions]]
+  include AtLicense::PortableClass
   include Accountable
   include Dirtyable
 

@@ -85,7 +85,7 @@ module Api::V1
             end
           end
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 

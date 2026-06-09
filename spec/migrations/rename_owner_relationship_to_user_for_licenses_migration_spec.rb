@@ -19,7 +19,7 @@ describe RenameOwnerRelationshipToUserForLicensesMigration do
 
   it 'should migrate license owner relationships' do
     migrator = RequestMigrations::Migrator.new(from: CURRENT_API_VERSION, to: '1.0')
-    data     = Keygen::JSONAPI.render(
+    data     = AtLicense::JSONAPI.render(
       [
         license_without_owner,
         license_with_owner,

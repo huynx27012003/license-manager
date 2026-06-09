@@ -87,14 +87,14 @@ Feature: Rubygems compact index
   Scenario: Endpoint should be accessible from subdomain
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//rubygems.pkg.keygen.sh/test1/versions"
+    When I send a GET request to "//rubygems.pkg.atlicense.vn/test1/versions"
     Then the response status should be "200"
 
   @sp
   Scenario: Endpoint should be accessible from subdomain
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//rubygems.pkg.keygen.sh/versions"
+    When I send a GET request to "//rubygems.pkg.atlicense.vn/versions"
     Then the response status should be "200"
 
   Scenario: Endpoint should only respond to plaintext

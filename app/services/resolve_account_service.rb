@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ResolveAccountService < BaseService
-  ACCOUNT_INTERNAL_DOMAIN_RE = /#{Regexp.escape(Keygen::DOMAIN)}\z/.freeze
+  ACCOUNT_INTERNAL_DOMAIN_RE = /#{Regexp.escape(AtLicense::DOMAIN)}\z/.freeze
   ACCOUNT_CACHE_TTL          = 15.minutes
 
   def initialize(request:)
@@ -10,23 +10,23 @@ class ResolveAccountService < BaseService
 
   def call!
     case
-    when Keygen.singleplayer?
+    when AtLicense.singleplayer?
       player_one_id = ActiveRecord::Type.lookup(:uuid)
                                         .cast(
                                           # normalize for format agnostic comparisons
-                                          ENV['KEYGEN_ACCOUNT_ID'],
+                                          ENV['AT_LICENSE_ACCOUNT_ID'],
                                         )
 
       account_id = request.params[:account_id] || player_one_id
-      raise Keygen::Error::InvalidAccountIdError, 'account is required' unless
+      raise AtLicense::Error::InvalidAccountIdError, 'account is required' unless
         account_id.present?
 
       account = find_by_account_id!(account_id)
-      raise Keygen::Error::InvalidAccountIdError, "account is invalid (expected #{player_one_id})" unless
+      raise AtLicense::Error::InvalidAccountIdError, "account is invalid (expected #{player_one_id})" unless
         account.id == player_one_id
 
       account
-    when Keygen.multiplayer?
+    when AtLicense.multiplayer?
       account_id   = request.params[:account_id]
       account_host = request.host
 
@@ -39,9 +39,9 @@ class ResolveAccountService < BaseService
 
   def call
     call!
-  rescue Keygen::Error::InvalidAccountDomainError,
-         Keygen::Error::InvalidAccountIdError,
-         Keygen::Error::NotFoundError
+  rescue AtLicense::Error::InvalidAccountDomainError,
+         AtLicense::Error::InvalidAccountIdError,
+         AtLicense::Error::NotFoundError
     nil
   end
 
@@ -50,10 +50,10 @@ class ResolveAccountService < BaseService
   attr_reader :request
 
   def find_by_account_cname!(domain)
-    raise Keygen::Error::InvalidAccountDomainError, 'domain is required' unless
+    raise AtLicense::Error::InvalidAccountDomainError, 'domain is required' unless
       domain.present?
 
-    raise Keygen::Error::InvalidAccountDomainError, 'domain is internal' if
+    raise AtLicense::Error::InvalidAccountDomainError, 'domain is internal' if
       domain in ACCOUNT_INTERNAL_DOMAIN_RE
 
     cache_key = Account.cache_key("cname:#{domain}")
@@ -66,13 +66,13 @@ class ResolveAccountService < BaseService
 
   def find_by_account_cname(...)
     find_by_account_cname!(...)
-  rescue Keygen::Error::InvalidAccountDomainError,
-         Keygen::Error::NotFoundError
+  rescue AtLicense::Error::InvalidAccountDomainError,
+         AtLicense::Error::NotFoundError
     nil
   end
 
   def find_by_account_id!(id)
-    raise Keygen::Error::InvalidAccountIdError, 'account is required' unless
+    raise AtLicense::Error::InvalidAccountIdError, 'account is required' unless
       id.present?
 
     cache_key = Account.cache_key(id)
@@ -84,8 +84,8 @@ class ResolveAccountService < BaseService
 
   def find_by_account_id(...)
     find_by_account_id!(...)
-  rescue Keygen::Error::InvalidAccountIdError,
-         Keygen::Error::NotFoundError
+  rescue AtLicense::Error::InvalidAccountIdError,
+         AtLicense::Error::NotFoundError
     nil
   end
 end

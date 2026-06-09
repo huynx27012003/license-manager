@@ -13,7 +13,7 @@ module Api::V1
     def self.use_clickhouse(**)
       before_action(**) do
         render_not_supported unless
-          Keygen.database.clickhouse_available? && Keygen.database.clickhouse_enabled?
+          AtLicense.database.clickhouse_available? && AtLicense.database.clickhouse_enabled?
       end
     end
   end

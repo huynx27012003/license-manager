@@ -52,7 +52,7 @@ module Api::V1
               [:role_attributes, { name: v.underscore }]
             }
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 
@@ -69,7 +69,7 @@ module Api::V1
             end
           end
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 
@@ -118,7 +118,7 @@ module Api::V1
               [:role_attributes, { name: v.underscore }]
             }
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 

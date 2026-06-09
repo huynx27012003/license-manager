@@ -37,7 +37,7 @@ module DefaultHeaders
         "group": "csp-reports",
         "max_age": 10886400,
         "endpoints": [{
-          "url": "https://#{ENV.fetch('KEYGEN_HOST')}/-/csp-reports"
+          "url": "https://#{ENV.fetch('AT_LICENSE_HOST')}/-/csp-reports"
         }]
       }
     JSON
@@ -62,41 +62,41 @@ module DefaultHeaders
     response.headers['X-RateLimit-Remaining'] = data[:remaining]
     response.headers['X-RateLimit-Reset']     = data[:reset]
   rescue => e
-    Keygen.logger.exception(e)
+    AtLicense.logger.exception(e)
   end
 
   def add_whoami_headers
-    response.headers['Keygen-Account'] = current_account&.id
-    response.headers['Keygen-Bearer']  = current_bearer&.id
-    response.headers['Keygen-Token']   = current_token&.id
+    response.headers['AtLicense-Account'] = current_account&.id
+    response.headers['AtLicense-Bearer']  = current_bearer&.id
+    response.headers['AtLicense-Token']   = current_token&.id
   rescue => e
-    Keygen.logger.exception(e)
+    AtLicense.logger.exception(e)
   end
 
   def add_environment_header
-    response.headers['Keygen-Environment'] = current_environment&.code
+    response.headers['AtLicense-Environment'] = current_environment&.code
   end
 
   def add_license_header
-    response.headers['Keygen-License'] = Keygen.ee do |key, lic|
+    response.headers['AtLicense-License'] = AtLicense.ee do |key, lic|
       %(id="#{key.id}", iss="#{lic.issued}", exp="#{lic.expiry}")
     end
   end
 
   def add_edition_header
-    response.headers['Keygen-Edition'] = Keygen.edition
+    response.headers['AtLicense-Edition'] = AtLicense.edition
   end
 
   def add_mode_header
-    response.headers['Keygen-Mode'] = Keygen.mode
+    response.headers['AtLicense-Mode'] = AtLicense.mode
   end
 
   def add_revision_header
-    response.headers['Keygen-Revision'] = Keygen.revision
+    response.headers['AtLicense-Revision'] = AtLicense.revision
   end
 
   def add_version_header
-    response.headers['Keygen-Version'] = current_api_version
+    response.headers['AtLicense-Version'] = current_api_version
   end
 
   def add_powered_by_header

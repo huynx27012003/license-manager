@@ -218,7 +218,7 @@ Feature: License usage actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/increment-usage"
     Then the response status should be "200"
@@ -624,7 +624,7 @@ Feature: License usage actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/decrement-usage"
     Then the response status should be "200"
@@ -864,7 +864,7 @@ Feature: License usage actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/reset-usage"
     Then the response status should be "200"

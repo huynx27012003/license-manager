@@ -133,7 +133,7 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/engines"
     Then the response status should be "400"
@@ -175,7 +175,7 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/engines"
     Then the response status should be "200"
@@ -218,7 +218,7 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/engines"
     Then the response status should be "200"
@@ -446,7 +446,7 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/engines"
     Then the response status should be "200"
@@ -466,7 +466,7 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/engines"
     Then the response status should be "200"
@@ -488,14 +488,14 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent1/engines"
     Then the response status should be "200"
     And the response body should be an array with 1 "engine"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -514,14 +514,14 @@ Feature: List release engines
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent1/engines"
     Then the response status should be "200"
     And the response body should be an array with 1 "engine"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee

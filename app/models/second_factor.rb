@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SecondFactor < ApplicationRecord
-  SECOND_FACTOR_ISSUER = 'Keygen'
-  SECOND_FACTOR_IMAGE  = 'https://keygen.sh/images/logomark.png'
+  SECOND_FACTOR_ISSUER = 'AtLicense'
+  SECOND_FACTOR_IMAGE  = 'https://atenergy.vn/images/logomark.png'
   SECOND_FACTOR_DRIFT  = 10
 
   include Environmental

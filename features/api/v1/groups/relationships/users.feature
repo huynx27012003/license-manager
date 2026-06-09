@@ -53,7 +53,7 @@ Feature: Group users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/groups/$0/users"
     Then the response status should be "200"

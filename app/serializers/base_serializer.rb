@@ -10,6 +10,6 @@ class BaseSerializer < JSONAPI::Serializable::Resource
   key_format { it.to_s.camelize(:lower) }
   id         { @object.id }
 
-  def self.ee(&) = Keygen.ee(&)
-  def self.ce(&) = Keygen.ce(&)
+  def self.ee(&) = AtLicense.ee(&)
+  def self.ce(&) = AtLicense.ce(&)
 end

@@ -34,7 +34,7 @@ module Api::V1::Products::Relationships
           param :expiry, type: :time, allow_nil: true, optional: true, coerce: true
           param :name, type: :string, allow_nil: true, optional: true
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 
@@ -44,7 +44,7 @@ module Api::V1::Products::Relationships
           end
         end
         param :relationships, type: :hash, optional: true do
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 

@@ -10,7 +10,7 @@ module Billings
     def call
       Billings::BillingPortal::Session.create(customer: customer)
     rescue Billings::Error => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       nil
     end

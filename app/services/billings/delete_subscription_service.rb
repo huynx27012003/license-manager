@@ -22,7 +22,7 @@ module Billings
     rescue Billings::Error => e
       error_code = e.json_body.dig(:error, :code) rescue nil
 
-      Keygen.logger.exception(e) unless
+      AtLicense.logger.exception(e) unless
         error_code == 'resource_missing'
 
       nil

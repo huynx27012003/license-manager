@@ -221,7 +221,7 @@ Feature: List groups
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/groups"
     Then the response status should be "200"
@@ -237,7 +237,7 @@ Feature: List groups
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -251,7 +251,7 @@ Feature: List groups
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/groups"
     Then the response status should be "200"
@@ -276,7 +276,7 @@ Feature: List groups
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   Scenario: Product attempts to retrieve all groups for their account

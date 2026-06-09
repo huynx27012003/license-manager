@@ -12,7 +12,7 @@ module Api::V1
       return unless
         event.present?
 
-      Keygen.logger.info("[stripe] action=receiving event_id=#{event.id} event_type=#{event.type}")
+      AtLicense.logger.info("[stripe] action=receiving event_id=#{event.id} event_type=#{event.type}")
 
       case event.type
       when "customer.subscription.created",
@@ -33,7 +33,7 @@ module Api::V1
         account   = billing.account
 
         unless plan.present?
-          Keygen.logger.warn("[stripe] action=skip_no_plan account_id=#{account.id} plan_id=#{account.plan.plan_id} event_id=#{event.id} customer_id=#{subscription.customer} subscription_id=#{subscription.id} plan_sids=#{plan_sids.join(',')}")
+          AtLicense.logger.warn("[stripe] action=skip_no_plan account_id=#{account.id} plan_id=#{account.plan.plan_id} event_id=#{event.id} customer_id=#{subscription.customer} subscription_id=#{subscription.id} plan_sids=#{plan_sids.join(',')}")
 
           return
         end
@@ -48,7 +48,7 @@ module Api::V1
 
         # update account plan if changed
         if account.plan.plan_id != plan.plan_id
-          Keygen.logger.warn("[stripe] action=change_plan event_id=#{event.id} account_id=#{account.id} plan_id=#{plan.id} old_plan_sid=#{account.plan.plan_id} new_plan_sid=#{plan.plan_id}")
+          AtLicense.logger.warn("[stripe] action=change_plan event_id=#{event.id} account_id=#{account.id} plan_id=#{plan.id} old_plan_sid=#{account.plan.plan_id} new_plan_sid=#{plan.plan_id}")
 
           account.update(plan:)
         end
@@ -182,7 +182,7 @@ module Api::V1
         Billings::CreateSubscriptionService.call(**kwargs)
       end
 
-      Keygen.logger.info("[stripe] action=received event_id=#{event.id} event_type=#{event.type}")
+      AtLicense.logger.info("[stripe] action=received event_id=#{event.id} event_type=#{event.type}")
     end
   end
 end

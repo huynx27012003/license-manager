@@ -46,7 +46,7 @@ Feature: Request limits
     And I use an authentication token
     And I send the following headers:
       """
-      { "Origin": "https://app.keygen.sh" }
+      { "Origin": "https://app.atlicense.vn" }
       """
     When I send a POST request to "/accounts/test1/licenses"
     Then the response status should not be "402"
@@ -70,7 +70,7 @@ Feature: Request limits
     And I use an authentication token
     And I send the following headers:
       """
-      { "Origin": "https://app.keygen.sh" }
+      { "Origin": "https://app.atlicense.vn" }
       """
     When I send a POST request to "/accounts/test1/licenses"
     Then the response status should not be "402"

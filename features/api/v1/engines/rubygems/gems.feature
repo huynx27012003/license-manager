@@ -83,7 +83,7 @@ Feature: Rubygems download gem
   Scenario: Endpoint should be accessible from subdomain
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//rubygems.pkg.keygen.sh/test1/gems/foo-1.0.0.gem"
+    When I send a GET request to "//rubygems.pkg.atlicense.vn/test1/gems/foo-1.0.0.gem"
     Then the response status should be "303"
     And the response should contain the following headers:
       """
@@ -94,7 +94,7 @@ Feature: Rubygems download gem
   Scenario: Endpoint should be accessible from subdomain
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//rubygems.pkg.keygen.sh/gems/foo-1.0.0.gem"
+    When I send a GET request to "//rubygems.pkg.atlicense.vn/gems/foo-1.0.0.gem"
     Then the response status should be "303"
     And the response should contain the following headers:
       """

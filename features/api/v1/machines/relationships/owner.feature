@@ -55,7 +55,7 @@ Feature: Machine owner relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/machines/$0/owner"
     Then the response status should be "200"
@@ -85,7 +85,7 @@ Feature: Machine owner relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/machines/$0/owner"
     Then the response status should be "200"

@@ -394,7 +394,7 @@ Feature: Update artifact
         "data": {
           "type": "artifacts",
           "attributes": {
-            "filename": "keygen_darwin_amd64"
+            "filename": "at_license-darwin_amd64"
           }
         }
       }
@@ -459,7 +459,7 @@ Feature: Update artifact
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/artifacts/$0" with the following:
       """
@@ -484,7 +484,7 @@ Feature: Update artifact
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -500,7 +500,7 @@ Feature: Update artifact
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/artifacts/$0" with the following:
       """
@@ -525,7 +525,7 @@ Feature: Update artifact
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job

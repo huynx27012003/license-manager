@@ -351,7 +351,7 @@ loop do
   end
 
   break unless
-    Keygen.multiplayer?
+    AtLicense.multiplayer?
 
   break unless
     i < n

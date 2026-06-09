@@ -59,7 +59,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/policies/$0/entitlements"
     Then the response status should be "200"
@@ -194,7 +194,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -211,7 +211,7 @@ Feature: Policy entitlements relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 0 "license-entitlements"
     And the current account should have 3 "policy-entitlements"
@@ -231,7 +231,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -372,7 +372,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -389,7 +389,7 @@ Feature: Policy entitlements relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account should have 0 "license-entitlements"
     And the current account should have 3 "policy-entitlements"
@@ -408,7 +408,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -442,7 +442,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -459,7 +459,7 @@ Feature: Policy entitlements relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 0 "license-entitlements"
     And the current account should have 3 "policy-entitlements"
@@ -479,7 +479,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -496,7 +496,7 @@ Feature: Policy entitlements relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 0 "license-entitlements"
     And the current account should have 3 "policy-entitlements"
@@ -517,7 +517,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -667,7 +667,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -698,7 +698,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/policies/$0/entitlements" with the following:
       """
@@ -729,7 +729,7 @@ Feature: Policy entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/policies/$0/entitlements" with the following:
       """

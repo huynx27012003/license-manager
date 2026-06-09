@@ -84,14 +84,14 @@ class WebhookWorker < BaseWorker
     )
 
     headers = {
-      'User-Agent' => "Keygen/#{target_version} (+https://keygen.sh/docs/api/webhooks/)",
+      'User-Agent' => "AtLicense/#{target_version} (+https://atenergy.vn/docs/api/webhooks/)",
       'Content-Type' => 'application/json',
       'Date' => httpdate,
       'Digest' => digest,
-      'Keygen-Date' => httpdate,
-      'Keygen-Digest' => digest,
-      'Keygen-Signature' => sig,
-      'Keygen-Version' => target_version,
+      'AtLicense-Date' => httpdate,
+      'AtLicense-Digest' => digest,
+      'AtLicense-Signature' => sig,
+      'AtLicense-Version' => target_version,
     }
 
     # NOTE(ezekg) Legacy signatures are deprecated
@@ -121,7 +121,7 @@ class WebhookWorker < BaseWorker
         status: ACCEPTABLE_CODES.include?(res.code) ? 'DELIVERED' : 'FAILING',
       )
     rescue => e
-      Keygen.logger.exception e
+      AtLicense.logger.exception e
 
       raise e
     end
@@ -129,7 +129,7 @@ class WebhookWorker < BaseWorker
     if !ACCEPTABLE_CODES.include?(res.code)
       case event
       in endpoint: /\.ngrok\.io/, last_response_code: 404, last_response_body: /tunnel .+?\.ngrok\.io not found/i
-        Keygen.logger.warn "[webhook_worker] Disabling dead ngrok endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+        AtLicense.logger.warn "[webhook_worker] Disabling dead ngrok endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
 
         # Automatically disable dead ngrok tunnel endpoints
         event.update!(status: 'FAILED')
@@ -137,19 +137,19 @@ class WebhookWorker < BaseWorker
 
         return
       in endpoint: /\.ngrok\.io/, last_response_code: 504
-        Keygen.logger.warn "[webhook_worker] Skipping retries for bad ngrok endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+        AtLicense.logger.warn "[webhook_worker] Skipping retries for bad ngrok endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
 
         event.update!(status: 'FAILED')
 
         return
       in endpoint: /\.loca\.lt/, last_response_code: 504
-        Keygen.logger.warn "[webhook_worker] Skipping retries for bad localtunnel endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+        AtLicense.logger.warn "[webhook_worker] Skipping retries for bad localtunnel endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
 
         event.update!(status: 'FAILED')
 
         return
       in last_response_code: 410
-        Keygen.logger.warn "[webhook_worker] Disabling Gone endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+        AtLicense.logger.warn "[webhook_worker] Disabling Gone endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
 
         # Automatically disable endpoints returning 410 Gone
         event.update!(status: 'FAILED')
@@ -157,7 +157,7 @@ class WebhookWorker < BaseWorker
 
         return
       in last_response_code: 530
-        Keygen.logger.warn "[webhook_worker] Disabling Frozen endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+        AtLicense.logger.warn "[webhook_worker] Disabling Frozen endpoint: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
 
         # Automatically disable endpoints returning 530 Frozen
         event.update!(status: 'FAILED')
@@ -165,15 +165,15 @@ class WebhookWorker < BaseWorker
 
         return
       else
-        Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+        AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
 
         raise FailedRequestError
       end
     end
 
-    Keygen.logger.info "[webhook_worker] Delivered webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
+    AtLicense.logger.info "[webhook_worker] Delivered webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=#{res.code}"
   rescue OpenSSL::SSL::SSLError # Endpoint's SSL certificate is not showing as valid
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=SSL_ERROR"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=SSL_ERROR"
 
     event.update!(
       last_response_code: nil,
@@ -185,7 +185,7 @@ class WebhookWorker < BaseWorker
   rescue Net::WriteTimeout, # Our request to the endpoint timed out
          Net::ReadTimeout,
          Net::OpenTimeout
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=REQ_TIMEOUT"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=REQ_TIMEOUT"
 
     event.update!(
       last_response_code: nil,
@@ -195,7 +195,7 @@ class WebhookWorker < BaseWorker
 
     raise FailedRequestError
   rescue Errno::ECONNREFUSED # Stop sending requests when the connection is refused
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=CONN_REFUSED"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=CONN_REFUSED"
 
     event.update!(
       last_response_code: nil,
@@ -203,7 +203,7 @@ class WebhookWorker < BaseWorker
       status: 'FAILED',
     )
   rescue Errno::ECONNRESET # Stop sending requests when the connection is reset
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=CONN_RESET"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=CONN_RESET"
 
     event.update!(
       last_response_code: nil,
@@ -211,7 +211,7 @@ class WebhookWorker < BaseWorker
       status: 'FAILED',
     )
   rescue Errno::ENETUNREACH # Stop sending requests when the network is unreachable
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=NET_UNREACH"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=NET_UNREACH"
 
     event.update!(
       last_response_code: nil,
@@ -219,7 +219,7 @@ class WebhookWorker < BaseWorker
       status: 'FAILED',
     )
   rescue Errno::EHOSTUNREACH # Stop sending requests when the host is unreachable
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=HOST_UNREACH"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=HOST_UNREACH"
 
     event.update!(
       last_response_code: nil,
@@ -227,7 +227,7 @@ class WebhookWorker < BaseWorker
       status: 'FAILED',
     )
   rescue SocketError # Stop sending requests if DNS is no longer working for endpoint
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=DNS_ERROR"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=DNS_ERROR"
 
     event.update!(
       last_response_code: nil,
@@ -235,7 +235,7 @@ class WebhookWorker < BaseWorker
       status: 'FAILED',
     )
   rescue EOFError # Stop sending requests if endpoint is sending an EOF
-    Keygen.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=EOF_ERROR"
+    AtLicense.logger.warn "[webhook_worker] Failed webhook event: type=#{event_type.event} account=#{account.id} event=#{event.id} endpoint=#{endpoint.id} url=#{endpoint.url} code=EOF_ERROR"
 
     event.update!(
       last_response_code: nil,

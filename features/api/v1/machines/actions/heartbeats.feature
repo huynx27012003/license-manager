@@ -347,7 +347,7 @@ Feature: Machine heartbeat actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/machines/$0/actions/ping-heartbeat"
     Then the response status should be "200"
@@ -658,7 +658,7 @@ Feature: Machine heartbeat actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/machines/$0/actions/reset-heartbeat"
     Then the response status should be "200"

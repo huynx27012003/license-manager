@@ -57,7 +57,7 @@ class ProcessRubyGemWorker < BaseWorker
   rescue GemNotAcceptableError,
          ActiveRecord::RecordInvalid,
          Gem::Package::FormatError => e
-    Keygen.logger.warn { "[workers.process-ruby-gem-worker] Error: #{e.class.name} - #{e.message}" }
+    AtLicense.logger.warn { "[workers.process-ruby-gem-worker] Error: #{e.class.name} - #{e.message}" }
 
     artifact.update!(status: 'FAILED')
 

@@ -107,7 +107,7 @@ module Pagination
                       { cursor: String, size: Integer | String } |
                       { cursor: String } |
                       { **nil }
-        raise Keygen::Error::InvalidParameterError.new(parameter: 'page'), 'page must be an object containing a cursor or number and optional size'
+        raise AtLicense::Error::InvalidParameterError.new(parameter: 'page'), 'page must be an object containing a cursor or number and optional size'
       end
 
       @order  = @query.fetch(:order, DEFAULT_PAGE_ORDER)

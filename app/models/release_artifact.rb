@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReleaseArtifact < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include AsyncUpdatable
   include Environmental
   include Accountable

@@ -30,7 +30,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -64,7 +64,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -78,7 +78,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/isolated/tokens" with the following:
       """
@@ -112,7 +112,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -127,7 +127,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -144,7 +144,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -158,7 +158,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -175,7 +175,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -189,7 +189,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -220,7 +220,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -235,7 +235,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$1/tokens" with the following:
       """
@@ -252,7 +252,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -266,7 +266,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -292,7 +292,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -326,7 +326,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -360,7 +360,7 @@ Feature: Generate authentication token for environment
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -374,7 +374,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -413,7 +413,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -452,7 +452,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -525,7 +525,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -572,7 +572,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/environments/$0/tokens" with the following:
       """
@@ -622,7 +622,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -658,7 +658,7 @@ Feature: Generate authentication token for environment
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -678,7 +678,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/environments/$0/tokens" with the following:
       """
@@ -714,7 +714,7 @@ Feature: Generate authentication token for environment
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -731,7 +731,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -756,7 +756,7 @@ Feature: Generate authentication token for environment
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -773,7 +773,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/environments/$0/tokens" with the following:
       """
@@ -798,7 +798,7 @@ Feature: Generate authentication token for environment
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -815,7 +815,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -840,7 +840,7 @@ Feature: Generate authentication token for environment
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -857,7 +857,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/environments/$0/tokens" with the following:
       """
@@ -882,7 +882,7 @@ Feature: Generate authentication token for environment
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -902,7 +902,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens" with the following:
       """
@@ -960,7 +960,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/environments/$0/tokens" with the following:
       """
@@ -1013,7 +1013,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "403"
@@ -1026,7 +1026,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$1/tokens"
     Then the response status should be "404"
@@ -1039,7 +1039,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$1/tokens"
     Then the response status should be "401"
@@ -1052,7 +1052,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1065,7 +1065,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1079,7 +1079,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1093,7 +1093,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1109,7 +1109,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1122,7 +1122,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1134,7 +1134,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test2/environments/$0/tokens"
     Then the response status should be "401"
@@ -1150,7 +1150,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "200"
@@ -1166,7 +1166,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "200"
@@ -1181,7 +1181,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "401"
@@ -1196,7 +1196,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1210,7 +1210,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1225,7 +1225,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1239,7 +1239,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1254,7 +1254,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"
@@ -1268,7 +1268,7 @@ Feature: Generate authentication token for environment
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/environments/$0/tokens"
     Then the response status should be "404"

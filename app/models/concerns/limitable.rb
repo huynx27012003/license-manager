@@ -11,7 +11,7 @@ module Limitable
       num = num.to_i
 
       if num < LIMIT_LOWER || num > LIMIT_UPPER
-        raise Keygen::Error::InvalidParameterError.new(parameter: "limit"), "limit must be a number between #{LIMIT_LOWER} and #{LIMIT_UPPER} (got #{num})"
+        raise AtLicense::Error::InvalidParameterError.new(parameter: "limit"), "limit must be a number between #{LIMIT_LOWER} and #{LIMIT_UPPER} (got #{num})"
       end
 
       limit(num)

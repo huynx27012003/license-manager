@@ -90,7 +90,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1"
     Then the response status should be "400"
@@ -104,7 +104,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1"
     Then the response status should be "200"
@@ -118,7 +118,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1"
     Then the response status should be "200"
@@ -335,7 +335,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "algorithm=\"ed25519\"" }
+      { "AtLicense-Accept-Signature": "algorithm=\"ed25519\"" }
       """
     When I send a GET request to "/accounts/test1"
     And the response should contain a valid "ed25519" signature header for "test1"
@@ -346,7 +346,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "algorithm=\"rsa-pss-sha256\"" }
+      { "AtLicense-Accept-Signature": "algorithm=\"rsa-pss-sha256\"" }
       """
     When I send a GET request to "/accounts/test1"
     And the response should contain a valid "rsa-pss-sha256" signature header for "test1"
@@ -357,7 +357,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "algorithm=\"rsa-sha256\"" }
+      { "AtLicense-Accept-Signature": "algorithm=\"rsa-sha256\"" }
       """
     When I send a GET request to "/accounts/test1"
     And the response should contain a valid "rsa-sha256" signature header for "test1"
@@ -368,7 +368,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "algorithm=\"ecdsa-p256\"" }
+      { "AtLicense-Accept-Signature": "algorithm=\"ecdsa-p256\"" }
       """
     When I send a GET request to "/accounts/test1"
     And the response should contain a valid "ecdsa-p256" signature header for "test1"
@@ -379,7 +379,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "algorithm=\"rsa-sha1\"" }
+      { "AtLicense-Accept-Signature": "algorithm=\"rsa-sha1\"" }
       """
     When I send a GET request to "/accounts/test1"
     Then the response status should be "400"
@@ -389,7 +389,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "keyid=\"1\" algorithm=\"ed25519\"" }
+      { "AtLicense-Accept-Signature": "keyid=\"1\" algorithm=\"ed25519\"" }
       """
     When I send a GET request to "/accounts/test1"
     Then the response status should be "400"
@@ -399,7 +399,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "keyid=\"$accounts[0].id\", algorithm=\"ed25519\"" }
+      { "AtLicense-Accept-Signature": "keyid=\"$accounts[0].id\", algorithm=\"ed25519\"" }
       """
     When I send a GET request to "/accounts/test1"
     And the response should contain a valid "ed25519" signature header for "test1"
@@ -410,7 +410,7 @@ Feature: Show account
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Accept-Signature": "<algorithm:rsa>" }
+      { "AtLicense-Accept-Signature": "<algorithm:rsa>" }
       """
     When I send a GET request to "/accounts/test1"
     Then the response status should be "400"

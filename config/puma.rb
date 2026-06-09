@@ -46,25 +46,25 @@ preload_app!
 
 # Add some logging to understand what Puma is doing
 on_worker_boot do
-  Keygen.logger.info("[puma] [#{Process.pid}] worker boot event")
+  AtLicense.logger.info("[puma] [#{Process.pid}] worker boot event")
 end
 
 on_worker_shutdown do
-  Keygen.logger.info("[puma] [#{Process.pid}] worker shutdown event")
+  AtLicense.logger.info("[puma] [#{Process.pid}] worker shutdown event")
 end
 
 on_refork do
-  Keygen.logger.info("[puma] [#{Process.pid}] refork event")
+  AtLicense.logger.info("[puma] [#{Process.pid}] refork event")
 end
 
 on_restart do
-  Keygen.logger.info("[puma] [#{Process.pid}] restart event")
+  AtLicense.logger.info("[puma] [#{Process.pid}] restart event")
 end
 
 # Handle low level exceptions from Puma
 lowlevel_error_handler do |e|
-  Keygen.logger.warn("[puma] [#{Process.pid}] lowlevel error: #{e.message}")
-  Keygen.logger.warn(e.backtrace&.join("\n"))
+  AtLicense.logger.warn("[puma] [#{Process.pid}] lowlevel error: #{e.message}")
+  AtLicense.logger.warn(e.backtrace&.join("\n"))
 
   [
     500,
@@ -74,7 +74,7 @@ lowlevel_error_handler do |e|
     [{
       errors: [{
         title: "Internal server error",
-        detail: "Looks like something went wrong! Our engineers have been notified. If you continue to have problems, please contact support@keygen.sh.",
+        detail: "Looks like something went wrong! Our engineers have been notified. If you continue to have problems, please contact support@atenergy.vn.",
       }]
     }.to_json]
   ]

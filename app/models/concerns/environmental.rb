@@ -4,7 +4,7 @@ module Environmental
   extend ActiveSupport::Concern
 
   included do
-    include Keygen::EE::ProtectedMethods[:environment_id=, :environment=, entitlements: %i[environments]]
+    include AtLicense::EE::ProtectedMethods[:environment_id=, :environment=, entitlements: %i[environments]]
     include Dirtyable
 
     ##
@@ -80,11 +80,11 @@ module Environmental
       # This is only applicable in EE, since current env is always nil in CE.
       after_initialize -> { self.environment ||= Current.environment },
         unless: -> { environment_id_attribute_assigned? || environment_attribute_assigned? },
-        if: -> { Keygen.ee? && new_record? && environment.nil? }
+        if: -> { AtLicense.ee? && new_record? && environment.nil? }
 
       before_validation -> { self.environment ||= Current.environment },
         unless: -> { environment_id_attribute_assigned? || environment_attribute_assigned? },
-        if: -> { Keygen.ee? && new_record? && environment.nil? },
+        if: -> { AtLicense.ee? && new_record? && environment.nil? },
         on: %i[create]
 
       # Validate the association only if we've been given an environment (because it's optional).
@@ -129,11 +129,11 @@ module Environmental
         #
         # These are skipped in CE since it only supports the nil env.
         after_initialize unless: -> { environment_id_attribute_assigned? || environment_attribute_assigned? },
-          if: -> { Keygen.ee? && new_record? && environment.nil? },
+          if: -> { AtLicense.ee? && new_record? && environment.nil? },
           &fn
 
         before_validation unless: -> { environment_id_attribute_assigned? || environment_attribute_assigned? },
-          if: -> { Keygen.ee? && new_record? && environment.nil? },
+          if: -> { AtLicense.ee? && new_record? && environment.nil? },
           on: %i[create],
           &fn
       end

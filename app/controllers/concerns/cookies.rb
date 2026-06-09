@@ -7,14 +7,14 @@ module Cookies
 
   def set_session_cookie(session, skip_verify_origin: false)
     return unless
-      skip_verify_origin || request.origin == Keygen::Portal::ORIGIN
+      skip_verify_origin || request.origin == AtLicense::Portal::ORIGIN
 
     name = session_cookie_name_for(session.environment)
 
     cookies.encrypted[name] = {
       value: session.id,
       expires: session.expiry,
-      domain: Keygen::DOMAIN,
+      domain: AtLicense::DOMAIN,
       same_site: :none,
       partitioned: true, # not supported by rack 2 but we have a middleware shim
       httponly: true,
@@ -24,7 +24,7 @@ module Cookies
 
   def unset_session_cookies(session, skip_verify_origin: false)
     return unless
-      skip_verify_origin || request.origin == Keygen::Portal::ORIGIN
+      skip_verify_origin || request.origin == AtLicense::Portal::ORIGIN
 
     names = [
       session_cookie_name_for(session&.environment),
@@ -38,10 +38,10 @@ module Cookies
 
   def unset_session_cookie(name, skip_verify_origin: false)
     return unless
-      skip_verify_origin || request.origin == Keygen::Portal::ORIGIN
+      skip_verify_origin || request.origin == AtLicense::Portal::ORIGIN
 
     cookies.delete(name,
-      domain: Keygen::DOMAIN,
+      domain: AtLicense::DOMAIN,
       same_site: :none,
       partitioned: true,
       secure: true,

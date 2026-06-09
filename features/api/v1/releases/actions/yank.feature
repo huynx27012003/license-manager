@@ -75,7 +75,7 @@ Feature: Yank release
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/releases/$0/actions/yank"
     Then the response status should be "200"

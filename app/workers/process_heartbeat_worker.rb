@@ -15,7 +15,7 @@ class ProcessHeartbeatWorker < BaseWorker
   def perform(process_id)
     process = MachineProcess.find(process_id)
 
-    Keygen.logger.info {
+    AtLicense.logger.info {
       "[process.heartbeat.worker] account_id=#{process.account.id} process_id=#{process.id}" \
         " process_status=#{process.status} process_interval=#{process.interval}" \
         " process_jid=#{process.heartbeat_jid} jid=#{jid}"

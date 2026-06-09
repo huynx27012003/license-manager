@@ -13,13 +13,13 @@ require 'action_view/railtie'
 require 'action_cable/engine'
 require 'rails/test_unit/railtie'
 
-require_relative '../lib/keygen'
+require_relative '../lib/at_license'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require *Rails.groups
 
-module Keygen
+module AtLicense
   class Application < Rails::Application
     Dir[Rails.root / 'lib' / 'ext' / '*'].each { require it } # load core extensions early
 
@@ -53,23 +53,23 @@ module Keygen
     config.middleware.move_after ActionDispatch::Cookies, ActiveRecord::Middleware::DatabaseSelector
 
     # ignore X-Forwarded-For header
-    config.middleware.insert_before 0, Keygen::Middleware::IgnoreForwardedHost
+    config.middleware.insert_before 0, AtLicense::Middleware::IgnoreForwardedHost
 
     # rewrite * to */* Accept header
-    config.middleware.insert_before 0, Keygen::Middleware::RewriteAcceptAll
+    config.middleware.insert_before 0, AtLicense::Middleware::RewriteAcceptAll
 
     # FIXME(ezekg) partitioned cookies do not have wide browser support yet
     # add partitioned cookie support
-    config.middleware.insert_before 0, Keygen::Middleware::PartitionedCookies
+    config.middleware.insert_before 0, AtLicense::Middleware::PartitionedCookies
 
     # FIXME(ezekg) Catch any JSON/URI parse errors, routing errors, etc. We're
     #              inserting this middleware twice because Rails is stupid and
     #              emits errors at multiple layers in the stack, resulting
     #              in this ugly hack.
-    config.middleware.insert_before 0, Keygen::Middleware::RequestErrorWrapper
+    config.middleware.insert_before 0, AtLicense::Middleware::RequestErrorWrapper
 
     # Add a default JSON content type
-    config.middleware.use Keygen::Middleware::DefaultContentType
+    config.middleware.use AtLicense::Middleware::DefaultContentType
 
     # Protect against DDOS and other abuses
     unless ENV.key?('NO_RACK_ATTACK')
@@ -82,7 +82,7 @@ module Keygen
     end
 
     # See above comment about having to use this multiple
-    config.middleware.use Keygen::Middleware::RequestErrorWrapper
+    config.middleware.use AtLicense::Middleware::RequestErrorWrapper
 
     # Use the lowest log level to ensure availability of diagnostic information
     # when problems arise.
@@ -168,13 +168,13 @@ module Keygen
     config.before_initialize do |app|
       # Set default URL options before server boots
       app.default_url_options = { protocol: 'https' }.tap do |options|
-        options[:host] = ENV['KEYGEN_HOST'] if ENV.key?('KEYGEN_HOST')
+        options[:host] = ENV['AT_LICENSE_HOST'] if ENV.key?('AT_LICENSE_HOST')
       end
     end
 
     config.after_initialize do |app|
       # Print env info when server boots
-      Keygen::Console.welcome!
+      AtLicense::Console.welcome!
     end
   end
 end

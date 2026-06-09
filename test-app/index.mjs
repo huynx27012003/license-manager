@@ -21,7 +21,7 @@ function basicAuth(user, pass) {
 async function api(path, { method = 'GET', body, accept } = {}) {
   const headers = {
     'Accept': accept || 'application/vnd.api+json',
-    'Keygen-Version': '1.8',
+    'AtLicense-Version': '1.8',
   }
   if (body) {
     headers['Content-Type'] = 'application/vnd.api+json'
@@ -138,7 +138,7 @@ function collectFingerprint() {
 }
 
 async function main() {
-  console.log('\n=== Keygen License Activation Demo ===\n')
+  console.log('\n=== AtLicense License Activation Demo ===\n')
 
   // 0. Login
   console.log('0. Authenticating...')
@@ -148,7 +148,7 @@ async function main() {
       'Authorization': basicAuth(EMAIL, PASSWORD),
       'Content-Type': 'application/vnd.api+json',
       'Accept': 'application/vnd.api+json',
-      'Keygen-Version': '1.8',
+      'AtLicense-Version': '1.8',
     },
     body: JSON.stringify({ data: { type: 'tokens', attributes: {} } }),
   })

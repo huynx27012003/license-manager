@@ -20,7 +20,7 @@ module Billings
 
       c.save
     rescue Billings::Error => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       nil
     end

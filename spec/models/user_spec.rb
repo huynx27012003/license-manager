@@ -322,7 +322,7 @@ describe User, type: :model do
 
   describe '#email' do
     it 'should be a work email' do
-      expect(build(:user, email: 'zeke@keygen.sh').free_or_disposable_email?).to be false
+      expect(build(:user, email: 'support@atenergy.vn').free_or_disposable_email?).to be false
       expect(build(:user, email: 'zeke@x.com').free_or_disposable_email?).to be false
     end
 

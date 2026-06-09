@@ -1,8 +1,8 @@
-Thanks for helping make Keygen safe for everyone.
+Thanks for helping make AtLicense safe for everyone.
 
 # Security
 
-We take the security of Keygen seriously. We perform annual internal penetration tests of Keygen's code base and infrastructure. In addition, we perform regular internal and external code audits and external pen-tests.
+We take the security of AtLicense seriously. We perform annual internal penetration tests of AtLicense's code base and infrastructure. In addition, we perform regular internal and external code audits and external pen-tests.
 
 Our most recent external pen-test was performed in September, 2025 by [Casco](https://casco.com).
 
@@ -12,7 +12,7 @@ If you believe you have found a security vulnerability in this repository, pleas
 
 Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.
 
-Instead, please send an email to: security[@]keygen.sh.
+Instead, please send an email to: security[@]atenergy.vn.
 
 Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 
@@ -32,7 +32,7 @@ We can only accept vulnerability reports at the above email address.
 
 You may encrypt your message to us using our PGP key, available at the following URL:
 
-- https://keygen.sh/pgp-key.txt
+- https://atenergy.vn/pgp-key.txt
 
 The key fingerprint is:
 

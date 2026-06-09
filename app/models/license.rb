@@ -2,7 +2,7 @@
 
 class License < ApplicationRecord
   include Envented::Callbacks
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include AsyncTouchable
   include Denormalizable
   include Environmental
@@ -789,7 +789,7 @@ class License < ApplicationRecord
   def unentitled?(...) = !entitled?(...)
 
   def group!
-    raise Keygen::Error::NotFoundError.new(model: Group.name) unless
+    raise AtLicense::Error::NotFoundError.new(model: Group.name) unless
       group.present?
 
     group
@@ -965,7 +965,7 @@ class License < ApplicationRecord
     when "RSA_2048_PKCS1_ENCRYPT"
       JSON.generate(id: id, created: created_at.iso8601(3), duration: duration, expiry: expiry&.iso8601(3))
     when "RSA_2048_JWT_RS256"
-      claims = { jti: SecureRandom.uuid, iss: 'https://keygen.sh', aud: account.id, sub: id, iat: created_at.to_i, nbf: created_at.to_i }
+      claims = { jti: SecureRandom.uuid, iss: 'https://atenergy.vn', aud: account.id, sub: id, iat: created_at.to_i, nbf: created_at.to_i }
       claims[:exp] = expiry.to_i if expiry.present?
 
       JSON.generate(claims)
@@ -1250,7 +1250,7 @@ class License < ApplicationRecord
               active_licensed_user_limit.nil?
 
     if active_licensed_user_count >= active_licensed_user_limit
-      errors.add :account, :alu_limit_exceeded, message: "Your tier's active licensed user limit of #{active_licensed_user_limit.to_fs(:delimited)} has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing."
+      errors.add :account, :alu_limit_exceeded, message: "Your tier's active licensed user limit of #{active_licensed_user_limit.to_fs(:delimited)} has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atenergy.vn/billing."
 
       throw :abort
     end

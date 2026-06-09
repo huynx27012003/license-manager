@@ -92,7 +92,7 @@ Feature: Tauri v2 upgrade application
     Given the current account has 1 "webhook-endpoint"
     And I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//tauri.pkg.keygen.sh/test1/app1?platform=linux&arch=x86_64&version=1.0.0"
+    When I send a GET request to "//tauri.pkg.atlicense.vn/test1/app1?platform=linux&arch=x86_64&version=1.0.0"
     Then the response status should be "200"
     And the response should contain the following headers:
       """
@@ -101,7 +101,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://tauri.pkg.keygen.sh/v1/accounts/$account/artifacts/00aeec65-165c-487c-8e22-7ab454319b0f/myapp.AppImage",
+        "url": "https://tauri.pkg.atlicense.vn/v1/accounts/$account/artifacts/00aeec65-165c-487c-8e22-7ab454319b0f/myapp.AppImage",
         "signature": "93pUF68vzR3QRoGSXHbTQ9XVvXNburu5ofuFFLcrm1C1ZD9C2fr5mcaG06RljftY1HUzlFrpFmk9WVEbwr18tQ==",
         "version": "1.1.0"
       }
@@ -112,7 +112,7 @@ Feature: Tauri v2 upgrade application
     Given the current account has 1 "webhook-endpoint"
     And I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//tauri.pkg.keygen.sh/app1?platform=linux&arch=x86_64&version=1.0.0"
+    When I send a GET request to "//tauri.pkg.atlicense.vn/app1?platform=linux&arch=x86_64&version=1.0.0"
     Then the response status should be "200"
     And the response should contain the following headers:
       """
@@ -121,7 +121,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://tauri.pkg.keygen.sh/v1/accounts/$account/artifacts/00aeec65-165c-487c-8e22-7ab454319b0f/myapp.AppImage",
+        "url": "https://tauri.pkg.atlicense.vn/v1/accounts/$account/artifacts/00aeec65-165c-487c-8e22-7ab454319b0f/myapp.AppImage",
         "signature": "93pUF68vzR3QRoGSXHbTQ9XVvXNburu5ofuFFLcrm1C1ZD9C2fr5mcaG06RljftY1HUzlFrpFmk9WVEbwr18tQ==",
         "version": "1.1.0"
       }
@@ -156,7 +156,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/00aeec65-165c-487c-8e22-7ab454319b0f/myapp.AppImage",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/00aeec65-165c-487c-8e22-7ab454319b0f/myapp.AppImage",
         "signature": "93pUF68vzR3QRoGSXHbTQ9XVvXNburu5ofuFFLcrm1C1ZD9C2fr5mcaG06RljftY1HUzlFrpFmk9WVEbwr18tQ==",
         "version": "1.1.0"
       }
@@ -173,7 +173,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/16b9a3fa-6b12-4d86-b81e-be2757392bae/myapp-setup.exe",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/16b9a3fa-6b12-4d86-b81e-be2757392bae/myapp-setup.exe",
         "signature": "1/ZheqnqL3OJbQcUa+zmFCENiXqhW1oqrUP2sREyExryaDRcy14lC6nSHg4gt/TfbHkE1ANnsEFizRdno+uZZg==",
         "version": "2.0.0-beta.1"
       }
@@ -215,7 +215,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/05b82ab6-ad64-46d4-9885-97a23347eb1c/myapp-setup.exe",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/05b82ab6-ad64-46d4-9885-97a23347eb1c/myapp-setup.exe",
         "signature": "w3tDl0PCRIBM8t07D8fWpl102zpxiKKYJ8E6oCLBxiXYBB3Zvb52osFgrw6H8nPrqNu3Ax0NV8VKtBmmxxUN3A==",
         "version": "1.0.1-beta.1"
       }
@@ -233,7 +233,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/05f8a823-b80b-4453-a524-82332fc50792/myapp.AppImage",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/05f8a823-b80b-4453-a524-82332fc50792/myapp.AppImage",
         "signature": "Zd9e9c4l6Z1pHJPjFzYSWKLmzaQG1d/80hWMM5QbcnBBdNzObcJFGbmXJzAzrNRI1F9K6npGWlCFLZikvFm4rA==",
         "version": "1.2.0-beta.1"
       }
@@ -301,7 +301,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/2133955c-137f-4422-9290-9a364b1a40a0/myapp-setup.exe",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/2133955c-137f-4422-9290-9a364b1a40a0/myapp-setup.exe",
         "signature": "BQfSyTfYWnHrl7LywK/fcioco+6IM4y1ermCGf5MjV1HT9VZ5ZtWRlQUM0UrPEXZct/gFYOf/THLk7mTvLUw1A==",
         "version": "1.1.0"
       }
@@ -320,7 +320,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
         "signature": "qjuxG7/3e44SUMRWSc8h3mOMk11L8lMSpKmEujgYmSjc+PnRY/Jedbw74a0+AMWkGSBCXvOISWK3bfylbNkaxw==",
         "version": "1.1.0"
       }
@@ -392,7 +392,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
         "signature": "qjuxG7/3e44SUMRWSc8h3mOMk11L8lMSpKmEujgYmSjc+PnRY/Jedbw74a0+AMWkGSBCXvOISWK3bfylbNkaxw==",
         "version": "1.1.0"
       }
@@ -410,7 +410,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
         "signature": "qjuxG7/3e44SUMRWSc8h3mOMk11L8lMSpKmEujgYmSjc+PnRY/Jedbw74a0+AMWkGSBCXvOISWK3bfylbNkaxw==",
         "version": "1.1.0"
       }
@@ -428,7 +428,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
         "signature": "qjuxG7/3e44SUMRWSc8h3mOMk11L8lMSpKmEujgYmSjc+PnRY/Jedbw74a0+AMWkGSBCXvOISWK3bfylbNkaxw==",
         "version": "1.1.0"
       }
@@ -460,7 +460,7 @@ Feature: Tauri v2 upgrade application
     And the response body should include the following:
       """
       {
-        "url": "https://api.keygen.sh/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
+        "url": "https://api.atlicense.vn/v1/accounts/$account/artifacts/77aaaf13-cfc3-4339-8350-163efcaf8814/myapp.app.tar.gz",
         "signature": "qjuxG7/3e44SUMRWSc8h3mOMk11L8lMSpKmEujgYmSjc+PnRY/Jedbw74a0+AMWkGSBCXvOISWK3bfylbNkaxw==",
         "version": "1.1.0"
       }

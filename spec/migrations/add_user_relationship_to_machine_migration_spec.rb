@@ -22,7 +22,7 @@ describe AddUserRelationshipToMachineMigration do
 
     it 'should migrate a machine user relationship' do
       migrator = RequestMigrations::Migrator.new(from: CURRENT_API_VERSION, to: '1.0')
-      data     = Keygen::JSONAPI.render(
+      data     = AtLicense::JSONAPI.render(
         subject,
         api_version: CURRENT_API_VERSION,
         account:,
@@ -71,7 +71,7 @@ describe AddUserRelationshipToMachineMigration do
 
     it 'should migrate a machine user relationship' do
       migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-      data     = Keygen::JSONAPI.render(
+      data     = AtLicense::JSONAPI.render(
         subject,
         api_version: CURRENT_API_VERSION,
         account:,

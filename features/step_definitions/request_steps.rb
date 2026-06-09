@@ -6,12 +6,12 @@ Before do
   algorithms = %w[ed25519 rsa-pss-sha256 rsa-sha256 ecdsa-p256]
 
   # Random accept signature
-  header 'Keygen-Accept-Signature', %(algorithm="#{algorithms.sample}") if
+  header 'AtLicense-Accept-Signature', %(algorithm="#{algorithms.sample}") if
     rand(0...6) == 0 # dice roll to test for no header
 end
 
 Given 'I use API version {string}' do |version|
-  header 'Keygen-Version', version
+  header 'AtLicense-Version', version
 end
 
 Given 'I use user agent {string}' do |ua|
@@ -54,16 +54,16 @@ When /^I send a HEAD request to "([^\"]*)"$/ do |path|
   path = parse_path_placeholders(path, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      head "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}"
+      head "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}"
     else
       head path
     end
@@ -74,16 +74,16 @@ When /^I send a GET request to "([^\"]*)"$/ do |path|
   path = parse_path_placeholders(path, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      get "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}"
+      get "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}"
     else
       get path
     end
@@ -94,16 +94,16 @@ When /^I send a POST request to "([^\"]*)"$/ do |path|
   path = parse_path_placeholders(path, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      post "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}"
+      post "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}"
     else
       post path
     end
@@ -114,16 +114,16 @@ When /^I send a PUT request to "([^\"]*)"$/ do |path|
   path = parse_path_placeholders(path, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      put "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}"
+      put "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}"
     else
       put path
     end
@@ -134,16 +134,16 @@ When /^I send a PATCH request to "([^\"]*)"$/ do |path|
   path = parse_path_placeholders(path, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      patch "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}"
+      patch "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}"
     else
       patch path
     end
@@ -155,16 +155,16 @@ When /^I send a POST request to "([^\"]*)" with the following:$/ do |path, body|
   body = parse_placeholders(body, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      post "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}", body
+      post "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}", body
     else
       post path, body
     end
@@ -176,16 +176,16 @@ When /^I send a POST request to "([^\"]*)" with the following badly encoded data
   body = parse_placeholders(body, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      post "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}", body.encode!('CP1252')
+      post "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}", body.encode!('CP1252')
     else
       post path, body.encode!('CP1252')
     end
@@ -197,16 +197,16 @@ When /^I send a PATCH request to "([^\"]*)" with the following:$/ do |path, body
   body = parse_placeholders(body, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      patch "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}", body
+      patch "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}", body
     else
       patch path, body
     end
@@ -218,16 +218,16 @@ When /^I send a PUT request to "([^\"]*)" with the following:$/ do |path, body|
   body = parse_placeholders(body, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      put "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}", body
+      put "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}", body
     else
       put path, body
     end
@@ -239,16 +239,16 @@ When /^I send a DELETE request to "([^\"]*)" with the following:$/ do |path, bod
   body = parse_placeholders(body, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      delete "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}", body
+      delete "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}", body
     else
       delete path, body
     end
@@ -263,16 +263,16 @@ When /^I send a DELETE request to "([^\"]*)"$/ do |path|
   path = parse_path_placeholders(path, account: @account, bearer: @bearer, crypt: @crypt)
 
   case %r{/accounts/(?<account>[^?#/]+)}.match(path)
-  in account: id if Keygen.singleplayer?
+  in account: id if AtLicense.singleplayer?
     account = FindByAliasService.call(Account, id:, aliases: :slug) rescue nil
 
-    stub_env 'KEYGEN_ACCOUNT_ID', account&.id
+    stub_env 'AT_LICENSE_ACCOUNT_ID', account&.id
   else
   end
 
   Bullet.request do
     unless path.starts_with?('//')
-      delete "//api.keygen.sh/#{@api_version}/#{path.sub(/^\//, '')}"
+      delete "//api.atenergy.vn/#{@api_version}/#{path.sub(/^\//, '')}"
     else
       delete path
     end
@@ -1006,9 +1006,9 @@ Then /^the response should contain a valid(?: "([^\"]+)")? signature header for 
 
   # Signature header
   begin
-    expect(res.headers).to have_key 'Keygen-Signature'
+    expect(res.headers).to have_key 'AtLicense-Signature'
 
-    attrs = SignatureHelper.parse(res.headers['Keygen-Signature'])
+    attrs = SignatureHelper.parse(res.headers['AtLicense-Signature'])
     expect(attrs).to_not eq nil
 
     keyid     = attrs[:keyid]
@@ -1035,11 +1035,11 @@ Then /^the response should contain a valid(?: "([^\"]+)")? signature header for 
     ok = SignatureHelper.verify(
       account: account,
       method: req.request_method,
-      host: account.cname.presence || account.domain.presence || 'api.keygen.sh',
+      host: account.cname.presence || account.domain.presence || 'api.atenergy.vn',
       uri: req.fullpath,
       body: res.body,
       signature_algorithm: algorithm,
-      signature_header: res.headers['Keygen-Signature'],
+      signature_header: res.headers['AtLicense-Signature'],
       digest_header: res.headers['Digest'],
       date_header: res.headers['Date'],
     )

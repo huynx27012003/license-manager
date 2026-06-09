@@ -6,7 +6,7 @@ class ReleaseManifest < ApplicationRecord
   MIN_CONTENT_LENGTH = 5.bytes     # to avoid storing empty or invalid manifests
   MAX_CONTENT_LENGTH = 5.megabytes # to avoid storing large manifests
 
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Environmental
   include Accountable
 

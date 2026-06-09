@@ -10,9 +10,9 @@ Gem::Specification.new do |spec|
 
   # supplemental gem info
   spec.summary  = 'Ping pong example.'
-  spec.homepage = 'https://keygen.example/gems/ping'
-  spec.email    = ['test@keygen.example']
-  spec.authors  = ['Keygen']
+  spec.homepage = 'https://atlicense.example/gems/ping'
+  spec.email    = ['test@atlicense.example']
+  spec.authors  = ['AtLicense']
   spec.license  = 'MIT'
 
   # # gem platform

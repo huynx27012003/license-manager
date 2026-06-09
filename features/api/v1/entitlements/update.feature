@@ -222,7 +222,7 @@ Feature: Update entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/entitlements/$0" with the following:
       """
@@ -242,7 +242,7 @@ Feature: Update entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -259,7 +259,7 @@ Feature: Update entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/entitlements/$0" with the following:
       """
@@ -279,7 +279,7 @@ Feature: Update entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -297,7 +297,7 @@ Feature: Update entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/entitlements/$1" with the following:
       """

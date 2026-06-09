@@ -41,16 +41,16 @@ module SignatureHeaders
     return if
       current_account.nil?
 
-    accept_signature = request.headers['Keygen-Accept-Signature'].presence || DEFAULT_ACCEPT_SIGNATURE
+    accept_signature = request.headers['AtLicense-Accept-Signature'].presence || DEFAULT_ACCEPT_SIGNATURE
     data = parse_accept_signature_header(accept_signature)
 
-    raise Keygen::Error::BadRequestError, 'invalid accept-signature header (malformed)' unless
+    raise AtLicense::Error::BadRequestError, 'invalid accept-signature header (malformed)' unless
       data.present?
 
-    raise Keygen::Error::BadRequestError, 'invalid accept-signature header (unsupported algorithm)' unless
+    raise AtLicense::Error::BadRequestError, 'invalid accept-signature header (unsupported algorithm)' unless
       supports_signature_algorithm?(data[:algorithm])
 
-    raise Keygen::Error::BadRequestError, 'invalid accept-signature header (keyid not found)' if
+    raise AtLicense::Error::BadRequestError, 'invalid accept-signature header (keyid not found)' if
       data[:keyid].present? && data[:keyid] != current_account.id
   end
 
@@ -67,7 +67,7 @@ module SignatureHeaders
       current_account.created_at < LEGACY_SIGNATURE_UNTIL
 
     # Skip non-legacy signature header if algorithm is invalid
-    accept_signature = request.headers['Keygen-Accept-Signature'].presence || DEFAULT_ACCEPT_SIGNATURE
+    accept_signature = request.headers['AtLicense-Accept-Signature'].presence || DEFAULT_ACCEPT_SIGNATURE
     signature_params = parse_accept_signature_header(accept_signature)
     return unless
       signature_params.present?
@@ -92,12 +92,12 @@ module SignatureHeaders
 
     response.headers['Date']             = httpdate
     response.headers['Digest']           = digest
-    response.headers['Keygen-Signature'] = sig if sig.present?
+    response.headers['AtLicense-Signature'] = sig if sig.present?
 
     # For debugging purposes
-    response.headers['Keygen-Date']   = httpdate
-    response.headers['Keygen-Digest'] = digest
+    response.headers['AtLicense-Date']   = httpdate
+    response.headers['AtLicense-Digest'] = digest
   rescue => e
-    Keygen.logger.exception(e)
+    AtLicense.logger.exception(e)
   end
 end

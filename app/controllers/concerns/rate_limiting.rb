@@ -31,7 +31,7 @@ module RateLimiting
       reset: (now + (period - now % period)).to_i,
     }
   rescue => e
-    Keygen.logger.exception e
+    AtLicense.logger.exception e
 
     nil
   end

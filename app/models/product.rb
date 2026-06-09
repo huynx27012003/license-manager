@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Environmental
   include Accountable
   include Limitable

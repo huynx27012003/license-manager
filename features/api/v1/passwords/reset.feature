@@ -59,13 +59,13 @@ Feature: Password reset
     And the current account has 3 "users"
     And the first "user" has the following attributes:
       """
-      { "email": "test@keygen.example" }
+      { "email": "test@atlicense.example" }
       """
     When I send a POST request to "/accounts/test1/passwords" with the following:
       """
       {
         "meta": {
-          "email": "Test@KeyGen.example"
+          "email": "Test@atlicense.example"
         }
       }
       """

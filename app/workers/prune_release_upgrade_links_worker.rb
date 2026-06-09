@@ -1,7 +1,7 @@
 class PruneReleaseUpgradeLinksWorker < BaseWorker
-  STATEMENT_TIMEOUT = ENV.fetch('KEYGEN_PRUNE_STATEMENT_TIMEOUT') { '1min' }
-  BATCH_SIZE        = ENV.fetch('KEYGEN_PRUNE_BATCH_SIZE')        { 1_000 }.to_i
-  BATCH_WAIT        = ENV.fetch('KEYGEN_PRUNE_BATCH_WAIT')        { 1 }.to_f
+  STATEMENT_TIMEOUT = ENV.fetch('AT_LICENSE_PRUNE_STATEMENT_TIMEOUT') { '1min' }
+  BATCH_SIZE        = ENV.fetch('AT_LICENSE_PRUNE_BATCH_SIZE')        { 1_000 }.to_i
+  BATCH_WAIT        = ENV.fetch('AT_LICENSE_PRUNE_BATCH_WAIT')        { 1 }.to_f
 
   sidekiq_options queue: :cron,
                   cronitor_enabled: true
@@ -13,7 +13,7 @@ class PruneReleaseUpgradeLinksWorker < BaseWorker
       created_at: ...cutoff_time,
     )
 
-    Keygen.logger.info "[workers.prune-release-upgrade-links] Starting: accounts=#{accounts.count} time=#{cutoff_time}"
+    AtLicense.logger.info "[workers.prune-release-upgrade-links] Starting: accounts=#{accounts.count} time=#{cutoff_time}"
 
     accounts.unordered.find_each do |account|
       account_id = account.id
@@ -26,7 +26,7 @@ class PruneReleaseUpgradeLinksWorker < BaseWorker
       batches = (total / BATCH_SIZE) + 1
       batch   = 0
 
-      Keygen.logger.info "[workers.prune-release-upgrade-links] Pruning #{total} rows: account_id=#{account_id} batches=#{batches}"
+      AtLicense.logger.info "[workers.prune-release-upgrade-links] Pruning #{total} rows: account_id=#{account_id} batches=#{batches}"
 
       loop do
         count = upgrades.statement_timeout(STATEMENT_TIMEOUT) do
@@ -36,7 +36,7 @@ class PruneReleaseUpgradeLinksWorker < BaseWorker
         sum   += count
         batch += 1
 
-        Keygen.logger.info "[workers.prune-release-upgrade-links] Pruned #{sum}/#{total} rows: account_id=#{account_id} batch=#{batch}/#{batches}"
+        AtLicense.logger.info "[workers.prune-release-upgrade-links] Pruned #{sum}/#{total} rows: account_id=#{account_id} batch=#{batch}/#{batches}"
 
         sleep BATCH_WAIT
 
@@ -44,6 +44,6 @@ class PruneReleaseUpgradeLinksWorker < BaseWorker
       end
     end
 
-    Keygen.logger.info "[workers.prune-release-upgrade-links] Done"
+    AtLicense.logger.info "[workers.prune-release-upgrade-links] Done"
   end
 end

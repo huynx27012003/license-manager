@@ -138,7 +138,7 @@ class V1x0::ReleaseUpgradeService < BaseService
   rescue Semverse::InvalidConstraintFormat
     raise InvalidConstraintError.new 'version constraint must be valid: x, x.y, x.y.z'
   rescue Semverse::NoSolutionError => e
-    Keygen.logger.warn "[release_upgrade_service] No solution found: current=#{current_semver} constraint=#{constraint} rule=(#{rule}) versions=(#{semvers.join(', ')})"
+    AtLicense.logger.warn "[release_upgrade_service] No solution found: current=#{current_semver} constraint=#{constraint} rule=(#{rule}) versions=(#{semvers.join(', ')})"
 
     nil
   end

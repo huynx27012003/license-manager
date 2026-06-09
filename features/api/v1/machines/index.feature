@@ -744,7 +744,7 @@ Scenario: User attempts to retrieve machines for their account scoped by a licen
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent1/machines"
     Then the response status should be "200"
@@ -772,7 +772,7 @@ Scenario: User attempts to retrieve machines for their account scoped by a licen
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent1/machines"
     Then the response status should be "200"
@@ -828,7 +828,7 @@ Scenario: User attempts to retrieve machines for their account scoped by a licen
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/machines"
     Then the response status should be "200"
@@ -844,7 +844,7 @@ Scenario: User attempts to retrieve machines for their account scoped by a licen
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -879,5 +879,5 @@ Scenario: User attempts to retrieve machines for their account scoped by a licen
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """

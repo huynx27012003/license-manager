@@ -23,7 +23,7 @@ async function login() {
       Authorization: basicAuth(EMAIL, PASSWORD),
       'Content-Type': 'application/vnd.api+json',
       Accept: 'application/vnd.api+json',
-      'Keygen-Version': '1.8',
+      'AtLicense-Version': '1.8',
     },
     body: JSON.stringify({ data: { type: 'tokens', attributes: {} } }),
   })
@@ -52,7 +52,7 @@ async function api(path, { method = 'GET', body } = {}) {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.api+json',
       'Content-Type': 'application/vnd.api+json',
-      'Keygen-Version': '1.8',
+      'AtLicense-Version': '1.8',
     },
     body: body && JSON.stringify(body),
   })

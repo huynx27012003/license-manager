@@ -61,24 +61,24 @@ class EventLogSerializer < BaseSerializer
 
   relationship :whodunnit do
     linkage always: true do
-      Keygen::JSONAPI.linkage_for(@object.whodunnit_type, @object.whodunnit_id)
+      AtLicense::JSONAPI.linkage_for(@object.whodunnit_type, @object.whodunnit_id)
     end
 
     if @object.whodunnit_type? && @object.whodunnit_id?
       link :related do
-        Keygen.routing.path_for(@object.whodunnit_type, id: @object.whodunnit_id, account: @object.account)
+        AtLicense.routing.path_for(@object.whodunnit_type, id: @object.whodunnit_id, account: @object.account)
       end
     end
   end
 
   relationship :resource do
     linkage always: true do
-      Keygen::JSONAPI.linkage_for(@object.resource_type, @object.resource_id)
+      AtLicense::JSONAPI.linkage_for(@object.resource_type, @object.resource_id)
     end
 
     if @object.resource_type? && @object.resource_id?
       link :related do
-        Keygen.routing.path_for(@object.resource_type, id: @object.resource_id, account: @object.account)
+        AtLicense.routing.path_for(@object.resource_type, id: @object.resource_id, account: @object.account)
       end
     end
   end

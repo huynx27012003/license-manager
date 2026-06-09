@@ -40,7 +40,7 @@ Feature: Delete key
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a DELETE request to "/accounts/test1/keys/$1"
     Then the response status should be "204"
@@ -60,7 +60,7 @@ Feature: Delete key
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/keys/$5"
     Then the response status should be "403"

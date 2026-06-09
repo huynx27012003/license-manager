@@ -513,7 +513,7 @@ Feature: Create key
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/keys" with the following:
       """
@@ -550,7 +550,7 @@ Feature: Create key
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job

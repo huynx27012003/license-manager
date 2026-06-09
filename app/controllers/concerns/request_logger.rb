@@ -3,8 +3,8 @@
 module RequestLogger
   extend ActiveSupport::Concern
 
-  REQUEST_LOG_IGNORED_ORIGINS   = %w[https://app.keygen.sh https://dist.keygen.sh].freeze
-  REQUEST_LOG_IGNORED_HOSTS     = %w[get.keygen.sh bin.keygen.sh].freeze
+  REQUEST_LOG_IGNORED_ORIGINS   = %w[https://app.atenergy.vn https://dist.atenergy.vn].freeze
+  REQUEST_LOG_IGNORED_HOSTS     = %w[get.atenergy.vn bin.atenergy.vn].freeze
   REQUEST_LOG_IGNORED_RESOURCES = %w[
     webhook_endpoints
     webhook_events
@@ -31,17 +31,17 @@ module RequestLogger
     Content-Type
     Date
     Digest
-    Keygen-Account
-    Keygen-Bearer
-    Keygen-Date
-    Keygen-Digest
-    Keygen-Edition
-    Keygen-Environment
-    Keygen-License
-    Keygen-Mode
-    Keygen-Signature
-    Keygen-Token
-    Keygen-Version
+    AtLicense-Account
+    AtLicense-Bearer
+    AtLicense-Date
+    AtLicense-Digest
+    AtLicense-Edition
+    AtLicense-Environment
+    AtLicense-License
+    AtLicense-Mode
+    AtLicense-Signature
+    AtLicense-Token
+    AtLicense-Version
   ]
 
   included do
@@ -79,7 +79,7 @@ module RequestLogger
 
     def queue_request_log_worker
       return unless
-        Keygen.ee? && Keygen.ee { it.entitled?(:request_logs) }
+        AtLicense.ee? && AtLicense.ee { it.entitled?(:request_logs) }
 
       return unless
         log_request?
@@ -109,7 +109,7 @@ module RequestLogger
         'ttl' => Current.account.request_log_retention_duration&.to_i,
       )
     rescue => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
     end
 
     def request_log_request_queue_time = @request_log_start_time.to_f - request_log_request_time.to_f
@@ -131,7 +131,7 @@ module RequestLogger
 
       t
     rescue => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       @request_log_start_time # just in case
     end
@@ -181,7 +181,7 @@ module RequestLogger
       filtered.deep_transform_keys { it.to_s.camelize(:lower) }
               .to_json
     rescue => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
     end
 
     def request_log_response_headers
@@ -216,7 +216,7 @@ module RequestLogger
 
       filtered
     rescue => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
     end
 
     def request_log_status
@@ -224,7 +224,7 @@ module RequestLogger
     end
 
     def request_log_signature
-      response.headers['Keygen-Signature']
+      response.headers['AtLicense-Signature']
     end
   end
 end

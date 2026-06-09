@@ -332,7 +332,7 @@ Feature: Update product
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/products/$0" with the following:
       """
@@ -364,7 +364,7 @@ Feature: Update product
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/products/$0" with the following:
       """
@@ -396,7 +396,7 @@ Feature: Update product
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/products/$0" with the following:
       """

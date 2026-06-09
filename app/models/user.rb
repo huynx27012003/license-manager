@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   MINIMUM_ADMIN_COUNT = 1
 
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include PasswordResettable
   include Environmental
   include Accountable
@@ -430,7 +430,7 @@ class User < ApplicationRecord
   def group_ids? = group_ids.any?
 
   def group!
-    raise Keygen::Error::NotFoundError.new(model: Group.name) unless
+    raise AtLicense::Error::NotFoundError.new(model: Group.name) unless
       group.present?
 
     group

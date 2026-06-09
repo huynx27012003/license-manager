@@ -25,7 +25,7 @@ Feature: Show release artifact
     And the current account has 3 "releases"
     And the current account has 1 "artifact" for each "release"
     And I use an authentication token
-    When I send a GET request to "//raw.pkg.keygen.sh/v1/accounts/test1/artifacts/$0"
+    When I send a GET request to "//raw.pkg.atlicense.vn/v1/accounts/test1/artifacts/$0"
     Then the response status should be "303"
     And the response body should be an "artifact"
 
@@ -358,7 +358,7 @@ Feature: Show release artifact
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/artifacts/$0"
     Then the response status should be "400"
@@ -369,7 +369,7 @@ Feature: Show release artifact
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
@@ -403,7 +403,7 @@ Feature: Show release artifact
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/artifacts/$0"
     Then the response status should be "303"
@@ -429,7 +429,7 @@ Feature: Show release artifact
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/artifacts/$0"
     Then the response status should be "303"

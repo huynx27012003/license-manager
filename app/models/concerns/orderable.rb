@@ -11,7 +11,7 @@ module Orderable
       when 'ASC'
         ordered(:asc)
       else
-        raise Keygen::Error::InvalidParameterError.new(parameter: 'order'), 'order is invalid'
+        raise AtLicense::Error::InvalidParameterError.new(parameter: 'order'), 'order is invalid'
       end
     }
 

@@ -230,7 +230,7 @@ Feature: Update machine component
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/components/$0" with the following:
       """
@@ -251,7 +251,7 @@ Feature: Update machine component
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -267,7 +267,7 @@ Feature: Update machine component
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/components/$0" with the following:
       """
@@ -288,7 +288,7 @@ Feature: Update machine component
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -304,7 +304,7 @@ Feature: Update machine component
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/components/$0" with the following:
       """
@@ -321,7 +321,7 @@ Feature: Update machine component
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs

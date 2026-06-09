@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupPermission < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
 
   belongs_to :group
   belongs_to :permission

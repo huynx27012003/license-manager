@@ -36,7 +36,7 @@ module Api::V1::Licenses::Relationships
           param :max_activations, type: :integer, optional: true
           param :max_deactivations, type: :integer, optional: true
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 
@@ -46,7 +46,7 @@ module Api::V1::Licenses::Relationships
           end
         end
         param :relationships, type: :hash, optional: true do
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 

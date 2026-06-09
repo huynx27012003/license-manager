@@ -72,7 +72,7 @@ class WaitForArtifactUploadWorker < BaseWorker
       )
     end
   rescue Aws::Waiters::Errors::WaiterFailed => e
-    Keygen.logger.warn { "[workers.wait-for-artifact-upload-worker] Error: #{e.class.name} - #{e.message}" }
+    AtLicense.logger.warn { "[workers.wait-for-artifact-upload-worker] Error: #{e.class.name} - #{e.message}" }
 
     artifact.update!(status: 'FAILED')
 

@@ -4,7 +4,7 @@ class Release < ApplicationRecord
   # FIXME(ezekg) Drop these columns after they're moved to artifacts
   self.ignored_columns = %w[release_platform_id release_filetype_id filename filesize signature checksum]
 
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Environmental
   include Accountable
   include Limitable
@@ -824,7 +824,7 @@ class Release < ApplicationRecord
       .limit(1)
       .take
 
-    raise Keygen::Error::NotFoundError.new(model: Release.name, message: 'upgrade not available') if
+    raise AtLicense::Error::NotFoundError.new(model: Release.name, message: 'upgrade not available') if
       release.nil?
 
     release
@@ -832,7 +832,7 @@ class Release < ApplicationRecord
 
   def upgrade(...)
     upgrade!(...)
-  rescue Keygen::Error::NotFoundError
+  rescue AtLicense::Error::NotFoundError
     nil
   end
 
@@ -935,7 +935,7 @@ class Release < ApplicationRecord
               release_limit.nil?
 
     if release_count >= release_limit
-      errors.add :account, :release_limit_exceeded, message: "Your tier's release limit of #{release_limit.to_fs(:delimited)} has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing."
+      errors.add :account, :release_limit_exceeded, message: "Your tier's release limit of #{release_limit.to_fs(:delimited)} has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atenergy.vn/billing."
 
       throw :abort
     end

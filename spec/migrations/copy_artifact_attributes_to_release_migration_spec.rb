@@ -23,7 +23,7 @@ describe CopyArtifactAttributesToReleaseMigration do
 
     it "should migrate a release's attributes with nil values" do
       migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to_not include(
         data: include(
@@ -60,7 +60,7 @@ describe CopyArtifactAttributesToReleaseMigration do
 
     it "should migrate a release's attributes with its artifact's values" do
       migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to_not include(
         data: include(

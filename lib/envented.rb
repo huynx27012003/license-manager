@@ -215,7 +215,7 @@ module Envented
     def self.lock(...)
       lock!(...)
     rescue => e
-      Keygen.logger.warn(e)
+      AtLicense.logger.warn(e)
 
       false
     end
@@ -227,7 +227,7 @@ module Envented
     def self.unlock(...)
       unlock!(...)
     rescue => e
-      Keygen.logger.warn(e)
+      AtLicense.logger.warn(e)
 
       false
     end

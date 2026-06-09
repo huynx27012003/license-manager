@@ -17,7 +17,7 @@ describe UpdateNestedKeyCasingToSnakecaseForMetadataMigration do
 
   it 'should migrate metadata for records' do
     migrator = RequestMigrations::Migrator.new(from: CURRENT_API_VERSION, to: '1.0')
-    data     = Keygen::JSONAPI.render(
+    data     = AtLicense::JSONAPI.render(
       [
         create(:license, account:, metadata: { parent_key: { child_key: { grand_child_key: 'value' } } }),
         create(:license, account:, metadata: { parent_key: { child_key: 'value' } }),
@@ -114,7 +114,7 @@ describe UpdateNestedKeyCasingToSnakecaseForMetadataMigration do
 
   it 'should migrate metadata for record' do
     migrator = RequestMigrations::Migrator.new(from: CURRENT_API_VERSION, to: '1.0')
-    data     = Keygen::JSONAPI.render(
+    data     = AtLicense::JSONAPI.render(
       create(:license, account:, metadata: { parent_key: { child_key: { grand_child_key: 'value' } } }),
       api_version: CURRENT_API_VERSION,
       account:,

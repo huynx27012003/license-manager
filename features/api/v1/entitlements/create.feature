@@ -173,7 +173,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -206,7 +206,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -222,7 +222,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -263,7 +263,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -279,7 +279,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -312,7 +312,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -328,7 +328,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -358,7 +358,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -374,7 +374,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -407,7 +407,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -423,7 +423,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -456,7 +456,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -472,7 +472,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -513,7 +513,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -529,7 +529,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/entitlements" with the following:
       """
@@ -559,7 +559,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -603,7 +603,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -647,7 +647,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -696,7 +696,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -710,7 +710,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account has 1 "webhook-endpoint"
     When I send a POST request to "/accounts/test1/entitlements" with the following:
@@ -744,7 +744,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -758,7 +758,7 @@ Feature: Create entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account has 1 "webhook-endpoint"
     When I send a POST request to "/accounts/test1/entitlements" with the following:
@@ -792,7 +792,7 @@ Feature: Create entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job

@@ -17,7 +17,7 @@ module Api::V1::Licenses::Actions
 
       # FIXME(ezekg) Skipping :touch on origin is not a good idea, since
       #              the origin header can be set by anybody.
-      valid, detail, code = LicenseValidationService.call(license: license, scope: false, skip_touch: request.headers['origin'] == 'https://app.keygen.sh')
+      valid, detail, code = LicenseValidationService.call(license: license, scope: false, skip_touch: request.headers['origin'] == 'https://app.atenergy.vn')
       meta = {
         ts: Time.current, # Included so customer has a signed ts to utilize elsewhere
         valid:,
@@ -25,7 +25,7 @@ module Api::V1::Licenses::Actions
         code:,
       }
 
-      Keygen.logger.info "[license.quick-validate] account_id=#{current_account.id} license_id=#{license&.id} validation_valid=#{valid} validation_detail=#{detail} validation_code=#{code}"
+      AtLicense.logger.info "[license.quick-validate] account_id=#{current_account.id} license_id=#{license&.id} validation_valid=#{valid} validation_detail=#{detail} validation_code=#{code}"
 
       Current.resource = license if
         license.present?
@@ -56,7 +56,7 @@ module Api::V1::Licenses::Actions
           param :checksum, type: :string, optional: true
           param :version, type: :string, optional: true
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 
@@ -85,7 +85,7 @@ module Api::V1::Licenses::Actions
         meta[:scope] = scope
       end
 
-      Keygen.logger.info "[license.validate] account_id=#{current_account.id} license_id=#{license&.id} validation_valid=#{valid} validation_detail=#{detail} validation_code=#{code} validation_scope=#{scope} validation_nonce=#{nonce}"
+      AtLicense.logger.info "[license.validate] account_id=#{current_account.id} license_id=#{license&.id} validation_valid=#{valid} validation_detail=#{detail} validation_code=#{code} validation_scope=#{scope} validation_nonce=#{nonce}"
 
       if license.present?
         Current.resource = license
@@ -127,7 +127,7 @@ module Api::V1::Licenses::Actions
           param :checksum, type: :string, optional: true
           param :version, type: :string, optional: true
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 
@@ -167,7 +167,7 @@ module Api::V1::Licenses::Actions
         meta[:scope] = scope
       end
 
-      Keygen.logger.info "[license.validate-key] account_id=#{current_account.id} license_id=#{license&.id} validation_valid=#{valid} validation_detail=#{detail} validation_code=#{code} validation_scope=#{scope} validation_nonce=#{nonce}"
+      AtLicense.logger.info "[license.validate-key] account_id=#{current_account.id} license_id=#{license&.id} validation_valid=#{valid} validation_detail=#{detail} validation_code=#{code} validation_scope=#{scope} validation_nonce=#{nonce}"
 
       if license.present?
         Current.resource = license

@@ -19,7 +19,7 @@ describe AddKeyAttributeToArtifactsMigration do
 
   it 'should migrate artifact attributes' do
     migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-    data     = Keygen::JSONAPI.render([
+    data     = AtLicense::JSONAPI.render([
       create(:artifact, filename: '1', account:, release:),
       create(:artifact, filename: '2', account:, release:),
     ])

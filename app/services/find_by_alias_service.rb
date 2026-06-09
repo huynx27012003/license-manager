@@ -24,7 +24,7 @@ class FindByAliasService < BaseService
   def reorder? = !!reorder
 
   def find_by_alias!
-    raise Keygen::Error::NotFoundError.new(model:, id:) if
+    raise AtLicense::Error::NotFoundError.new(model:, id:) if
       id.blank?
 
     # strip out ID attribute if the ID doesn't resemble a UUID (pg will throw)
@@ -33,7 +33,7 @@ class FindByAliasService < BaseService
     columns.reject! { it == PRIMARY_KEY } unless
       UUID_RE.match?(id)
 
-    raise Keygen::Error::NotFoundError.new(model:, id:) if
+    raise AtLicense::Error::NotFoundError.new(model:, id:) if
       columns.empty?
 
     # generates a query resembling the following while handling encrypted columns:
@@ -64,7 +64,7 @@ class FindByAliasService < BaseService
     record = scp.limit(1)
                 .take
 
-    raise Keygen::Error::NotFoundError.new(model:, id:) if
+    raise AtLicense::Error::NotFoundError.new(model:, id:) if
       record.nil?
 
     record

@@ -4,10 +4,10 @@ Feature: Custom domains via CNAME
   Background:
     Given the following "accounts" exist:
       | name     | slug         | cname                 |
-      | Keygen   | keygen-sh    |                       |
+      | AtLicense   | anomalyco    |                       |
       | Example  | example-com  | licensing.example.com |
       | ACME     | acme-example |                       |
-      | Attacker | bad-example  | api.keygen.sh         |
+      | Attacker | bad-example  | api.atlicense.vn         |
     And I send and accept JSON
 
   Scenario: Admin requests their billing info using a custom domain (with path)
@@ -55,13 +55,13 @@ Feature: Custom domains via CNAME
     Then the response status should be "404"
 
   Scenario: Product requests their profile using a custom domain (invalid)
-    Given the current account is "keygen-sh"
+    Given the current account is "anomalyco"
     And the current account has 1 "product"
-    And I am a product of account "keygen-sh"
+    And I am a product of account "anomalyco"
     And I use an authentication token
-    When I send a GET request to "//foo.keygen.sh/v1/me"
+    When I send a GET request to "//foo.atlicense.vn/v1/me"
     Then the response status should be "404"
 
   Scenario: Product requests their profile without an account
-    When I send a GET request to "//api.keygen.sh/v1/me"
+    When I send a GET request to "//api.atlicense.vn/v1/me"
     Then the response status should be "404"

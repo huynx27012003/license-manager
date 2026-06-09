@@ -73,7 +73,7 @@ module Api::V1
           end
           param :metadata, type: :hash, depth: { maximum: 2 }, allow_blank: true, optional: true
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 
@@ -102,7 +102,7 @@ module Api::V1
             end
           end
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 
@@ -155,7 +155,7 @@ module Api::V1
             param :metadata, type: :hash, depth: { maximum: 2 }, allow_blank: true, optional: true
           end
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 

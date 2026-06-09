@@ -5,7 +5,7 @@ require 'bullet'
 Rails.application.configure do
   config.host_authorization = { exclude: -> req { req.path =~ %r(^/v\d+/health) } }
   config.hosts.concat(
-    [ENV.fetch('KEYGEN_HOST'), *ENV.fetch('KEYGEN_HOSTS', '').split(',')].then { |host|
+    [ENV.fetch('AT_LICENSE_HOST'), *ENV.fetch('AT_LICENSE_HOSTS', '').split(',')].then { |host|
       host.uniq.compact_blank.map { it.downcase.strip }
     },
   )
@@ -75,7 +75,7 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
 
   # Enable verbose query logs.
-  unless ENV.key?('KEYGEN_NO_QUERY_LOGS')
+  unless ENV.key?('AT_LICENSE_NO_QUERY_LOGS')
     config.active_record.query_log_tags = %i[application pid controller action job]
     config.active_record.query_log_tags_enabled = true
     config.active_record.verbose_query_logs = true

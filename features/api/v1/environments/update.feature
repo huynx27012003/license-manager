@@ -287,7 +287,7 @@ Feature: Update environments
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/environments/$0" with the following:
       """
@@ -314,7 +314,7 @@ Feature: Update environments
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/environments/$1" with the following:
       """

@@ -4,8 +4,8 @@ Feature: Short URLs
   Background:
     Given the following "accounts" exist:
       | Name    | Slug   |
-      | Keygen  | keygen |
-    And the current account is "keygen"
+      | AtLicense  | at_license |
+    And the current account is "at_license"
     And the current account has the following "product" rows:
       | id                                   | name | distribution_strategy |
       | 6198261a-48b5-4445-a045-9fed4afc7735 | CLI  | OPEN                  |
@@ -19,22 +19,22 @@ Feature: Short URLs
 
   Scenario: Endpoint should not be accessible when account is using v1.0
     And I use API version "1.0"
-    When I send a GET request to "//get.keygen.sh/keygen/latest/install.sh"
+    When I send a GET request to "//get.atlicense.vn/at_license/latest/install.sh"
     Then the response status should be "404"
 
   Scenario: Endpoint should be accessible when account is using v1.1
     And I use API version "1.1"
-    When I send a GET request to "//get.keygen.sh/keygen/latest/install.sh"
+    When I send a GET request to "//get.atlicense.vn/at_license/latest/install.sh"
     Then the response status should be "303"
 
   Scenario: Subdomain 'get' should redirect to an artifact
     And I use API version "1.1"
-    When I send a GET request to "//get.keygen.sh/keygen/latest/install.sh"
+    When I send a GET request to "//get.atlicense.vn/at_license/latest/install.sh"
     Then the response status should be "303"
 
   Scenario: Subdomain 'bin' should redirect to an artifact
     And I use API version "1.1"
-    When I send a GET request to "//bin.keygen.sh/keygen/latest/install.sh"
+    When I send a GET request to "//bin.atlicense.vn/at_license/latest/install.sh"
     Then the response status should be "303"
 
   Scenario: Subdomain 'get' should support any accept header
@@ -43,5 +43,5 @@ Feature: Short URLs
       """
       { "Accept": "text/*" }
       """
-    When I send a GET request to "//get.keygen.sh/keygen/latest/install.sh"
+    When I send a GET request to "//get.atlicense.vn/at_license/latest/install.sh"
     Then the response status should be "303"

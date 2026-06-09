@@ -10,22 +10,22 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   max_age = 1.day.to_i
   expose  = %w[
-    keygen-accept-signature
-    keygen-signature
-    keygen-date
-    keygen-digest
-    keygen-account-id
-    keygen-bearer-id
-    keygen-token-id
-    keygen-account
-    keygen-bearer
-    keygen-token
-    keygen-environment
-    keygen-license
-    keygen-edition
-    keygen-mode
-    keygen-revision
-    keygen-version
+    at-license-accept-signature
+    at-license-signature
+    at-license-date
+    at-license-digest
+    at-license-account-id
+    at-license-bearer-id
+    at-license-token-id
+    at-license-account
+    at-license-bearer
+    at-license-token
+    at-license-environment
+    at-license-license
+    at-license-edition
+    at-license-mode
+    at-license-revision
+    at-license-version
     x-ratelimit-window
     x-ratelimit-count
     x-ratelimit-limit
@@ -45,7 +45,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   }
 
   allow do
-    origins Keygen::Portal::ORIGIN
+    origins AtLicense::Portal::ORIGIN
 
     resource '*', **options, credentials: true
   end

@@ -103,7 +103,7 @@ Feature: List releases
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.1" }
+      { "AtLicense-Version": "1.1" }
       """
 
   Scenario: Admin retrieves all releases for their account (v1.0)
@@ -136,7 +136,7 @@ Feature: List releases
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.0" }
+      { "AtLicense-Version": "1.0" }
       """
 
   Scenario: Admin retrieves all beta releases filtered by platform

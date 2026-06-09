@@ -17,7 +17,7 @@ cull_dead_processes:
 report_account_request_limits:
   cron: "0 0 * * *" # Every day at midnight (6pm CST)
   class: "RequestLimitsReportWorker"
-  status: <%= ENV['KEYGEN_MODE'] == 'multiplayer' ? 'enabled' : 'disabled' %>
+  status: <%= ENV['AT_LICENSE_MODE'] == 'multiplayer' ? 'enabled' : 'disabled' %>
 
 prune_expired_tokens:
   cron: "0 1 * * *" # Every day at 1am (7pm CST)

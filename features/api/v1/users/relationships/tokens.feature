@@ -173,7 +173,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/tokens"
     Then the response status should be "200"
@@ -252,7 +252,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -268,7 +268,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -295,14 +295,14 @@ Feature: User tokens relationship
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -318,7 +318,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -344,7 +344,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -360,7 +360,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -382,7 +382,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -398,7 +398,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -415,7 +415,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -431,7 +431,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -457,7 +457,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -474,7 +474,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -491,7 +491,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -507,7 +507,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -533,7 +533,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -570,7 +570,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -599,7 +599,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -628,7 +628,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -644,7 +644,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -673,7 +673,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -689,7 +689,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -718,7 +718,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -734,7 +734,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$2/tokens" with the following:
       """
@@ -763,7 +763,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -806,7 +806,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -848,7 +848,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -864,7 +864,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/tokens" with the following:
       """
@@ -893,7 +893,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -909,7 +909,7 @@ Feature: User tokens relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/tokens" with the following:
       """
@@ -938,7 +938,7 @@ Feature: User tokens relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -1114,7 +1114,7 @@ Feature: User tokens relationship
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -1164,7 +1164,7 @@ Feature: User tokens relationship
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -1205,7 +1205,7 @@ Feature: User tokens relationship
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -1246,7 +1246,7 @@ Feature: User tokens relationship
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -1287,7 +1287,7 @@ Feature: User tokens relationship
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """
@@ -1328,7 +1328,7 @@ Feature: User tokens relationship
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/tokens/#tokens-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/tokens/#tokens-object-attrs-permissions"
         }
       }
       """

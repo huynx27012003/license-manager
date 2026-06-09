@@ -80,24 +80,24 @@ class RequestLogSerializer < BaseSerializer
 
   relationship :requestor do
     linkage always: true do
-      Keygen::JSONAPI.linkage_for(@object.requestor_type, @object.requestor_id)
+      AtLicense::JSONAPI.linkage_for(@object.requestor_type, @object.requestor_id)
     end
 
     if @object.requestor_type? &&@object.requestor_id?
       link :related do
-        Keygen.routing.path_for(@object.requestor_type, id: @object.requestor_id, account: @object.account)
+        AtLicense.routing.path_for(@object.requestor_type, id: @object.requestor_id, account: @object.account)
       end
     end
   end
 
   relationship :resource do
     linkage always: true do
-      Keygen::JSONAPI.linkage_for(@object.resource_type, @object.resource_id)
+      AtLicense::JSONAPI.linkage_for(@object.resource_type, @object.resource_id)
     end
 
     if @object.resource_type? && @object.resource_id?
       link :related do
-        Keygen.routing.path_for(@object.resource_type, id: @object.resource_id, account: @object.account)
+        AtLicense.routing.path_for(@object.resource_type, id: @object.resource_id, account: @object.account)
       end
     end
   end

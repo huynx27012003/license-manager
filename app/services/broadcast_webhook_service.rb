@@ -46,7 +46,7 @@ class BroadcastWebhookService < BaseService
 
     # render resource while we have it
     renderer_options = { meta: meta&.transform_keys { it.to_s.camelize(:lower) } }.compact
-    renderer         = Keygen::JSONAPI::Renderer.new(
+    renderer         = AtLicense::JSONAPI::Renderer.new(
       api_version: CURRENT_API_VERSION,
       context: :webhook,
       account:,
@@ -63,7 +63,7 @@ class BroadcastWebhookService < BaseService
       environment&.id,
     )
   rescue => e
-    Keygen.logger.exception(e)
+    AtLicense.logger.exception(e)
 
     # FIXME(ezekg) this is for tests since jobs are run inline
     raise if e in WebhookWorker::FailedRequestError

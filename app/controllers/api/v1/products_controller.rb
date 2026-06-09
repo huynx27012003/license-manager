@@ -35,7 +35,7 @@ module Api::V1
             items type: :string
           end
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 
@@ -45,7 +45,7 @@ module Api::V1
           end
         end
         param :relationships, type: :hash, optional: true do
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 
@@ -92,7 +92,7 @@ module Api::V1
             items type: :string
           end
 
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 

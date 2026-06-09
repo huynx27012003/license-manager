@@ -20,7 +20,7 @@ describe ChangeAliveStatusToNotStartedForMachineMigration do
 
     it "should not migrate a machine's status" do
       migrator = RequestMigrations::Migrator.new(from: '1.3', to: '1.3')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to include(
         data: include(
@@ -49,7 +49,7 @@ describe ChangeAliveStatusToNotStartedForMachineMigration do
 
     it "should migrate a machine's status" do
       migrator = RequestMigrations::Migrator.new(from: '1.3', to: '1.3')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to include(
         data: include(
@@ -78,7 +78,7 @@ describe ChangeAliveStatusToNotStartedForMachineMigration do
 
     it "should not migrate a machine's status" do
       migrator = RequestMigrations::Migrator.new(from: '1.3', to: '1.3')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to include(
         data: include(

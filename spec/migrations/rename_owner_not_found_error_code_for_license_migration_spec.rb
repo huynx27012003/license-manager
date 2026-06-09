@@ -26,7 +26,7 @@ describe RenameOwnerNotFoundErrorCodeForLicenseMigration do
               pointer: '/data/relationships/owner',
             },
             links: {
-              about: 'https://keygen.sh/docs/api/licenses/#licenses-object-relationships-owner',
+              about: 'https://atenergy.vn/docs/api/licenses/#licenses-object-relationships-owner',
             },
           },
           {

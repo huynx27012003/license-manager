@@ -5,7 +5,7 @@ class Machine < ApplicationRecord
   class ResurrectionExpiredError < StandardError; end
 
   include Envented::Callbacks
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include AsyncTouchable
   include Denormalizable
   include Environmental
@@ -672,7 +672,7 @@ class Machine < ApplicationRecord
     prefix: true
 
   def group!
-    raise Keygen::Error::NotFoundError.new(model: Group.name) unless
+    raise AtLicense::Error::NotFoundError.new(model: Group.name) unless
       group.present?
 
     group

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CurrentAccountConstraints
-  CURRENT_ACCOUNT_IGNORED_ORIGINS = %w[https://app.keygen.sh https://dist.keygen.sh].freeze
+  CURRENT_ACCOUNT_IGNORED_ORIGINS = %w[https://app.atenergy.vn https://dist.atenergy.vn].freeze
 
   extend ActiveSupport::Concern
 
@@ -18,7 +18,7 @@ module CurrentAccountConstraints
          current_account.daily_request_limit_exceeded?
       render_payment_required(
         title: "Daily API request limit reached",
-        detail: "Daily API request limit of #{current_account.daily_request_limit.to_fs(:delimited)} has been reached for your account. Please add a payment method at https://app.keygen.sh/billing to continue. This limit will reset at #{Date.tomorrow.beginning_of_day}."
+        detail: "Daily API request limit of #{current_account.daily_request_limit.to_fs(:delimited)} has been reached for your account. Please add a payment method at https://app.atenergy.vn/billing to continue. This limit will reset at #{Date.tomorrow.beginning_of_day}."
       )
       return false
     end

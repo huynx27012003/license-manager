@@ -38,11 +38,11 @@ module SessionHelper
     def encrypted_cookie_value(name, value)
       app       = Rails.application
       config    = app.config
-      keygen    = app.key_generator
+      at-license    = app.key_generator
       salt      = config.action_dispatch.authenticated_encrypted_cookie_salt
       cipher    = config.action_dispatch.encrypted_cookie_cipher
       key_len   = ActiveSupport::MessageEncryptor.key_len(cipher)
-      key       = keygen.generate_key(salt, key_len)
+      key       = at-license.generate_key(salt, key_len)
       encryptor = ActiveSupport::MessageEncryptor.new(key,
         serializer: ActiveSupport::MessageEncryptor::NullSerializer,
         cipher:,

@@ -3,7 +3,7 @@
 module RequestCounter
   extend ActiveSupport::Concern
 
-  REQUEST_COUNT_IGNORED_ORIGINS = %w[https://app.keygen.sh https://dist.keygen.sh].freeze
+  REQUEST_COUNT_IGNORED_ORIGINS = %w[https://app.atenergy.vn https://dist.atenergy.vn].freeze
 
   included do
     prepend_around_action :count_request!
@@ -29,7 +29,7 @@ module RequestCounter
 
       Rails.cache.increment(request_count_cache_key, 1, expires_in: 1.day)
     rescue => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
     end
 
     def request_count_cache_key

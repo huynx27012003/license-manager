@@ -12,8 +12,8 @@ ReadYourOwnWrites.configure do |config|
   # NB(ezekg) for backwards compatibility, we don't want to require a read replica,
   #           so ryow will only attempt to connect to one if it's available and
   #           enabled (both of which can be configured via the ENV)
-  config.read_replica_available = -> { Keygen.database.read_replica_available? }
-  config.read_replica_enabled   = -> { Keygen.database.read_replica_enabled? }
+  config.read_replica_available = -> { AtLicense.database.read_replica_available? }
+  config.read_replica_enabled   = -> { AtLicense.database.read_replica_enabled? }
 
   # NB(ezekg) this is run BEFORE the rails app via rails' DatabaseSelector
   #           middleware i.e. things like route params are NOT available

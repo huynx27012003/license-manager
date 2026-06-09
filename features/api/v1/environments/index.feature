@@ -218,7 +218,7 @@ Feature: List environments
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments"
     Then the response status should be "403"
@@ -240,7 +240,7 @@ Feature: List environments
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments"
     Then the response status should be "403"
@@ -262,7 +262,7 @@ Feature: List environments
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments"
     Then the response status should be "403"
@@ -284,7 +284,7 @@ Feature: List environments
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/environments"
     Then the response status should be "403"

@@ -37,7 +37,7 @@ Feature: Release entitlements relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/releases/$0/entitlements"
     Then the response status should be "200"

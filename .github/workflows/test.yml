@@ -38,10 +38,10 @@ jobs:
         TEST_RUNNER:
           - rspec
           - cucumber
-        KEYGEN_EDITION:
+        AT_LICENSE_EDITION:
           - CE
           - EE
-        KEYGEN_MODE:
+        AT_LICENSE_MODE:
           - singleplayer
           - multiplayer
         REPLICA_DATABASE_ENABLED:
@@ -52,15 +52,15 @@ jobs:
           - '1'
         exclude:
           # NB(ezekg) we do not offer a multiplayer variant of CE
-          - KEYGEN_EDITION: CE
-            KEYGEN_MODE: multiplayer
+          - AT_LICENSE_EDITION: CE
+            AT_LICENSE_MODE: multiplayer
     env:
-      KEYGEN_LICENSE_FILE: ${{secrets.KEYGEN_LICENSE_FILE}}
-      KEYGEN_LICENSE_KEY: ${{secrets.KEYGEN_LICENSE_KEY}}
-      KEYGEN_EDITION: ${{matrix.KEYGEN_EDITION}}
-      KEYGEN_MODE: ${{matrix.KEYGEN_MODE}}
-      KEYGEN_HOST: api.keygen.sh
-      KEYGEN_HOSTS: rubygems.pkg.keygen.sh,raw.pkg.keygen.sh,tauri.pkg.keygen.sh,pypi.pkg.keygen.sh,npm.pkg.keygen.sh,oci.pkg.keygen.sh,auth.keygen.sh
+      AT_LICENSE_LICENSE_FILE: ${{secrets.AT_LICENSE_LICENSE_FILE}}
+      AT_LICENSE_LICENSE_KEY: ${{secrets.AT_LICENSE_LICENSE_KEY}}
+      AT_LICENSE_EDITION: ${{matrix.AT_LICENSE_EDITION}}
+      AT_LICENSE_MODE: ${{matrix.AT_LICENSE_MODE}}
+      AT_LICENSE_HOST: api.atenergy.vn
+      AT_LICENSE_HOSTS: rubygems.pkg.atenergy.vn,raw.pkg.atenergy.vn,tauri.pkg.atenergy.vn,pypi.pkg.atenergy.vn,npm.pkg.atenergy.vn,oci.pkg.atenergy.vn,auth.atenergy.vn
       SECRET_KEY_BASE: 1b39b6912d39c7dd412d9f5795dd9cdaed7f97d7d02cf0bdac7c9878830b16462af858027e2a51e9c63ff95edd505d461536829bbbce6bfb2db69963c014597a
       ENCRYPTION_DETERMINISTIC_KEY: GZ5FU0dXHcFxJVqPVpZSihVVqiScvQNq
       ENCRYPTION_PRIMARY_KEY: r9ay7kGB1p7pEtuRQ6r1gSEZhShPonMz

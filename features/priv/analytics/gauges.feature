@@ -76,24 +76,24 @@ Feature: Gauge analytics
     And time is frozen at "2024-03-07T00:00:00.000Z"
     And the current account has the following "user" rows:
       | id                                   | email                                         | created_at               | banned_at                |
-      | d00998f9-d224-4ee7-ac4e-f1e5fe318ff7 | new.user.active@keygen.example                | 2024-02-07T00:00:00.000Z |                          |
-      | 96faacd6-16e6-4661-8e16-9e8064fbeb0a | new.user.active.2@keygen.example              | 2024-02-07T00:00:00.000Z |                          |
-      | 31e30cc1-d454-40dc-b4ae-93ad683ddf33 | old.user.inactive@keygen.example              | 2023-02-07T00:00:00.000Z |                          |
-      | 31e7d077-88ed-4808-bd4b-00b23fc35a57 | old.user.new.license@keygen.example           | 2023-02-07T00:00:00.000Z |                          |
-      | 6f87a593-fba5-4be3-814f-c5ef1208f52b | old.user.old.license@keygen.example           | 2023-02-07T00:00:00.000Z |                          |
-      | 08c7f078-85d3-46cf-b34c-8dbcef0d30cd | old.user.mixed.licenses@keygen.example        | 2023-02-07T00:00:00.000Z |                          |
-      | 2b8dcb3b-4518-4ffb-8512-b49d36dd7dd5 | old.user.valid.license@keygen.example         | 2023-02-07T00:00:00.000Z |                          |
-      | 44dce69e-bb15-4915-9adc-074f8b57a61c | old.user.checkout.license@keygen.example      | 2023-02-07T00:00:00.000Z |                          |
-      | a04ac105-ec12-4dc9-89d0-06dd99124349 | old.user.checkin.license@keygen.example       | 2023-02-07T00:00:00.000Z |                          |
-      | 6a0e6577-05eb-47d4-8498-a32d81f5c2b8 | old.user.mixed.licenses.2@keygen.example      | 2023-02-07T00:00:00.000Z |                          |
-      | be3ea9f0-e7ca-4eea-9326-a7658c247e5f | old.user.new.user.license@keygen.example      | 2023-02-07T00:00:00.000Z |                          |
-      | c05d47fc-0a16-46e9-b601-f287b2382026 | old.user.old.user.license@keygen.example      | 2023-02-07T00:00:00.000Z |                          |
-      | 4dface92-de40-4950-ab0e-f79e611884f5 | old.user.mixed.user.license@keygen.example    | 2023-02-07T00:00:00.000Z |                          |
-      | b2966243-fd44-4649-9724-a0ba1e5f4384 | old.user.valid.user.license@keygen.example    | 2023-02-07T00:00:00.000Z |                          |
-      | 80c38300-be81-414c-a628-dc3db640fe5a | old.user.checkout.user.license@keygen.example | 2023-02-07T00:00:00.000Z |                          |
-      | 176bd46a-fccc-49e2-9205-2e728efed291 | old.user.checkin.user.license@keygen.example  | 2023-02-07T00:00:00.000Z |                          |
-      | 227fba93-263f-4718-b982-b5be38fbc3c1 | old.user.old.user.license.2@keygen.example    | 2023-02-07T00:00:00.000Z |                          |
-      | 5e360440-acd7-4c63-973e-5133b2ebfdbb | banned.user@keygen.example                    | 2024-02-07T00:00:00.000Z | 2024-01-07T00:00:00.000Z |
+      | d00998f9-d224-4ee7-ac4e-f1e5fe318ff7 | new.user.active@atlicense.example                | 2024-02-07T00:00:00.000Z |                          |
+      | 96faacd6-16e6-4661-8e16-9e8064fbeb0a | new.user.active.2@atlicense.example              | 2024-02-07T00:00:00.000Z |                          |
+      | 31e30cc1-d454-40dc-b4ae-93ad683ddf33 | old.user.inactive@atlicense.example              | 2023-02-07T00:00:00.000Z |                          |
+      | 31e7d077-88ed-4808-bd4b-00b23fc35a57 | old.user.new.license@atlicense.example           | 2023-02-07T00:00:00.000Z |                          |
+      | 6f87a593-fba5-4be3-814f-c5ef1208f52b | old.user.old.license@atlicense.example           | 2023-02-07T00:00:00.000Z |                          |
+      | 08c7f078-85d3-46cf-b34c-8dbcef0d30cd | old.user.mixed.licenses@atlicense.example        | 2023-02-07T00:00:00.000Z |                          |
+      | 2b8dcb3b-4518-4ffb-8512-b49d36dd7dd5 | old.user.valid.license@atlicense.example         | 2023-02-07T00:00:00.000Z |                          |
+      | 44dce69e-bb15-4915-9adc-074f8b57a61c | old.user.checkout.license@atlicense.example      | 2023-02-07T00:00:00.000Z |                          |
+      | a04ac105-ec12-4dc9-89d0-06dd99124349 | old.user.checkin.license@atlicense.example       | 2023-02-07T00:00:00.000Z |                          |
+      | 6a0e6577-05eb-47d4-8498-a32d81f5c2b8 | old.user.mixed.licenses.2@atlicense.example      | 2023-02-07T00:00:00.000Z |                          |
+      | be3ea9f0-e7ca-4eea-9326-a7658c247e5f | old.user.new.user.license@atlicense.example      | 2023-02-07T00:00:00.000Z |                          |
+      | c05d47fc-0a16-46e9-b601-f287b2382026 | old.user.old.user.license@atlicense.example      | 2023-02-07T00:00:00.000Z |                          |
+      | 4dface92-de40-4950-ab0e-f79e611884f5 | old.user.mixed.user.license@atlicense.example    | 2023-02-07T00:00:00.000Z |                          |
+      | b2966243-fd44-4649-9724-a0ba1e5f4384 | old.user.valid.user.license@atlicense.example    | 2023-02-07T00:00:00.000Z |                          |
+      | 80c38300-be81-414c-a628-dc3db640fe5a | old.user.checkout.user.license@atlicense.example | 2023-02-07T00:00:00.000Z |                          |
+      | 176bd46a-fccc-49e2-9205-2e728efed291 | old.user.checkin.user.license@atlicense.example  | 2023-02-07T00:00:00.000Z |                          |
+      | 227fba93-263f-4718-b982-b5be38fbc3c1 | old.user.old.user.license.2@atlicense.example    | 2023-02-07T00:00:00.000Z |                          |
+      | 5e360440-acd7-4c63-973e-5133b2ebfdbb | banned.user@atlicense.example                    | 2024-02-07T00:00:00.000Z | 2024-01-07T00:00:00.000Z |
     And the current account has the following "license" rows:
       | id                                   | name                                   | user_id                              | created_at               | last_validated_at        | last_check_out_at        | last_check_in_at         |
       | df0beed9-1ab2-4097-9558-cd0adddf321a | New owned license w/ no activity       | 31e7d077-88ed-4808-bd4b-00b23fc35a57 | 2024-02-07T00:00:00.000Z |                          |                          |                          |
@@ -159,7 +159,7 @@ Feature: Gauge analytics
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/analytics/gauges/machines"
     Then the response status should be "200"
@@ -185,7 +185,7 @@ Feature: Gauge analytics
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/analytics/gauges/machines"
     Then the response status should be "200"

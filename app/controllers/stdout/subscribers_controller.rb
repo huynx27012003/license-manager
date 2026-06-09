@@ -17,7 +17,7 @@ module Stdout
       # Unsubscribe all users with this email across all accounts
       user.update_all(stdout_unsubscribed_at: Time.current)
     rescue => e
-      Keygen.logger.error "[stdout] Unsubscribe failed: err=#{e.message}"
+      AtLicense.logger.error "[stdout] Unsubscribe failed: err=#{e.message}"
     ensure
       render html: <<~HTML.html_safe
         You've been unsubscribed. To resubscribe, follow this link: #{helpers.link_to(nil, stdout_resubscribe_url(ciphertext))}
@@ -36,7 +36,7 @@ module Stdout
       # Resubscribe all users with this email across all accounts
       user.update_all(stdout_unsubscribed_at: nil)
     rescue => e
-      Keygen.logger.error "[stdout] Resubscribe failed: err=#{e.message}"
+      AtLicense.logger.error "[stdout] Resubscribe failed: err=#{e.message}"
     ensure
       render html: <<~HTML.html_safe
         You've been resubscribed. To unsubscribe, follow this link: #{helpers.link_to(nil, stdout_unsubscribe_url(ciphertext))}
@@ -54,7 +54,7 @@ module Stdout
 
       crypt.decrypt_and_verify(enc)
     rescue => e
-      Keygen.logger.warn "[stdout.decrypt] Decrypt failed: err=#{e.message}"
+      AtLicense.logger.warn "[stdout.decrypt] Decrypt failed: err=#{e.message}"
 
       nil
     end

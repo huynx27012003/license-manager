@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  include Keygen::EE::ProtectedMethods[:sso_organization_id=, :sso_organization_domains=, entitlements: %i[sso]]
-  include Keygen::PortableClass
+  include AtLicense::EE::ProtectedMethods[:sso_organization_id=, :sso_organization_domains=, entitlements: %i[sso]]
+  include AtLicense::PortableClass
   include Welcomeable, Slackable
   include Limitable
   include Orderable
@@ -100,7 +100,7 @@ class Account < ApplicationRecord
 
   validates :plan,
     presence: true,
-    if: -> { Keygen.cloud? }
+    if: -> { AtLicense.cloud? }
 
   validates :users,
     length: { minimum: 1, message: "must have at least one admin user" }
@@ -175,11 +175,11 @@ class Account < ApplicationRecord
 
   # NB(ezekg) special case since plan and billing associations use the null
   #           object pattern when self-hosting
-  scope :paid, -> { Keygen.self_hosted? ? all  : subscribed_to(Plan.paid) }
-  scope :free, -> { Keygen.self_hosted? ? none : subscribed_to(Plan.free) }
-  scope :ent,  -> { Keygen.self_hosted? ? all  : subscribed_to(Plan.ent) }
-  scope :std,  -> { Keygen.self_hosted? ? none : subscribed_to(Plan.std) }
-  scope :dev,  -> { Keygen.self_hosted? ? none : subscribed_to(Plan.dev) }
+  scope :paid, -> { AtLicense.self_hosted? ? all  : subscribed_to(Plan.paid) }
+  scope :free, -> { AtLicense.self_hosted? ? none : subscribed_to(Plan.free) }
+  scope :ent,  -> { AtLicense.self_hosted? ? all  : subscribed_to(Plan.ent) }
+  scope :std,  -> { AtLicense.self_hosted? ? none : subscribed_to(Plan.std) }
+  scope :dev,  -> { AtLicense.self_hosted? ? none : subscribed_to(Plan.dev) }
 
   delegate :max_users, :max_policies, :max_licenses, :max_products, :max_reqs, :max_admins,
     :request_log_retention_duration, :event_log_retention_duration,
@@ -188,7 +188,7 @@ class Account < ApplicationRecord
     to: :plan
 
   def billing!
-    raise Keygen::Error::NotFoundError.new(model: Billing.name) unless
+    raise AtLicense::Error::NotFoundError.new(model: Billing.name) unless
       billing.present?
 
     billing

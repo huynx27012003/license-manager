@@ -360,7 +360,7 @@ describe Analytics::Leaderboard do
       before do
         3.times { create(:request_log, account:, user_agent: 'Mozilla/5.0 Chrome/120.0') }
         2.times { create(:request_log, account:, user_agent: 'curl/8.1.2') }
-        1.times { create(:request_log, account:, user_agent: 'keygen/1.0.0') }
+        1.times { create(:request_log, account:, user_agent: 'at-license/1.0.0') }
       end
 
       it 'returns scores ordered by count descending' do
@@ -370,7 +370,7 @@ describe Analytics::Leaderboard do
           it in [
             Analytics::Leaderboard::Score(discriminator: 'Mozilla/5.0 Chrome/120.0', count: 3),
             Analytics::Leaderboard::Score(discriminator: 'curl/8.1.2', count: 2),
-            Analytics::Leaderboard::Score(discriminator: 'keygen/1.0.0', count: 1)
+            Analytics::Leaderboard::Score(discriminator: 'at-license/1.0.0', count: 1)
           ]
         end
       end
@@ -393,7 +393,7 @@ describe Analytics::Leaderboard do
     context 'with date range filtering' do
       before do
         create(:request_log, account:, user_agent: 'curl/8.1.2', created_at: 3.days.ago)
-        create(:request_log, account:, user_agent: 'keygen/1.0.0', created_at: 10.days.ago)
+        create(:request_log, account:, user_agent: 'at-license/1.0.0', created_at: 10.days.ago)
       end
 
       it 'only includes requests within date range' do
@@ -420,7 +420,7 @@ describe Analytics::Leaderboard do
 
       before do
         create(:request_log, account:, environment:, user_agent: 'curl/8.1.2')
-        create(:request_log, account:, environment: nil, user_agent: 'keygen/1.0.0')
+        create(:request_log, account:, environment: nil, user_agent: 'at-license/1.0.0')
       end
 
       it 'filters by environment' do

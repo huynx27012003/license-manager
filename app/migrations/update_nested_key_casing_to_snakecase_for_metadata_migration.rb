@@ -89,6 +89,6 @@ class UpdateNestedKeyCasingToSnakecaseForMetadataMigration < BaseMigration
 
     res.body = JSON.generate(body)
   rescue JSON::ParserError => e
-    Keygen.logger.exception(e)
+    AtLicense.logger.exception(e)
   end
 end

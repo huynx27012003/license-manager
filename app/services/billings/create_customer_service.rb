@@ -19,7 +19,7 @@ module Billings
         metadata: data,
       )
     rescue Billings::Error => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       nil
     end

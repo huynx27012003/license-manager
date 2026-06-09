@@ -90,14 +90,14 @@ Feature: npm package metadata
   Scenario: Endpoint should be accessible from subdomain
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//npm.pkg.keygen.sh/test1/foo"
+    When I send a GET request to "//npm.pkg.atlicense.vn/test1/foo"
     Then the response status should be "200"
 
   @sp
   Scenario: Endpoint should be accessible from subdomain
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//npm.pkg.keygen.sh/foo"
+    When I send a GET request to "//npm.pkg.atlicense.vn/foo"
     Then the response status should be "200"
 
   Scenario: Endpoint should only respond in JSON
@@ -144,7 +144,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
               "integrity": "sha512-jpx0/ZlKmoe+IShOgMe8nQrlXtkTWdWmouBMIyKU/F1zH4b2Gr5myKMRBX6/d3vFoXbm9kAQigiTe+FP1OtmOw=="
             }
           },
@@ -162,7 +162,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -179,7 +179,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -224,7 +224,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b95ec07b-1210-4ddc-920e-6008a5c8ed3c/test-bar-1.0.0-beta.3.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b95ec07b-1210-4ddc-920e-6008a5c8ed3c/test-bar-1.0.0-beta.3.tgz",
               "integrity": "sha384-p1ax51VFmASfiviU4+gDrB68BGCTV0frC1fTZ67NJUirj96w5qrOmFWX7Jp0yb27"
             }
           },
@@ -244,7 +244,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
             }
           },
           "1.0.0-beta.1": {
@@ -263,7 +263,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
             }
           }
         }
@@ -302,7 +302,7 @@ Feature: npm package metadata
               "build": "webpack --config webpack.config.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/200ef3e5-00f2-4eed-92fd-8f41cd19e8ed/test-qux-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/200ef3e5-00f2-4eed-92fd-8f41cd19e8ed/test-qux-1.0.0.tgz",
               "shasum": "40937fdb052b47c1c79fd96c769b4b8fb37cffd3"
             }
           }
@@ -381,7 +381,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
               "integrity": "sha512-jpx0/ZlKmoe+IShOgMe8nQrlXtkTWdWmouBMIyKU/F1zH4b2Gr5myKMRBX6/d3vFoXbm9kAQigiTe+FP1OtmOw=="
             }
           },
@@ -399,7 +399,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -416,7 +416,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -461,7 +461,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b95ec07b-1210-4ddc-920e-6008a5c8ed3c/test-bar-1.0.0-beta.3.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b95ec07b-1210-4ddc-920e-6008a5c8ed3c/test-bar-1.0.0-beta.3.tgz",
               "integrity": "sha384-p1ax51VFmASfiviU4+gDrB68BGCTV0frC1fTZ67NJUirj96w5qrOmFWX7Jp0yb27"
             }
           },
@@ -481,7 +481,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
             }
           },
           "1.0.0-beta.1": {
@@ -500,7 +500,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
             }
           }
         }
@@ -537,7 +537,7 @@ Feature: npm package metadata
               "react": "^17.0.2"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
               "integrity": "sha256-02PIiEcaHg9setrdHSdAe77KrkD4+sMDL6bLSV717ms="
             }
           },
@@ -552,7 +552,7 @@ Feature: npm package metadata
               "react": "^17.0.2"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/9b0fa689-36c3-4b1f-be82-382238a2c5d0/baz-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/9b0fa689-36c3-4b1f-be82-382238a2c5d0/baz-1.0.0.tgz",
               "shasum": "8633b5884fb21b8e88cee36e37826c38f0a594bd"
             }
           }
@@ -612,7 +612,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
               "integrity": "sha512-jpx0/ZlKmoe+IShOgMe8nQrlXtkTWdWmouBMIyKU/F1zH4b2Gr5myKMRBX6/d3vFoXbm9kAQigiTe+FP1OtmOw=="
             }
           },
@@ -630,7 +630,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -647,7 +647,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -693,7 +693,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -710,7 +710,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -759,7 +759,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
             }
           },
           "1.0.0-beta.1": {
@@ -778,7 +778,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
             }
           }
         }
@@ -830,7 +830,7 @@ Feature: npm package metadata
               "react": "^17.0.2"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
               "integrity": "sha256-02PIiEcaHg9setrdHSdAe77KrkD4+sMDL6bLSV717ms="
             }
           }
@@ -879,7 +879,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
               "integrity": "sha512-jpx0/ZlKmoe+IShOgMe8nQrlXtkTWdWmouBMIyKU/F1zH4b2Gr5myKMRBX6/d3vFoXbm9kAQigiTe+FP1OtmOw=="
             }
           },
@@ -897,7 +897,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -914,7 +914,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -961,7 +961,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -978,7 +978,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -1028,7 +1028,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
             }
           },
           "1.0.0-beta.1": {
@@ -1047,7 +1047,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
             }
           }
         }
@@ -1096,7 +1096,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/55bba4f4-6494-4a2d-a14e-6b4d6d2d00e8/foo-1.1.0.tgz",
               "integrity": "sha512-jpx0/ZlKmoe+IShOgMe8nQrlXtkTWdWmouBMIyKU/F1zH4b2Gr5myKMRBX6/d3vFoXbm9kAQigiTe+FP1OtmOw=="
             }
           },
@@ -1114,7 +1114,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -1131,7 +1131,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -1179,7 +1179,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/ec49b6bd-a73a-47a3-bd05-f0ecab3b90c0/foo-1.0.1.tgz"
             }
           },
           "1.0.0": {
@@ -1196,7 +1196,7 @@ Feature: npm package metadata
               "start": "node index.js"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/5762c549-7f5b-4a73-9873-3acdb1213fe8/foo-1.0.0.tgz",
               "shasum": "ad4d7c2a5b16c146ff6514327e43958aa9b8cc8d"
             }
           }
@@ -1247,7 +1247,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/c8aa34a7-3925-479b-9785-ada9a3736867/test-bar-1.0.0-beta.2.tgz"
             }
           },
           "1.0.0-beta.1": {
@@ -1266,7 +1266,7 @@ Feature: npm package metadata
               "lint": "eslint ."
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/346bd7fd-79fa-4ede-ac55-3ea07ed4cab2/test-bar-1.0.0-beta.1.tgz"
             }
           }
         }
@@ -1310,7 +1310,7 @@ Feature: npm package metadata
               "react": "^17.0.2"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
               "integrity": "sha256-02PIiEcaHg9setrdHSdAe77KrkD4+sMDL6bLSV717ms="
             }
           }
@@ -1353,7 +1353,7 @@ Feature: npm package metadata
               "react": "^17.0.2"
             },
             "dist": {
-              "tarball": "https://api.keygen.sh/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
+              "tarball": "https://api.atlicense.vn/v1/accounts/14c038fd-b57e-432d-8c09-f50ebcd6a7bc/artifacts/b6049631-dac8-49b6-a923-78f022cb1dbe/baz-2.0.0.tgz",
               "integrity": "sha256-02PIiEcaHg9setrdHSdAe77KrkD4+sMDL6bLSV717ms="
             }
           }

@@ -48,7 +48,7 @@ module Api::V1::Users::Actions
 
       # Raise 404 so that we don't leak user information since we're
       # not scoping with authorized_scope() for this action.
-      raise Keygen::Error::NotFoundError.new(model: User.name, id: params[:id]) unless
+      raise AtLicense::Error::NotFoundError.new(model: User.name, id: params[:id]) unless
         user.compare_hashed_token(:password_reset_token, password_meta[:password_reset_token])
 
       return render_unauthorized(detail: 'is expired', source: { pointer: '/meta/passwordResetToken' }) if

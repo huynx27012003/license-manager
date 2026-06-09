@@ -54,7 +54,7 @@ RSpec.configure do |config|
   config.include FileHelper
   config.include TimeHelper
   config.include EnvHelper
-  config.include KeygenHelper
+  config.include AtLicenseHelper
   config.include TaskHelper
   config.include MutexHelper
 
@@ -87,7 +87,7 @@ RSpec.configure do |config|
   # skip logging pending/skipped examples
   config.pending_failure_output = :skip
 
-  # Stub keygens
+  # Stub at-licenses
   config.before { stub_everything! }
 
   # make sure we always have a clean slate
@@ -118,7 +118,7 @@ RSpec.configure do |config|
 
   # hooks to run/skip tests for a certain edition
   config.around skip: :ce do |example|
-    if Keygen.ce?
+    if AtLicense.ce?
       skip 'skipped in CE'
     else
       example.run
@@ -126,7 +126,7 @@ RSpec.configure do |config|
   end
 
   config.around skip: :ee do |example|
-    if Keygen.ee?
+    if AtLicense.ee?
       skip 'skipped in EE'
     else
       example.run
@@ -134,7 +134,7 @@ RSpec.configure do |config|
   end
 
   config.around only: :ce do |example|
-    if Keygen.ce?
+    if AtLicense.ce?
       example.run
     else
       skip 'skipped in EE'
@@ -142,7 +142,7 @@ RSpec.configure do |config|
   end
 
   config.around only: :ee do |example|
-    if Keygen.ee?
+    if AtLicense.ee?
       example.run
     else
       skip 'skipped in CE'
@@ -150,7 +150,7 @@ RSpec.configure do |config|
   end
 
   config.around :each, :skip_ce do |example|
-    if Keygen.ce?
+    if AtLicense.ce?
       skip 'skipped in CE'
     else
       example.run
@@ -158,7 +158,7 @@ RSpec.configure do |config|
   end
 
   config.around :each, :skip_ee do |example|
-    if Keygen.ee?
+    if AtLicense.ee?
       skip 'skipped in EE'
     else
       example.run
@@ -166,7 +166,7 @@ RSpec.configure do |config|
   end
 
   config.around :each, :only_ce do |example|
-    if Keygen.ce?
+    if AtLicense.ce?
       example.run
     else
       skip 'skipped in EE'
@@ -174,7 +174,7 @@ RSpec.configure do |config|
   end
 
   config.around :each, :only_ee do |example|
-    if Keygen.ee?
+    if AtLicense.ee?
       example.run
     else
       skip 'skipped in CE'
@@ -183,7 +183,7 @@ RSpec.configure do |config|
 
   # skip tests if the given database requirements are not met (e.g. clickhouse is unavailable)
   config.around :each, :only_read_replica do |example|
-    if Keygen.database.read_replica_available? && Keygen.database.read_replica_available?
+    if AtLicense.database.read_replica_available? && AtLicense.database.read_replica_available?
       example.run
     else
       skip 'skipped without read replica'
@@ -191,7 +191,7 @@ RSpec.configure do |config|
   end
 
   config.around :each, :only_clickhouse do |example|
-    if Keygen.database.clickhouse_available? && Keygen.database.clickhouse_enabled?
+    if AtLicense.database.clickhouse_available? && AtLicense.database.clickhouse_enabled?
       example.run
     else
       skip 'skipped without Clickhouse'
@@ -218,14 +218,14 @@ RSpec.configure do |config|
 
   # Reset license file and license before each EE test.
   config.before type: :ee do
-    Keygen::EE::LicenseFile.reset!
-    Keygen::EE::License.reset!
+    AtLicense::EE::LicenseFile.reset!
+    AtLicense::EE::License.reset!
   end
 
   # Reset license file and license after each EE test.
   config.after type: :ee do
-    Keygen::EE::LicenseFile.reset!
-    Keygen::EE::License.reset!
+    AtLicense::EE::LicenseFile.reset!
+    AtLicense::EE::License.reset!
   end
 
   # Load rake tasks once

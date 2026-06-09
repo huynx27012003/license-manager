@@ -18,7 +18,7 @@ describe AddConcurrentAttributeToPoliciesMigration do
 
   it "should migrate policy attributes" do
     migrator = RequestMigrations::Migrator.new(from: '1.1', to: '1.1')
-    data     = Keygen::JSONAPI.render([
+    data     = AtLicense::JSONAPI.render([
       create(:policy, :floating, overage_strategy: 'ALWAYS_ALLOW_OVERAGE', account:, product:),
       create(:policy, :floating, overage_strategy: 'ALLOW_1_25X_OVERAGE', account:, product:),
       create(:policy, :floating, overage_strategy: 'ALLOW_1_5X_OVERAGE', account:, product:),

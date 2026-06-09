@@ -408,7 +408,7 @@ Feature: Update release
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/releases/$0" with the following:
       """

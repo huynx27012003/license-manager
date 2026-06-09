@@ -111,7 +111,7 @@ Feature: Validation gauge analytics
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/analytics/gauges/validations"
     Then the response status should be "200"

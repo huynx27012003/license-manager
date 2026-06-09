@@ -210,7 +210,7 @@ Given /^I authenticate with (?:a|my)(?: valid)? session$/ do
   @token   = @bearer.tokens.first_or_create!(account: @bearer.account, bearer: @bearer)
   @session = @token.sessions.create!(
     expiry: 10.hours.from_now,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 
@@ -233,7 +233,7 @@ Given /^I authenticate with a session for "([^\"]+)"$/ do |environment_code|
     account: @bearer.account,
     environment:,
     expiry: 10.hours.from_now,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 
@@ -260,7 +260,7 @@ Given /^I have a session for "([^\"]+)" with a child session$/ do |environment_c
     account: @bearer.account,
     environment: parent_environment,
     expiry: 10.hours.from_now,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 
@@ -269,7 +269,7 @@ Given /^I have a session for "([^\"]+)" with a child session$/ do |environment_c
     environment:,
     parent: parent_session,
     expiry: parent_session.expiry,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 end
@@ -283,7 +283,7 @@ Given /^I have a session with a child session for "([^\"]+)"$/ do |environment_c
     account: @bearer.account,
     environment: nil,
     expiry: 10.hours.from_now,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 
@@ -292,7 +292,7 @@ Given /^I have a session with a child session for "([^\"]+)"$/ do |environment_c
     environment:,
     parent: parent_session,
     expiry: parent_session.expiry,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 end
@@ -301,7 +301,7 @@ Given /^I authenticate with an expiring session$/ do
   @token   = @bearer.tokens.first_or_create!(account: @bearer.account, bearer: @bearer)
   @session = @token.sessions.create!(
     expiry: 10.minutes.from_now,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 
@@ -312,7 +312,7 @@ Given /^I authenticate with an expired session$/ do
   @token   = @bearer.tokens.first_or_create!(account: @bearer.account, bearer: @bearer)
   @session = @token.sessions.create!(
     expiry: 1.hour.ago,
-    user_agent: 'keygen/test',
+    user_agent: 'at-license/test',
     ip: '127.0.0.1',
   )
 

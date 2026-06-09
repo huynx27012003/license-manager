@@ -66,7 +66,7 @@ Feature: User ban actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$1/actions/ban"
     And the response should contain a valid signature header for "test1"
@@ -89,7 +89,7 @@ Feature: User ban actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/actions/ban"
     And the response should contain a valid signature header for "test1"
@@ -112,7 +112,7 @@ Feature: User ban actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/actions/ban"
     And the response should contain a valid signature header for "test1"
@@ -233,7 +233,7 @@ Feature: User ban actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$1/actions/unban"
     And the response should contain a valid signature header for "test1"
@@ -259,7 +259,7 @@ Feature: User ban actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/actions/unban"
     And the response should contain a valid signature header for "test1"
@@ -285,7 +285,7 @@ Feature: User ban actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/users/$1/actions/unban"
     And the response should contain a valid signature header for "test1"

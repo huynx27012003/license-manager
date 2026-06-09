@@ -38,7 +38,7 @@ describe BroadcastEventService do
   end
 
   def jsonapi_render(resource, account:, meta: nil, **options)
-    Keygen::JSONAPI::Renderer.new(account:, context: :webhook, **options)
+    AtLicense::JSONAPI::Renderer.new(account:, context: :webhook, **options)
                              .render(resource, **{ meta: }.compact)
                              .to_json
   end
@@ -297,7 +297,7 @@ describe BroadcastEventService do
   end
 
   context 'when an ngrok tunnel is used' do
-    let(:endpoint) { create(:webhook_endpoint, url: 'https://keygen.ngrok.io/webhooks', account: account) }
+    let(:endpoint) { create(:webhook_endpoint, url: 'https://at-license.ngrok.io/webhooks', account: account) }
 
     it 'should disable when endpoint is an invalid tunnel' do
       allow(WebhookWorker::Request).to receive(:post) {
@@ -378,7 +378,7 @@ describe BroadcastEventService do
   end
 
   context 'when signature algorithm is ed25519' do
-    let(:endpoint) { create(:webhook_endpoint, url: 'https://webhooks.keygen.example', signature_algorithm: 'ed25519', account: account) }
+    let(:endpoint) { create(:webhook_endpoint, url: 'https://webhooks.at-license.example', signature_algorithm: 'ed25519', account: account) }
 
     it 'should have a valid legacy signature header' do
       allow(WebhookWorker::Request).to receive(:post) { |url, options|
@@ -407,7 +407,7 @@ describe BroadcastEventService do
           uri: uri.path,
           body: body,
           signature_algorithm: 'ed25519',
-          signature_header: headers['Keygen-Signature'],
+          signature_header: headers['AtLicense-Signature'],
           digest_header: headers['Digest'],
           date_header: headers['Date'],
         )
@@ -422,7 +422,7 @@ describe BroadcastEventService do
   end
 
   context 'when signature algorithm is rsa-pss-sha256' do
-    let(:endpoint) { create(:webhook_endpoint, url: 'https://keygen.example/webhooks', signature_algorithm: 'rsa-pss-sha256', account: account) }
+    let(:endpoint) { create(:webhook_endpoint, url: 'https://at-license.example/webhooks', signature_algorithm: 'rsa-pss-sha256', account: account) }
 
     it 'should have a valid legacy signature header' do
       allow(WebhookWorker::Request).to receive(:post) { |url, options|
@@ -451,7 +451,7 @@ describe BroadcastEventService do
           uri: uri.path,
           body: body,
           signature_algorithm: 'rsa-pss-sha256',
-          signature_header: headers['Keygen-Signature'],
+          signature_header: headers['AtLicense-Signature'],
           digest_header: headers['Digest'],
           date_header: headers['Date'],
         )
@@ -466,7 +466,7 @@ describe BroadcastEventService do
   end
 
   context 'when signature algorithm is rsa-sha256' do
-    let(:endpoint) { create(:webhook_endpoint, url: "https://keygen.example/hooks?token=#{SecureRandom.hex}", signature_algorithm: 'rsa-sha256', account: account) }
+    let(:endpoint) { create(:webhook_endpoint, url: "https://at-license.example/hooks?token=#{SecureRandom.hex}", signature_algorithm: 'rsa-sha256', account: account) }
 
     it 'should have a valid legacy signature header' do
       allow(WebhookWorker::Request).to receive(:post) { |url, options|
@@ -495,7 +495,7 @@ describe BroadcastEventService do
           uri: "#{uri.path}?#{uri.query}",
           body: body,
           signature_algorithm: 'rsa-sha256',
-          signature_header: headers['Keygen-Signature'],
+          signature_header: headers['AtLicense-Signature'],
           digest_header: headers['Digest'],
           date_header: headers['Date'],
         )
@@ -510,7 +510,7 @@ describe BroadcastEventService do
   end
 
   context 'when signature algorithm is ecdsa-p256' do
-    let(:endpoint) { create(:webhook_endpoint, url: "https://keygen.example/hooks?token=#{SecureRandom.hex}", signature_algorithm: 'ecdsa-p256', account: account) }
+    let(:endpoint) { create(:webhook_endpoint, url: "https://at-license.example/hooks?token=#{SecureRandom.hex}", signature_algorithm: 'ecdsa-p256', account: account) }
 
     it 'should have a valid legacy signature header' do
       allow(WebhookWorker::Request).to receive(:post) { |url, options|
@@ -539,7 +539,7 @@ describe BroadcastEventService do
           uri: "#{uri.path}?#{uri.query}",
           body: body,
           signature_algorithm: 'ecdsa-p256',
-          signature_header: headers['Keygen-Signature'],
+          signature_header: headers['AtLicense-Signature'],
           digest_header: headers['Digest'],
           date_header: headers['Date'],
         )
@@ -565,7 +565,7 @@ describe BroadcastEventService do
         receive(:post) do |url, options|
           options => headers:, body:
 
-          api_version = headers['Keygen-Version']
+          api_version = headers['AtLicense-Version']
           payload     = JSON.parse(body, symbolize_names: true)
                             .dig(
                               :data,
@@ -604,7 +604,7 @@ describe BroadcastEventService do
         receive(:post) do |url, options|
           options => headers:, body:
 
-          api_version = headers['Keygen-Version']
+          api_version = headers['AtLicense-Version']
           payload     = JSON.parse(body, symbolize_names: true)
                             .dig(
                               :data,

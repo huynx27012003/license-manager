@@ -21,7 +21,7 @@ describe AddUserRelationshipToMachinesMigration do
 
   it 'should migrate machine user relationships' do
     migrator = RequestMigrations::Migrator.new(from: CURRENT_API_VERSION, to: '1.0')
-    data     = Keygen::JSONAPI.render(
+    data     = AtLicense::JSONAPI.render(
       [
         machine_without_owner,
         machine_with_owner,

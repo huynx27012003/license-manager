@@ -58,7 +58,7 @@ module Api::V1
       authorize! model,
         with: SearchPolicy
 
-      Keygen.logger.info { "[searches.search] account_id=#{current_account.id} search_type=#{type} search_query=#{query} search_op=#{op}" }
+      AtLicense.logger.info { "[searches.search] account_id=#{current_account.id} search_type=#{type} search_query=#{query} search_op=#{op}" }
 
       base_scope    = model.for_account(current_account)
       search_scopes = []
@@ -117,7 +117,7 @@ module Api::V1
       authorize! search_results,
         to: :index?
 
-      Keygen.logger.info { "[searches.search] account_id=#{current_account.id} search_results=#{search_results.count}" }
+      AtLicense.logger.info { "[searches.search] account_id=#{current_account.id} search_results=#{search_results.count}" }
 
       render jsonapi: search_results
     rescue UnsupportedSearchTypeError

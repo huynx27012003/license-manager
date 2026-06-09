@@ -382,7 +382,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -398,7 +398,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[-1].email:password\"",
-        "Keygen-Environment": "isolated"
+        "AtLicense-Environment": "isolated"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -425,7 +425,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -440,7 +440,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[-1].email:password\"",
-        "Keygen-Environment": "isolated"
+        "AtLicense-Environment": "isolated"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -463,7 +463,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -477,7 +477,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[0].email:password\"",
-        "Keygen-Environment": "isolated"
+        "AtLicense-Environment": "isolated"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -508,7 +508,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "request-log" job
@@ -553,7 +553,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should not contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "request-log" job
@@ -569,7 +569,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[-1].email:password\"",
-        "Keygen-Environment": "shared"
+        "AtLicense-Environment": "shared"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -596,7 +596,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -611,7 +611,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[-1].email:password\"",
-        "Keygen-Environment": "shared"
+        "AtLicense-Environment": "shared"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -629,7 +629,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -644,7 +644,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[-1].email:password\"",
-        "Keygen-Environment": "shared"
+        "AtLicense-Environment": "shared"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -671,7 +671,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -710,7 +710,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -739,7 +739,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -768,7 +768,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -783,7 +783,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[1].email:password\"",
-        "Keygen-Environment": "isolated"
+        "AtLicense-Environment": "isolated"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -813,7 +813,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -829,7 +829,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[1].email:password\"",
-        "Keygen-Environment": "shared"
+        "AtLicense-Environment": "shared"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -859,7 +859,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -874,7 +874,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[1].email:password\"",
-        "Keygen-Environment": "isolated"
+        "AtLicense-Environment": "isolated"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -904,7 +904,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -948,7 +948,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -963,7 +963,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[1].email:password\"",
-        "Keygen-Environment": "shared"
+        "AtLicense-Environment": "shared"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -993,7 +993,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -1008,7 +1008,7 @@ Feature: Generate authentication token
       """
       {
         "Authorization": "Basic \"$users[1].email:password\"",
-        "Keygen-Environment": "isolated"
+        "AtLicense-Environment": "isolated"
       }
       """
     When I send a POST request to "/accounts/test1/tokens" with the following:
@@ -1038,7 +1038,7 @@ Feature: Generate authentication token
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -2278,7 +2278,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.8" }
+      { "AtLicense-Version": "1.8" }
       """
 
   Scenario: User attempts to generate a new token with an invalid email (v1.7)
@@ -2306,7 +2306,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.7" }
+      { "AtLicense-Version": "1.7" }
       """
 
   Scenario: User attempts to generate a new token with an invalid password
@@ -2357,7 +2357,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.8" }
+      { "AtLicense-Version": "1.8" }
       """
 
   Scenario: User attempts to generate a new token with an invalid password (v1.7)
@@ -2385,7 +2385,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.7" }
+      { "AtLicense-Version": "1.7" }
       """
 
   Scenario: User attempts to generate a new token without authentication
@@ -2479,7 +2479,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.8" }
+      { "AtLicense-Version": "1.8" }
       """
 
   Scenario: User attempts to generate a new token without a password (v1.7)
@@ -2506,20 +2506,20 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.7" }
+      { "AtLicense-Version": "1.7" }
       """
 
   Scenario: User attempts to generate a new token without a password (configured SSO, matched email, existing admin)
     Given the current account is "test1"
-    And the current account has SSO configured for "keygen.example"
+    And the current account has SSO configured for "atlicense.example"
     And the current account has 1 "admin" with the following:
       """
-      { "email": "zeke@keygen.example" }
+      { "email": "zeke@atlicense.example" }
       """
     And I am an admin of account "test1"
     And I send the following headers:
       """
-      { "Authorization": "Basic \"zeke@keygen.example:\"" }
+      { "Authorization": "Basic \"zeke@atlicense.example:\"" }
       """
     When I send a POST request to "/accounts/test1/tokens"
     Then the response status should be "401"
@@ -2533,7 +2533,7 @@ Feature: Generate authentication token
           "header": "Authorization"
         },
         "links": {
-          "redirect": "https://api.workos.test/sso/authorize?domain_hint=keygen.example&login_hint=zeke@keygen.example&state=eyJlbWFpbCI6Inpla2VAa2V5Z2VuLmV4YW1wbGUiLCJlbnZpcm9ubWVudF9pZCI6bnVsbH0"
+          "redirect": "https://api.workos.test/sso/authorize?domain_hint=atlicense.example&login_hint=zeke@atlicense.example&state=eyJlbWFpbCI6Inpla2VAa2V5Z2VuLmV4YW1wbGUiLCJlbnZpcm9ubWVudF9pZCI6bnVsbH0"
         }
       }
       """
@@ -2543,15 +2543,15 @@ Feature: Generate authentication token
 
   Scenario: User attempts to generate a new token without a password (configured SSO, matched email, existing user)
     Given the current account is "test1"
-    And the current account has SSO configured for "keygen.example"
+    And the current account has SSO configured for "atlicense.example"
     And the current account has 1 "user" with the following:
       """
-      { "email": "zeke@keygen.example" }
+      { "email": "zeke@atlicense.example" }
       """
     And I am a user of account "test1"
     And I send the following headers:
       """
-      { "Authorization": "Basic \"zeke@keygen.example:\"" }
+      { "Authorization": "Basic \"zeke@atlicense.example:\"" }
       """
     When I send a POST request to "/accounts/test1/tokens"
     Then the response status should be "401"
@@ -2572,10 +2572,10 @@ Feature: Generate authentication token
 
   Scenario: User attempts to generate a new token without a password (configured SSO, matched email, new user)
     Given the current account is "test1"
-    And the current account has SSO configured for "keygen.example"
+    And the current account has SSO configured for "atlicense.example"
     And I send the following headers:
       """
-      { "Authorization": "Basic \"zeke@keygen.example:\"" }
+      { "Authorization": "Basic \"zeke@atlicense.example:\"" }
       """
     When I send a POST request to "/accounts/test1/tokens"
     Then the response status should be "401"
@@ -2596,7 +2596,7 @@ Feature: Generate authentication token
 
   Scenario: User attempts to generate a new token without a password (configured SSO, mismatched email, existing admin)
     Given the current account is "test1"
-    And the current account has SSO configured for "keygen.example"
+    And the current account has SSO configured for "atlicense.example"
     And the current account has 1 "admin" with the following:
       """
       { "email": "zeke@acme.example" }
@@ -2625,7 +2625,7 @@ Feature: Generate authentication token
 
   Scenario: User attempts to generate a new token without a password (configured SSO, mismatched email, existing user)
     Given the current account is "test1"
-    And the current account has SSO configured for "keygen.example"
+    And the current account has SSO configured for "atlicense.example"
     And the current account has 1 "user" with the following:
       """
       { "email": "zeke@acme.example" }
@@ -2654,7 +2654,7 @@ Feature: Generate authentication token
 
   Scenario: User attempts to generate a new token without a password (configured SSO, mismatched email, new user)
     Given the current account is "test1"
-    And the current account has SSO configured for "keygen.example"
+    And the current account has SSO configured for "atlicense.example"
     And I send the following headers:
       """
       { "Authorization": "Basic \"zeke@acme.example:\"" }
@@ -2725,7 +2725,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.8" }
+      { "AtLicense-Version": "1.8" }
       """
 
   Scenario: User attempts to generate a new token for a passwordless user (v1.7)
@@ -2752,7 +2752,7 @@ Feature: Generate authentication token
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.7" }
+      { "AtLicense-Version": "1.7" }
       """
 
    Scenario: Anonymous attempts to send a null byte within the email

@@ -57,35 +57,35 @@ Feature: PyPI simple package files
   Scenario: Endpoint should be accessible from subdomain (short)
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//pypi.pkg.keygen.sh/test1/simple/bar"
+    When I send a GET request to "//pypi.pkg.atlicense.vn/test1/simple/bar"
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
-      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
+      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
+      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
       """
 
   @sp
   Scenario: Endpoint should be accessible from subdomain (short)
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//pypi.pkg.keygen.sh/simple/bar"
+    When I send a GET request to "//pypi.pkg.atlicense.vn/simple/bar"
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
-      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
+      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
+      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
       """
 
   Scenario: Endpoint should be accessible from subdomain (long)
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//pypi.pkg.keygen.sh/v1/accounts/test1/engines/pypi/simple/bar"
+    When I send a GET request to "//pypi.pkg.atlicense.vn/v1/accounts/test1/engines/pypi/simple/bar"
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
-      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
+      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
+      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
       """
 
   Scenario: Endpoint should redirect to PyPI when package does not exist
@@ -105,8 +105,8 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="foo-1.0.0-py3-none-any.whl" and @href="https://api.keygen.sh/v1/accounts/$account/artifacts/948f9b83-9e0d-469d-8982-e49213efe85e/foo-1.0.0-py3-none-any.whl"]
-      /html/body/a[text()="foo-1.0.0.tar.gz" and @href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
+      /html/body/a[text()="foo-1.0.0-py3-none-any.whl" and @href="https://api.atlicense.vn/v1/accounts/$account/artifacts/948f9b83-9e0d-469d-8982-e49213efe85e/foo-1.0.0-py3-none-any.whl"]
+      /html/body/a[text()="foo-1.0.0.tar.gz" and @href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
       """
 
   Scenario: Endpoint should return versions when package exists (npm engine)
@@ -125,8 +125,8 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://api.keygen.sh/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
-      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://api.keygen.sh/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
+      /html/body/a[text()="bar-1.0.0b1-py3-none-any.whl" and @href="https://api.atlicense.vn/v1/accounts/$account/artifacts/56277838-ddb5-4c54-a3d2-0fad8bdfefe1/bar-1.0.0b1-py3-none-any.whl"]
+      /html/body/a[text()="bar-1.0.0b1.tar.gz" and @href="https://api.atlicense.vn/v1/accounts/$account/artifacts/fa773c2b-1c3a-4bd8-83fe-546480e92098/bar-1.0.0b1.tar.gz"]
       """
 
   Scenario: Endpoint should return versions with artifact metadata
@@ -144,7 +144,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@data-requires-python=">=3.0.0" and @href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
+      /html/body/a[@data-requires-python=">=3.0.0" and @href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
       """
 
   Scenario: Endpoint should return versions with artifact checksum (SHA512)
@@ -158,7 +158,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha512=f7fbba6e0636f890e56fbbf3283e524c6fa3204ae298382d624741d0dc6638326e282c41be5e4254d8820772c5518a2c5a8c0c7f7eda19594a7eb539453e1ed7"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha512=f7fbba6e0636f890e56fbbf3283e524c6fa3204ae298382d624741d0dc6638326e282c41be5e4254d8820772c5518a2c5a8c0c7f7eda19594a7eb539453e1ed7"]
       """
 
   Scenario: Endpoint should return versions with artifact checksum (SHA256)
@@ -172,7 +172,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha256=2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha256=2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"]
       """
 
   Scenario: Endpoint should return versions with artifact checksum (SHA224)
@@ -186,7 +186,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha224=50c2dd37763f013d88783a379ef5bb50868dcec12cf81957cbaf9d22"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha224=50c2dd37763f013d88783a379ef5bb50868dcec12cf81957cbaf9d22"]
       """
 
   Scenario: Endpoint should return versions with artifact checksum (SHA384)
@@ -200,7 +200,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha384=a756b1e7554598049f8af894e3e803ac1ebc0460935747eb0b57d367aecd2548ab8fdeb0e6aace985597ec9a74c9bdbb"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha384=a756b1e7554598049f8af894e3e803ac1ebc0460935747eb0b57d367aecd2548ab8fdeb0e6aace985597ec9a74c9bdbb"]
       """
 
   Scenario: Endpoint should return versions with artifact checksum (SHA1)
@@ -214,7 +214,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha1=b3da0748d920641a9f47945bee04d241ddd0f5e3"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#sha1=b3da0748d920641a9f47945bee04d241ddd0f5e3"]
       """
 
   Scenario: Endpoint should return versions with artifact checksum (MD5)
@@ -228,7 +228,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#md5=acbd18db4cc2f85cedef654fccc4a4d8"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz#md5=acbd18db4cc2f85cedef654fccc4a4d8"]
       """
 
   Scenario: Endpoint should return versions without artifact checksum (unknown)
@@ -242,7 +242,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
       """
 
   Scenario: Endpoint should return versions without artifact checksum (base64)
@@ -256,7 +256,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
       """
 
   Scenario: Endpoint should return versions without artifact checksum (invalid)
@@ -270,7 +270,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
       """
 
   Scenario: Endpoint should return versions without artifact checksum (none)
@@ -284,7 +284,7 @@ Feature: PyPI simple package files
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/artifacts/1f63d6ec-8147-4bf0-bcd2-5d4f0e5eab8f/foo-1.0.0.tar.gz"]
       """
 
   Scenario: Endpoint should support etags (match)

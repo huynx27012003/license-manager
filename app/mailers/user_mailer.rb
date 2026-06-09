@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  default from: "Keygen <noreply@keygen.sh>"
+  default from: "AtLicense <noreply@atenergy.vn>"
   default precedence: 'urgent'
 
   layout "user_mailer"

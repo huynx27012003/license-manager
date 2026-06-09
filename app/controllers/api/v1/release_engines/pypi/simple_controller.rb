@@ -66,15 +66,15 @@ module Api::V1::ReleaseEngines
         id: params[:package],
         aliases: :key,
       )
-    rescue Keygen::Error::NotFoundError
+    rescue AtLicense::Error::NotFoundError
       skip_verify_authorized!
 
       # NOTE(ezekg) Redirect to PyPI when package is not found, to play nicely with PyPI
       #             not supporting a per-package index. This resolves a security attack
-      #             vector where when using --extra-index-url=<keygen>, PyPI could take
-      #             precedence over Keygen, pulling a malicious package using the same
-      #             name as the requested Keygen package. To resolve this, we recommend
-      #             users to set --index-url=<keygen>, and we'll redirect non-existent
+      #             vector where when using --extra-index-url=<at-license>, PyPI could take
+      #             precedence over AtLicense, pulling a malicious package using the same
+      #             name as the requested AtLicense package. To resolve this, we recommend
+      #             users to set --index-url=<at-license>, and we'll redirect non-existent
       #             packages to PyPI for fulfillment.
       #
       # TODO(ezekg) make this configurable?

@@ -289,7 +289,7 @@ Feature: Update policy
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/policies/$0" with the following:
       """

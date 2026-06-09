@@ -17,7 +17,7 @@ Rails.application.configure do
     authn = controller.current_http_scheme
     authz = controller.current_bearer&.role&.name
     api_version = controller.current_api_version
-    api_revision = Keygen.revision&.first(7)
+    api_revision = AtLicense.revision&.first(7)
     req = controller.request
     res = controller.response
     query_params =
@@ -44,7 +44,7 @@ Rails.application.configure do
           nil
         end
     rescue => e
-      Keygen.logger.exception e
+      AtLicense.logger.exception e
     end
 
     begin
@@ -55,7 +55,7 @@ Rails.application.configure do
           nil
         end
     rescue => e
-      Keygen.logger.exception e
+      AtLicense.logger.exception e
     end
 
     daily_req_limits =
@@ -70,7 +70,7 @@ Rails.application.configure do
           req[:req_count] = acct.daily_request_count || 'N/A'
           req[:req_limit] = acct.daily_request_limit || 'N/A'
         rescue => e
-          Keygen.logger.exception e
+          AtLicense.logger.exception e
         end
       end
 

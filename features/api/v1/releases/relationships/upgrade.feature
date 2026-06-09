@@ -969,7 +969,7 @@ Feature: Upgrade release
     And I authenticate with my key
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/releases/1.1.0/upgrade"
     Then the response status should be "400"
@@ -981,14 +981,14 @@ Feature: Upgrade release
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
 
   @ee
@@ -1018,7 +1018,7 @@ Feature: Upgrade release
     And I authenticate with my key
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/releases/1.1.0/upgrade"
     Then the response status should be "200"
@@ -1036,7 +1036,7 @@ Feature: Upgrade release
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -1066,7 +1066,7 @@ Feature: Upgrade release
     And I authenticate with my key
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/releases/1.1.0/upgrade"
     Then the response status should be "200"
@@ -1084,7 +1084,7 @@ Feature: Upgrade release
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee
@@ -1114,7 +1114,7 @@ Feature: Upgrade release
     And I authenticate with my key
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/releases/1.1.0/upgrade"
     Then the response status should be "200"
@@ -1132,7 +1132,7 @@ Feature: Upgrade release
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee
@@ -1166,7 +1166,7 @@ Feature: Upgrade release
     And I authenticate with my key
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/releases/1.0.0/upgrade"
     And the response body should be a "release" with the following attributes:
@@ -1183,7 +1183,7 @@ Feature: Upgrade release
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -1205,7 +1205,7 @@ Feature: Upgrade release
       | a7fad100-04eb-418f-8af9-e5eac497ad5a | 19e494c9-42b3-463d-b29e-8212049c2e79 | 6198261a-48b5-4445-a045-9fed4afc7735 | 2.0.0-beta.1 | beta    |
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/releases/1.1.0/upgrade"
     Then the response status should be "200"
@@ -1223,7 +1223,7 @@ Feature: Upgrade release
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee

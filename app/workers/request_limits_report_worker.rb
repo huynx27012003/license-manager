@@ -11,7 +11,7 @@ class RequestLimitsReportWorker < BaseWorker
     end_date = date.end_of_day
 
     Account.includes(:billing, :plan).unordered.subscribed.find_each do |account|
-      Keygen.logger.info "[workers.request-limits-report] Generating report: account_id=#{account.id}"
+      AtLicense.logger.info "[workers.request-limits-report] Generating report: account_id=#{account.id}"
 
       admin = account.admins.last
       plan  = account.plan
@@ -42,7 +42,7 @@ class RequestLimitsReportWorker < BaseWorker
         if should_send_license_limit_notification
           account.touch(:last_license_limit_exceeded_sent_at)
 
-          Keygen.logger.info "[workers.request-limits-report] Sending license limit exceeded email: account_id=#{account.id}"
+          AtLicense.logger.info "[workers.request-limits-report] Sending license limit exceeded email: account_id=#{account.id}"
 
           AccountMailer.license_limit_exceeded(account: account, plan: plan, license_count: active_licensed_user_count, license_limit: license_limit).deliver_later
         end
@@ -56,14 +56,14 @@ class RequestLimitsReportWorker < BaseWorker
         if should_send_request_limit_notification
           account.touch(:last_request_limit_exceeded_sent_at)
 
-          Keygen.logger.info "[workers.request-limits-report] Sending request limit exceeded email: account_id=#{account.id}"
+          AtLicense.logger.info "[workers.request-limits-report] Sending request limit exceeded email: account_id=#{account.id}"
 
           AccountMailer.request_limit_exceeded(account: account, plan: plan, request_count: request_count, request_limit: request_limit).deliver_later
         end
       rescue => e
         account.touch(:last_license_limit_exceeded_sent_at, :last_request_limit_exceeded_sent_at) rescue nil
 
-        Keygen.logger.exception(e)
+        AtLicense.logger.exception(e)
       end
     end
   end

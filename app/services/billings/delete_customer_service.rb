@@ -11,7 +11,7 @@ module Billings
       c = Billings::Customer.retrieve(customer)
       c.delete
     rescue Billings::Error => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       nil
     end

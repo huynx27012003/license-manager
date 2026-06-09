@@ -20,7 +20,7 @@ class LicenseKeyLookupService < BaseService
       license = licenses.find_by(id: matches[:license_id])
 
       if license&.compare_hashed_token(:key, key, version: 'v1')
-        Keygen.logger.warn { "[license-key-lookup-service] v1 keys are deprecated and must be regenerated: license_id=#{license.id.inspect}" }
+        AtLicense.logger.warn { "[license-key-lookup-service] v1 keys are deprecated and must be regenerated: license_id=#{license.id.inspect}" }
 
         # FIXME(ezekg) jit rehash key: https://github.com/bcrypt-ruby/bcrypt-ruby/pull/168
         digest = BCrypt::Engine.hash_secret(
@@ -28,7 +28,7 @@ class LicenseKeyLookupService < BaseService
           BCrypt::Password.new(license.key).salt, # reuse salt
         )
         unless license.send(:secure_compare, digest, license.key)
-          Keygen.logger.warn { "[license-key-lookup-service] rehashing key: license_id=#{license.id.inspect}" }
+          AtLicense.logger.warn { "[license-key-lookup-service] rehashing key: license_id=#{license.id.inspect}" }
 
           license.update!(key: digest)
         end

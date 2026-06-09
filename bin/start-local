@@ -2,7 +2,7 @@
 set -euo pipefail
 
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
-portal_dir="$( cd "$project_dir/../keygen-portal" && pwd )"
+portal_dir="$( cd "$project_dir/../at-license-portal" && pwd )"
 
 compose=(docker compose -f "$project_dir/docker-compose.local.yml")
 set -a
@@ -19,7 +19,7 @@ trap cleanup EXIT
 "${compose[@]}" build web setup
 "${compose[@]}" up -d postgres clickhouse
 
-if ! "${compose[@]}" exec -T postgres psql -U postgres -d keygen_dev -tAc "select 1 from accounts where id = '${KEYGEN_ACCOUNT_ID}'" 2>/dev/null | grep -q 1; then
+if ! "${compose[@]}" exec -T postgres psql -U postgres -d at_license_dev -tAc "select 1 from accounts where id = '${AT_LICENSE_ACCOUNT_ID}'" 2>/dev/null | grep -q 1; then
   "${compose[@]}" --profile setup run --rm setup
 fi
 
@@ -27,8 +27,8 @@ fi
 
 echo ""
 echo "========================================"
-echo " Keygen API:  http://localhost:3000"
-echo " Keygen Portal: http://localhost:5173"
+echo " AtLicense API:  http://localhost:3000"
+echo " AtLicense Portal: http://localhost:5173"
 echo " Sidekiq UI: http://localhost:3000/-/sidekiq/"
 echo "========================================"
 echo ""

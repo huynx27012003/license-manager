@@ -2,14 +2,14 @@
 
 class UrlValidator < ActiveModel::EachValidator
   BLACKLISTED_HOSTS = %w[
-    dist.keygen.sh
-    app.keygen.sh
-    api.keygen.sh
-    dashboard.keygen.sh
-    portal.keygen.sh
-    status.keygen.sh
-    stats.keygen.sh
-    keygen.sh
+    dist.atenergy.vn
+    app.atenergy.vn
+    api.atenergy.vn
+    dashboard.atenergy.vn
+    portal.atenergy.vn
+    status.atenergy.vn
+    stats.atenergy.vn
+    atenergy.vn
     localhost
   ].freeze
 

@@ -123,7 +123,7 @@ Feature: Heatmaps analytics
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/analytics/heatmaps/expirations?date[start]=2026-03-05&date[end]=2026-03-10"
     Then the response status should be "200"
@@ -171,7 +171,7 @@ Feature: Heatmaps analytics
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/analytics/heatmaps/expirations?date[start]=2026-03-05&date[end]=2026-03-10"
     Then the response status should be "200"

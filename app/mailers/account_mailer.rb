@@ -14,7 +14,7 @@ class AccountMailer < ApplicationMailer
     account.technical_contacts.each do |admin|
       @user = admin
 
-      mail to: admin.email, subject: "You've exceeded the daily API request limit of your Keygen account"
+      mail to: admin.email, subject: "You've exceeded the daily API request limit of your AtLicense account"
     end
   end
 
@@ -29,7 +29,7 @@ class AccountMailer < ApplicationMailer
     account.technical_contacts.each do |admin|
       @user = admin
 
-      mail to: admin.email, subject: "You've exceeded the active licensed user limit of your Keygen account"
+      mail to: admin.email, subject: "You've exceeded the active licensed user limit of your AtLicense account"
     end
   end
 
@@ -60,7 +60,7 @@ class AccountMailer < ApplicationMailer
     account.admins.each do |admin|
       @user = admin
 
-      mail to: admin.email, subject: "Warm welcome from Keygen"
+      mail to: admin.email, subject: "Warm welcome from AtLicense"
     end
   end
 end

@@ -34,7 +34,7 @@ module Api::V1
         param :attributes, type: :hash, optional: true do
           param :expiry, type: :time, allow_nil: true, optional: true, coerce: true
           param :name, type: :string, allow_nil: true, optional: true
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:permissions)
 
@@ -50,7 +50,7 @@ module Api::V1
               param :id, type: :uuid
             end
           end
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 
@@ -74,7 +74,7 @@ module Api::V1
         with: TokenPolicy
 
       # NOTE(ezekg) we only support session/cookie authn from portal origin
-      session = if request.origin == Keygen::Portal::ORIGIN && token.bearer == current_bearer
+      session = if request.origin == AtLicense::Portal::ORIGIN && token.bearer == current_bearer
                   token.sessions.build(
                     environment: token.environment,
                     parent: current_session,
@@ -102,7 +102,7 @@ module Api::V1
 
     # FIXME(ezekg) deprecate this route
     def regenerate_current
-      raise Keygen::Error::NotFoundError.new(model: Token.name) unless
+      raise AtLicense::Error::NotFoundError.new(model: Token.name) unless
         current_token.present?
 
       authorize! current_token,

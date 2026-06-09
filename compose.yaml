@@ -1,7 +1,7 @@
 services:
   setup:
     profiles: [ "setup" ]
-    image: keygen/api:latest
+    image: at_license/api:latest
     environment:
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
       DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
@@ -13,7 +13,7 @@ services:
           echo 'Waiting for PostgreSQL...'
           sleep 1
         done
-        bundle exec rails keygen:setup
+        bundle exec rails at_license:setup
       "
     depends_on: [ postgres ]
     tty: true
@@ -21,7 +21,7 @@ services:
 
   console:
     profiles: [ "console" ]
-    image: keygen/api:latest
+    image: at_license/api:latest
     environment:
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
     env_file:
@@ -33,7 +33,7 @@ services:
 
   migrate:
     profiles: [ "migrate" ]
-    image: keygen/api:latest
+    image: at_license/api:latest
     environment:
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
     env_file:
@@ -60,7 +60,7 @@ services:
       - redis:/data
 
   web:
-    image: keygen/api:latest
+    image: at_license/api:latest
     ports:
       - "3000:3000"
     networks:
@@ -72,20 +72,20 @@ services:
     environment:
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
     volumes:
-      - keygen:/etc/keygen
+      - at_license:/etc/at_license
     depends_on:
       - postgres
       - redis
 
   worker:
-    image: keygen/api:latest
+    image: at_license/api:latest
     command: "worker"
     env_file:
       - .env
     environment:
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
     volumes:
-      - keygen:/etc/keygen
+      - at_license:/etc/at_license
     depends_on:
       - postgres
       - redis
@@ -103,7 +103,7 @@ services:
     env_file:
       - .env
     environment:
-      CADDY_HOSTS: "${CADDY_HOSTS:-$KEYGEN_HOST}"
+      CADDY_HOSTS: "${CADDY_HOSTS:-$AT_LICENSE_HOST}"
     command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]
     depends_on:
       - web
@@ -116,7 +116,7 @@ networks:
     name: web_network
 
 volumes:
-  keygen:
+  at_license:
   postgres:
   redis:
   caddy_data:

@@ -13,9 +13,9 @@ class SlackInviteWorker < BaseWorker
       admin.email_domain_has_mx?
 
     # create a private channel
-    channel_prefix = admin.email_host.split('.').first # second-level domain e.g. keygen.sh -> keygen, slack.com -> slack
+    channel_prefix = admin.email_host.split('.').first # second-level domain e.g. atenergy.vn -> at-license, slack.com -> slack
     channel_id     = slack.create_channel(
-      name: "#{channel_prefix}-keygen",
+      name: "#{channel_prefix}-at-license",
     )
 
     # send a connect invite

@@ -3,7 +3,7 @@
 module CurrentEnvironmentScope
   extend ActiveSupport::Concern
 
-  ENVIRONMENT_HEADER_KEY = 'Keygen-Environment'.freeze
+  ENVIRONMENT_HEADER_KEY = 'AtLicense-Environment'.freeze
   ENVIRONMENT_PARAM_KEY  = 'environment'.freeze
 
   included do
@@ -24,13 +24,13 @@ module CurrentEnvironmentScope
         environment_id =
           case
           when request.headers.key?(ENVIRONMENT_HEADER_KEY)
-            raise Keygen::Error::UnsupportedHeaderError.new('is unsupported', header: ENVIRONMENT_HEADER_KEY, code: :ENVIRONMENT_NOT_SUPPORTED) unless
-              Keygen.ee? && Keygen.ee { it.entitled?(:environments) }
+            raise AtLicense::Error::UnsupportedHeaderError.new('is unsupported', header: ENVIRONMENT_HEADER_KEY, code: :ENVIRONMENT_NOT_SUPPORTED) unless
+              AtLicense.ee? && AtLicense.ee { it.entitled?(:environments) }
 
             request.headers[ENVIRONMENT_HEADER_KEY]
           when request.params.key?(ENVIRONMENT_PARAM_KEY)
-            raise Keygen::Error::UnsupportedParameterError.new('is unsupported', parameter: ENVIRONMENT_PARAM_KEY, code: :ENVIRONMENT_NOT_SUPPORTED) unless
-              Keygen.ee? && Keygen.ee { it.entitled?(:environments) }
+            raise AtLicense::Error::UnsupportedParameterError.new('is unsupported', parameter: ENVIRONMENT_PARAM_KEY, code: :ENVIRONMENT_NOT_SUPPORTED) unless
+              AtLicense.ee? && AtLicense.ee { it.entitled?(:environments) }
 
             request.params[ENVIRONMENT_PARAM_KEY]
           else

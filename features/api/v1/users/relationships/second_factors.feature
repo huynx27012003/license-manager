@@ -164,7 +164,7 @@ Feature: Manage second factors for user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/users/$1/second-factors"
     Then the response status should be "403"
@@ -183,7 +183,7 @@ Feature: Manage second factors for user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/users/$1/second-factors"
     Then the response status should be "403"
@@ -368,7 +368,7 @@ Feature: Manage second factors for user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users/$1/second-factors" with the following:
       """
@@ -748,7 +748,7 @@ Feature: Manage second factors for user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/users/$1/second-factors/$0" with the following:
       """
@@ -952,7 +952,7 @@ Feature: Manage second factors for user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/users/$1/second-factors/$0" with the following:
       """

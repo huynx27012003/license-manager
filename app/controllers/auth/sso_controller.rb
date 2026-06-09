@@ -16,7 +16,7 @@ module Auth
       code, enc_state = request.query_parameters.values_at(:code, :state)
 
       # redeem the callback authentication code for a user profile
-      profile = Keygen::EE::SSO.redeem_code(code:)
+      profile = AtLicense::EE::SSO.redeem_code(code:)
 
       # lookup the account for the user's org
       account = Account.where.not(sso_organization_id: nil) # sanity-check
@@ -25,40 +25,40 @@ module Auth
                              )
 
       unless account.present?
-        Keygen.logger.warn { "[sso] account was not found: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect}" }
+        AtLicense.logger.warn { "[sso] account was not found: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect}" }
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('account was not found', code: 'SSO_ACCOUNT_NOT_FOUND')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('account was not found', code: 'SSO_ACCOUNT_NOT_FOUND')
       end
 
       # verify that either the user's email domain matches one of the account's domains
       # or that the account allows external authn e.g. for third-party admins
       unless account.sso_for?(profile.email) || account.sso_external_authn?
-        Keygen.logger.warn { "[sso] user is not allowed: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect}" }
+        AtLicense.logger.warn { "[sso] user is not allowed: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect}" }
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('user is not allowed', code: 'SSO_USER_NOT_ALLOWED')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('user is not allowed', code: 'SSO_USER_NOT_ALLOWED')
       end
 
       # decrypt and verify state
-      state = Keygen::EE::SSO.decrypt_state(enc_state, secret_key: account.secret_key)
+      state = AtLicense::EE::SSO.decrypt_state(enc_state, secret_key: account.secret_key)
 
       unless state.present?
-        Keygen.logger.info { "[sso] state was not provided: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} enc_state=#{enc_state.inspect}" }
+        AtLicense.logger.info { "[sso] state was not provided: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} enc_state=#{enc_state.inspect}" }
 
         # NB(ezekg) we want to restart the authn dance with valid state when we receive
         #           an IdP-initiated authn request i.e. a request without state
         if account.sso_idp_initiated_authn?
-          redirect_url = Keygen::EE::SSO.redirect_url(account:, email: profile.email, callback_url: sso_callback_url)
+          redirect_url = AtLicense::EE::SSO.redirect_url(account:, email: profile.email, callback_url: sso_callback_url)
 
           return redirect_to redirect_url, status: :see_other, allow_other_host: true
         end
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('state was not provided', code: 'SSO_STATE_MISSING')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('state was not provided', code: 'SSO_STATE_MISSING')
       end
 
       unless state.email == profile.email
-        Keygen.logger.warn { "[sso] state is not valid: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} enc_state=#{enc_state.inspect}" }
+        AtLicense.logger.warn { "[sso] state is not valid: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} enc_state=#{enc_state.inspect}" }
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('state is not valid', code: 'SSO_STATE_INVALID')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('state is not valid', code: 'SSO_STATE_INVALID')
       end
 
       # lookup and assert the environment matches our authentication state
@@ -69,9 +69,9 @@ module Auth
                     end
 
       unless state.environment_id == environment&.id
-        Keygen.logger.warn { "[sso] environment was not found: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} environment_id=#{state.environment_id.inspect}" }
+        AtLicense.logger.warn { "[sso] environment was not found: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} environment_id=#{state.environment_id.inspect}" }
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('environment was not found', code: 'SSO_ENVIRONMENT_NOT_FOUND')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('environment was not found', code: 'SSO_ENVIRONMENT_NOT_FOUND')
       end
 
       # WorkOS recommends jit-provisioning: https://workos.com/docs/sso/jit-provisioning
@@ -92,14 +92,14 @@ module Auth
 
       unless user.present?
         unless account.sso_jit_provisioning?
-          Keygen.logger.warn { "[sso] user was not found: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect}" }
+          AtLicense.logger.warn { "[sso] user was not found: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect}" }
 
-          raise Keygen::Error::InvalidSingleSignOnError.new('user was not found', code: 'SSO_USER_NOT_FOUND')
+          raise AtLicense::Error::InvalidSingleSignOnError.new('user was not found', code: 'SSO_USER_NOT_FOUND')
         end
 
         # provision a new user for the current environment (not using existing users scope because it's a union)
         user = account.users.build(email: profile.email, environment:) do |new_user|
-          Keygen.logger.info { "[sso] creating new user: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect}" }
+          AtLicense.logger.info { "[sso] creating new user: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect}" }
 
           new_user.sso_profile_id    = profile.id
           new_user.sso_connection_id = profile.connection_id
@@ -131,20 +131,20 @@ module Auth
         role = name.underscore.to_sym # pin expects a symbol
 
         unless user.role in Role(^role)
-          Keygen.logger.info { "[sso] changing user role: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect} user_role=#{role.inspect}" }
+          AtLicense.logger.info { "[sso] changing user role: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect} user_role=#{role.inspect}" }
 
           user.change_role role
         end
       end
 
       unless user.valid?
-        Keygen.logger.warn { "[sso] user is not valid: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect} error_messages=#{user.errors.messages.inspect}" }
+        AtLicense.logger.warn { "[sso] user is not valid: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect} error_messages=#{user.errors.messages.inspect}" }
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('user is not valid', code: 'SSO_USER_INVALID')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('user is not valid', code: 'SSO_USER_INVALID')
       end
 
       session = user.transaction do
-        Keygen.logger.info { "[sso] creating new session: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect}" }
+        AtLicense.logger.info { "[sso] creating new session: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect}" }
 
         # FIXME(ezekg) quirk: https://stackoverflow.com/a/78727914/3247081
         user.sessions.delete_all(:delete_all) # clear current sessions
@@ -157,9 +157,9 @@ module Auth
       end
 
       unless session.valid?
-        Keygen.logger.warn { "[sso] session is not valid: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect} session_id=#{session.id.inspect} error_messages=#{session.errors.messages.inspect}" }
+        AtLicense.logger.warn { "[sso] session is not valid: profile_id=#{profile.id.inspect} organization_id=#{profile.organization_id.inspect} account_id=#{account.id.inspect} user_id=#{user.id.inspect} session_id=#{session.id.inspect} error_messages=#{session.errors.messages.inspect}" }
 
-        raise Keygen::Error::InvalidSingleSignOnError.new('session is not valid', code: 'SSO_SESSION_INVALID')
+        raise AtLicense::Error::InvalidSingleSignOnError.new('session is not valid', code: 'SSO_SESSION_INVALID')
       end
 
       set_session_cookie(session,
@@ -182,7 +182,7 @@ module Auth
         :error,
       )
 
-      raise Keygen::Error::InvalidSingleSignOnError.new(message,
+      raise AtLicense::Error::InvalidSingleSignOnError.new(message,
         code: "SSO_#{code.upcase}",
       )
     end

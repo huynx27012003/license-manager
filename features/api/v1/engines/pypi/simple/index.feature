@@ -57,50 +57,50 @@ Feature: PyPI simple package index
   Scenario: Endpoint should be accessible from subdomain (short)
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//pypi.pkg.keygen.sh/test1/simple"
+    When I send a GET request to "//pypi.pkg.atlicense.vn/test1/simple"
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
+      /html/body/a[@href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
       """
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="foo" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[text()="bar" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[text()="baz" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[text()="foo" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[text()="bar" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[text()="baz" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   @sp
   Scenario: Endpoint should be accessible from subdomain (short)
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//pypi.pkg.keygen.sh/simple"
+    When I send a GET request to "//pypi.pkg.atlicense.vn/simple"
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
+      /html/body/a[@href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
       """
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="foo" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[text()="bar" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[text()="baz" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[text()="foo" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[text()="bar" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[text()="baz" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: Endpoint should be accessible from subdomain (long)
     Given I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "//pypi.pkg.keygen.sh/v1/accounts/test1/engines/pypi/simple"
+    When I send a GET request to "//pypi.pkg.atlicense.vn/v1/accounts/test1/engines/pypi/simple"
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
+      /html/body/a[@href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
       """
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="foo" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[text()="bar" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[text()="baz" and @href="https://pypi.pkg.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[text()="foo" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[text()="bar" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[text()="baz" and @href="https://pypi.pkg.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: Endpoint should return an index of packages
@@ -110,13 +110,13 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/5666d47e-936e-4d48-8dd7-382d32462b4e/"]
       """
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[text()="foo" and @href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[text()="bar" and @href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[text()="baz" and @href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[text()="foo" and @href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[text()="bar" and @href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[text()="baz" and @href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: Endpoint should only respond to HTML
@@ -144,12 +144,12 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/" and @data-key="value"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/" and @data-key="value"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/" and @data-key="value"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/" and @data-key="value"]
       """
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/" and @data-key="value"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/" and @data-key="value"]
       """
 
   Scenario: Endpoint should support etags (match)
@@ -193,9 +193,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: License requests an index for a closed product
@@ -214,9 +214,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: License requests an index for an open product
@@ -235,9 +235,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: License requests an index for another licensed product
@@ -256,9 +256,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: License requests an index for another closed product
@@ -277,9 +277,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: License requests an index for another open product
@@ -298,9 +298,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: Anonymous requests an index for a licensed product
@@ -312,9 +312,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: Anonymous requests an index for a closed product
@@ -326,9 +326,9 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document without the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """
 
   Scenario: Anonymous requests an index for an open product
@@ -340,7 +340,7 @@ Feature: PyPI simple package index
     Then the response status should be "200"
     And the response body should be an HTML document with the following xpaths:
       """
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
-      /html/body/a[@href="https://api.keygen.sh/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/46e034fe-2312-40f8-bbeb-7d9957fb6fcf/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/2f8af04a-2424-4ca2-8480-6efe24318d1a/"]
+      /html/body/a[@href="https://api.atlicense.vn/v1/accounts/$account/engines/pypi/simple/7b113ac2-ae81-406a-b44e-f356126e2faa/"]
       """

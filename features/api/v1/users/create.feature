@@ -38,7 +38,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "kent <3 lois"
           }
         }
@@ -68,7 +68,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "loislane",
             "role": "user"
           }
@@ -104,7 +104,7 @@ Feature: Create user
           "attributes": {
             "firstName": "",
             "lastName": "",
-            "email": "test@keygen.example",
+            "email": "test@atlicense.example",
             "password": "foobarbazqux"
           }
         }
@@ -130,7 +130,7 @@ Feature: Create user
           "attributes": {
             "firstName": null,
             "lastName": null,
-            "email": "test@keygen.example",
+            "email": "test@atlicense.example",
             "password": "foobarbazqux"
           }
         }
@@ -155,7 +155,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/users" with the following:
       """
@@ -163,7 +163,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "isolated@keygen.example"
+            "email": "isolated@atlicense.example"
           }
         }
       }
@@ -176,7 +176,7 @@ Feature: Create user
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
@@ -199,7 +199,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "shared@keygen.example"
+            "email": "shared@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -236,7 +236,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/users" with the following:
       """
@@ -244,7 +244,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "isolated@keygen.example"
+            "email": "isolated@atlicense.example"
           }
         }
       }
@@ -262,7 +262,7 @@ Feature: Create user
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account should have 1 "user"
     And sidekiq should have 1 "webhook" job
@@ -280,7 +280,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/users" with the following:
       """
@@ -288,7 +288,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "shared@keygen.example"
+            "email": "shared@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -322,7 +322,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/users" with the following:
       """
@@ -330,7 +330,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "global@keygen.example"
+            "email": "global@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -365,7 +365,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/users" with the following:
       """
@@ -373,7 +373,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "shared@keygen.example"
+            "email": "shared@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -396,7 +396,7 @@ Feature: Create user
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 1 "user"
     And sidekiq should have 1 "webhook" job
@@ -414,7 +414,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/users" with the following:
       """
@@ -422,7 +422,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "isolated@keygen.example"
+            "email": "isolated@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -456,7 +456,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/users" with the following:
       """
@@ -464,7 +464,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "global@keygen.example"
+            "email": "global@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -501,7 +501,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "global@keygen.example"
+            "email": "global@atlicense.example"
           }
         }
       }
@@ -519,7 +519,7 @@ Feature: Create user
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And the current account should have 1 "user"
     And sidekiq should have 1 "webhook" job
@@ -540,7 +540,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "isolated@keygen.example"
+            "email": "isolated@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -578,7 +578,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "shared@keygen.example"
+            "email": "shared@atlicense.example"
           },
           "relationships": {
             "environment": {
@@ -618,7 +618,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "loislane",
             "permissions": ["*"]
           }
@@ -659,7 +659,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "loislane",
             "permissions": ["*"]
           }
@@ -700,7 +700,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "loislane",
             "permissions": ["*"]
           }
@@ -741,7 +741,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "loislane",
             "permissions": ["*"]
           }
@@ -780,7 +780,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "group@keygen.example"
+            "email": "group@atlicense.example"
           },
           "relationships": {
             "group": {
@@ -821,7 +821,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "group@keygen.example"
+            "email": "group@atlicense.example"
           },
           "relationships": {
             "group": {
@@ -832,7 +832,7 @@ Feature: Create user
       }
       """
     Then the response status should be "201"
-    And the response body should be a "user" with the email "group@keygen.example"
+    And the response body should be a "user" with the email "group@atlicense.example"
     And the response body should be a "user" with the following relationships:
       """
       {
@@ -864,7 +864,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "group@keygen.example"
+            "email": "group@atlicense.example"
           },
           "relationships": {
             "group": {
@@ -875,7 +875,7 @@ Feature: Create user
       }
       """
     Then the response status should be "201"
-    And the response body should be a "user" with the email "group@keygen.example"
+    And the response body should be a "user" with the email "group@atlicense.example"
     And the response body should be a "user" with the following relationships:
       """
       {
@@ -907,7 +907,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "group@keygen.example"
+            "email": "group@atlicense.example"
           },
           "relationships": {
             "group": {
@@ -918,7 +918,7 @@ Feature: Create user
       }
       """
     Then the response status should be "201"
-    And the response body should be a "user" with the email "group@keygen.example"
+    And the response body should be a "user" with the email "group@atlicense.example"
     And the response body should be a "user" with the following relationships:
       """
       {
@@ -945,7 +945,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "group@keygen.example"
+            "email": "group@atlicense.example"
           },
           "relationships": {
             "group": {
@@ -994,7 +994,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "group@keygen.example"
+            "email": "group@atlicense.example"
           },
           "relationships": {
             "group": {
@@ -1030,7 +1030,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "invalid@keygen.example",
+            "email": "invalid@atlicense.example",
             "password": "short"
           }
         }
@@ -1057,7 +1057,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "invite@keygen.example",
+            "email": "invite@atlicense.example",
             "password": null
           }
         }
@@ -1066,7 +1066,7 @@ Feature: Create user
     Then the response status should be "201"
     And the response body should be a "user" with the following attributes:
       """
-      { "email": "invite@keygen.example" }
+      { "email": "invite@atlicense.example" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 1 "event-log" job
@@ -1088,7 +1088,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "cap@keygen.sh",
+            "email": "cap@atlicense.vn",
             "password": "america!"
           }
         }
@@ -1120,7 +1120,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "superman+lois"
           }
         }
@@ -1224,7 +1224,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Tony",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "!jarvis!"
           }
         }
@@ -1253,7 +1253,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Tony",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "!jarvis!"
           }
         }
@@ -1278,7 +1278,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Tony",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "((jarvis))"
           }
         }
@@ -1303,7 +1303,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Tony",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123"
           }
         }
@@ -1328,7 +1328,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Tony",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123"
           }
         }
@@ -1351,7 +1351,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123",
             "role": "admin"
           }
@@ -1380,7 +1380,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123",
             "permissions": ["*"],
             "role": "admin"
@@ -1410,7 +1410,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123",
             "permissions": [
               "admin.read",
@@ -1455,7 +1455,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123",
             "role": "admin"
           }
@@ -1487,7 +1487,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123",
             "permissions": ["user.create", "user.read"],
             "role": "admin"
@@ -1526,7 +1526,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "secret123",
             "role": "admin"
           }
@@ -1562,7 +1562,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Mr.",
             "lastName": "Robot",
-            "email": "mr.robot@keygen.sh",
+            "email": "mr.robot@atlicense.vn",
             "password": "l337h4x0r",
             "role": "developer"
           }
@@ -1594,7 +1594,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Jim",
             "lastName": "Halpert",
-            "email": "jim@keygen.sh",
+            "email": "jim@atlicense.vn",
             "password": "bears beets battlestar galactica",
             "role": "sales-agent"
           }
@@ -1626,7 +1626,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Pam",
             "lastName": "Beesly",
-            "email": "beesly@keygen.sh",
+            "email": "beesly@atlicense.vn",
             "password": "jimjimjimjim",
             "role": "support-agent"
           }
@@ -1656,7 +1656,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Toby",
             "lastName": "Flenderson",
-            "email": "toby@keygen.sh",
+            "email": "toby@atlicense.vn",
             "password": "ScrantonStrangler",
             "role": "read-only"
           }
@@ -1682,7 +1682,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Mr.",
             "lastName": "Robot",
-            "email": "ecorp@keygen.sh",
+            "email": "ecorp@atlicense.vn",
             "password": "password",
             "role": "admin"
           }
@@ -1708,7 +1708,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Tony",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "((jarvis))",
             "role": "admin"
           }
@@ -1730,7 +1730,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Spiderman",
             "lastName": "Parker",
-            "email": "spiderman@keygen.sh",
+            "email": "spiderman@atlicense.vn",
             "password": "i shoot webs",
             "role": "spider"
           }
@@ -1756,7 +1756,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Spiderman",
             "lastName": "Parker",
-            "email": "spiderman@keygen.sh",
+            "email": "spiderman@atlicense.vn",
             "password": "webmaster",
             "role": "admin",
             "permissions": [
@@ -1794,7 +1794,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Spiderman",
             "lastName": "Parker",
-            "email": "spiderman@keygen.sh",
+            "email": "spiderman@atlicense.vn",
             "password": "webmaster",
             "role": "admin",
             "permissions": [
@@ -1832,7 +1832,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Spiderman",
             "lastName": "Parker",
-            "email": "spiderman@keygen.sh",
+            "email": "spiderman@atlicense.vn",
             "password": "webmaster",
             "role": "admin",
             "permissions": [
@@ -1869,7 +1869,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Spiderman",
             "lastName": "Parker",
-            "email": "spiderman@keygen.sh",
+            "email": "spiderman@atlicense.vn",
             "password": "webmaster",
             "role": "admin",
             "permissions": [
@@ -1900,7 +1900,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     And the current account has 1 "webhook-endpoint"
     When I send a POST request to "/accounts/test1/users" with the following:
@@ -1911,7 +1911,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "my suit's cool",
             "role": "admin"
           }
@@ -1931,7 +1931,7 @@ Feature: Create user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     And the current account has 1 "webhook-endpoint"
     When I send a POST request to "/accounts/test1/users" with the following:
@@ -1940,7 +1940,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "test@keygen.example"
+            "email": "test@atlicense.example"
           }
         }
       }
@@ -1965,7 +1965,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "my suit's cool",
             "role": "admin"
           }
@@ -2001,7 +2001,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "jarvis!!"
           }
         }
@@ -2027,7 +2027,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "jarvis!!",
             "permissions": [
               "license.validate",
@@ -2065,7 +2065,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "jarvis!!",
             "permissions": [
               "license.validate",
@@ -2103,7 +2103,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "jarvis!!",
             "permissions": [
               "license.validate",
@@ -2143,7 +2143,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Ironman",
             "lastName": "Stark",
-            "email": "ironman@keygen.sh",
+            "email": "ironman@atlicense.vn",
             "password": "jarvis!!",
             "permissions": [
               "license.validate",
@@ -2334,7 +2334,7 @@ Feature: Create user
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/users/#users-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/users/#users-object-attrs-permissions"
         }
       }
       """
@@ -2378,7 +2378,7 @@ Feature: Create user
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/users/#users-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/users/#users-object-attrs-permissions"
         }
       }
       """
@@ -2422,7 +2422,7 @@ Feature: Create user
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/users/#users-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/users/#users-object-attrs-permissions"
         }
       }
       """
@@ -2466,7 +2466,7 @@ Feature: Create user
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/users/#users-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/users/#users-object-attrs-permissions"
         }
       }
       """
@@ -2552,7 +2552,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Superman",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "sunlight",
             "role": "admin"
           }
@@ -2582,7 +2582,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Clark",
             "lastName": "Kent",
-            "email": "superman@keygen.sh",
+            "email": "superman@atlicense.vn",
             "password": "sunlight"
           }
         }
@@ -2604,7 +2604,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "*mjolnir*",
             "role": "admin"
           }
@@ -2638,7 +2638,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "mjolnir?",
             "role": "developer"
           }
@@ -2672,7 +2672,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "mjolnir--",
             "role": "sales-agent"
           }
@@ -2706,7 +2706,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "mjolnir++",
             "role": "support-agent"
           }
@@ -2740,7 +2740,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "mjolnir++",
             "role": "read-only"
           }
@@ -2774,7 +2774,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "hunter1",
             "role": "license"
           }
@@ -2808,7 +2808,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Thor",
             "lastName": "Thor",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "hunter1",
             "role": "product"
           }
@@ -2842,7 +2842,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Bad",
             "lastName": "Actor",
-            "email": "hack@keygen.sh",
+            "email": "hack@atlicense.vn",
             "password": "ugotpwnd",
             "RoLe": "admin"
           }
@@ -2876,7 +2876,7 @@ Feature: Create user
           "attributes": {
             "firstName": "Bad",
             "lastName": "Actor",
-            "email": "hack@keygen.sh",
+            "email": "hack@atlicense.vn",
             "password": "ugotpwnd",
             "ROLE": "admin"
           }
@@ -3016,7 +3016,7 @@ Feature: Create user
           "attributes": {
             "firstName": "String in CP1252 encoding: \xE4\xF6\xFC\xDF",
             "lastName": "Partly valid\xE4 UTF-8 encoding: äöüß",
-            "email": "thor@keygen.sh",
+            "email": "thor@atlicense.vn",
             "password": "hunter1",
             "role": "admin"
           }
@@ -3046,7 +3046,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "role": null,
             "role\ud888": "admin"
@@ -3076,7 +3076,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "role": null,
             "role\x0d": "admin"
@@ -3108,7 +3108,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "role": null,
             "ro\le": "admin"
@@ -3140,7 +3140,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "role": null,
             'role': "admin"
@@ -3170,7 +3170,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "role": null,
             role: "admin"
@@ -3200,7 +3200,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "firstName": /*,
             "role": "admin",
@@ -3231,7 +3231,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "firstName": "foo"/*,
             "role": "admin",
@@ -3256,7 +3256,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities",
             "role": /*"admin"*/null
           }
@@ -3287,7 +3287,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "bishopfox+blog@keygen.example",
+            "email": "bishopfox+blog@atlicense.example",
             "password": "json-interoperability-vulnerabilities"
           }
         }
@@ -3318,7 +3318,7 @@ Feature: Create user
         "data": {
           "type": "users",
           "attributes": {
-            "email": "xkcd-936@keygen.example",
+            "email": "xkcd-936@atlicense.example",
             "password": "correcthorsebatterystaple"
           }
         }

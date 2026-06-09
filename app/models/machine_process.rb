@@ -4,7 +4,7 @@ class MachineProcess < ApplicationRecord
   class ResurrectionUnsupportedError < StandardError; end
   class ResurrectionExpiredError < StandardError; end
 
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Environmental
   include Accountable
   include Limitable

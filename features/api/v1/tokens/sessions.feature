@@ -7,7 +7,7 @@ Feature: Token sessions
       | Test 2  | test2 |
     And I send the following headers:
       """
-      { "Origin": "https://portal.keygen.sh" }
+      { "Origin": "https://portal.atlicense.vn" }
       """
     And I send and accept JSON
 
@@ -28,7 +28,7 @@ Feature: Token sessions
     And the response body should be a "token"
     And the response headers should contain "Set-Cookie" with an encrypted cookie:
       """
-      session_id=$sessions[0]; domain=keygen.sh; path=/; expires=Mon, 06 Mar 2552 00:00:00 GMT; secure; httponly; samesite=None; partitioned;
+      session_id=$sessions[0]; domain=atlicense.vn; path=/; expires=Mon, 06 Mar 2552 00:00:00 GMT; secure; httponly; samesite=None; partitioned;
       """
     And the first "session" should have the following attributes:
       """
@@ -53,7 +53,7 @@ Feature: Token sessions
     And the response body should be a "token"
     And the response headers should contain "Set-Cookie" with an encrypted cookie:
       """
-      session_id=$sessions[0]; domain=keygen.sh; path=/; expires=Mon, 06 Mar 2552 00:00:00 GMT; secure; httponly; samesite=None; partitioned;
+      session_id=$sessions[0]; domain=atlicense.vn; path=/; expires=Mon, 06 Mar 2552 00:00:00 GMT; secure; httponly; samesite=None; partitioned;
       """
     And the first "session" should have the following attributes:
       """
@@ -156,7 +156,7 @@ Feature: Token sessions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/tokens"
     Then the response status should be "201"
@@ -167,7 +167,7 @@ Feature: Token sessions
       """
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the first "session" should have the following attributes:
       """
@@ -186,7 +186,7 @@ Feature: Token sessions
     And I authenticate with a session for "isolated"
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/tokens"
     Then the response status should be "201"
@@ -197,7 +197,7 @@ Feature: Token sessions
       """
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account should have 2 "sessions"
     And the first "session" should have the following attributes:
@@ -230,7 +230,7 @@ Feature: Token sessions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/tokens"
     Then the response status should be "201"
@@ -241,7 +241,7 @@ Feature: Token sessions
       """
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the first "session" should have the following attributes:
       """
@@ -309,7 +309,7 @@ Feature: Token sessions
     Then the response status should be "204"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the current account should have 0 "sessions"
 
@@ -344,11 +344,11 @@ Feature: Token sessions
     Then the response status should be "204"
     And the response headers should contain "Set-Cookie" with the cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the response headers should contain "Set-Cookie" with the cookie:
       """
-      session_id.$environments[0]=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id.$environments[0]=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the current account should have 0 "sessions"
 
@@ -361,17 +361,17 @@ Feature: Token sessions
     And I authenticate with the first session for "isolated"
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a DELETE request to "/accounts/test1/tokens/$1"
     Then the response status should be "204"
     And the response headers should not contain "Set-Cookie" with the cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the response headers should contain "Set-Cookie" with the cookie:
       """
-      session_id.$environments[0]=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id.$environments[0]=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the current account should have 1 "session"
 
@@ -390,7 +390,7 @@ Feature: Token sessions
     Then the response status should be "403"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id.$environments[0]=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id.$environments[0]=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the first error should have the following properties:
       """
@@ -460,7 +460,7 @@ Feature: Token sessions
     Then the response status should be "200"
     And the response headers should contain "Set-Cookie" with an encrypted cookie:
       """
-      session_id=$sessions[0]; domain=keygen.sh; path=/; expires=Fri, 03 Mar 2552 01:10:00 GMT; secure; httponly; samesite=None; partitioned;
+      session_id=$sessions[0]; domain=atlicense.vn; path=/; expires=Fri, 03 Mar 2552 01:10:00 GMT; secure; httponly; samesite=None; partitioned;
       """
     And time is unfrozen
 
@@ -473,7 +473,7 @@ Feature: Token sessions
     Then the response status should be "401"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
 
   Scenario: User creates a license with an invalid session
@@ -515,7 +515,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "https://api.keygen.sh" }
+      { "Origin": "https://api.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -527,7 +527,7 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "https://api.keygen.sh" }
+      { "Origin": "https://api.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -539,7 +539,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "https://portal.keygen.sh" }
+      { "Origin": "https://portal.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "200"
@@ -550,13 +550,13 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "https://portal.keygen.sh" }
+      { "Origin": "https://portal.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
 
   Scenario: User reads their profile with a valid session (insecure same-site portal)
@@ -565,7 +565,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "http://portal.keygen.sh" }
+      { "Origin": "http://portal.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -577,7 +577,7 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "http://portal.keygen.sh" }
+      { "Origin": "http://portal.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -589,7 +589,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "https://status.keygen.sh" }
+      { "Origin": "https://status.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -601,7 +601,7 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "https://status.keygen.sh" }
+      { "Origin": "https://status.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -613,7 +613,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "https://app.keygen.sh" }
+      { "Origin": "https://app.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -625,7 +625,7 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "https://app.keygen.sh" }
+      { "Origin": "https://app.atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -637,7 +637,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "https://keygen.sh" }
+      { "Origin": "https://atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -649,7 +649,7 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "https://keygen.sh" }
+      { "Origin": "https://atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -685,7 +685,7 @@ Feature: Token sessions
     And I authenticate with a valid session
     And I send the following headers:
       """
-      { "Origin": "https://evil-keygen.sh" }
+      { "Origin": "https://evil-atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -697,7 +697,7 @@ Feature: Token sessions
     And I authenticate with an invalid session
     And I send the following headers:
       """
-      { "Origin": "https://evil-keygen.sh" }
+      { "Origin": "https://evil-atlicense.vn" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "401"
@@ -717,14 +717,14 @@ Feature: Token sessions
     And I authenticate with a session for "isolated"
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
     And the response body should be a "license"
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -740,14 +740,14 @@ Feature: Token sessions
     And I authenticate with a session for "shared"
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
     And the response body should be a "license"
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee
@@ -763,13 +763,13 @@ Feature: Token sessions
     And I authenticate with a session
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "401"
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -785,14 +785,14 @@ Feature: Token sessions
     And I authenticate with a session for "shared"
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
     And the response body should be a "license"
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee
@@ -823,13 +823,13 @@ Feature: Token sessions
     And I authenticate with a session
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "401"
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
 
   @ee
@@ -971,7 +971,7 @@ Feature: Token sessions
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     Then the response status should be "403"
 
@@ -1002,7 +1002,7 @@ Feature: Token sessions
     Then the response status should be "403"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the first error should have the following properties:
       """
@@ -1026,7 +1026,7 @@ Feature: Token sessions
     Then the response status should be "403"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the first error should have the following properties:
       """
@@ -1064,7 +1064,7 @@ Feature: Token sessions
     Then the response status should be "403"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     And the first error should have the following properties:
       """
@@ -1084,7 +1084,7 @@ Feature: Token sessions
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     And the response headers should contain "Set-Cookie" with a cookie:
       """
-      session_id=; domain=keygen.sh; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
+      session_id=; domain=atlicense.vn; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=None; partitioned;
       """
     Then the response status should be "403"
 
@@ -1097,13 +1097,13 @@ Feature: Token sessions
     And I authenticate with the first session for "isolated"
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/me"
     Then the response status should be "200"
     And the response headers should contain the following:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   # update

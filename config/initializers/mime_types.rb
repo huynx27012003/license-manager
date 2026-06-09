@@ -2,7 +2,7 @@
 
 Mime::Type.register 'application/octet-stream', :binary
 Mime::Type.register 'application/vnd.api+json', :jsonapi, %w[
-  application/vnd.keygen+json
+  application/vnd.at-license+json
 ]
 
 # adds pattern matching

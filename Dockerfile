@@ -46,7 +46,7 @@ RUN apk add --no-cache \
 
 # Final stage
 FROM base
-LABEL maintainer="keygen.sh <oss@keygen.sh>"
+LABEL maintainer="atlicense.vn <oss@atlicense.vn>"
 
 RUN apk add --no-cache \
   bash \
@@ -57,24 +57,24 @@ RUN apk add --no-cache \
   libxml2 \
   libxslt \
   libstdc++ && \
-  adduser -h /app -g keygen -u 1000 -s /bin/bash -D keygen
+  adduser -h /app -g at_license -u 1000 -s /bin/bash -D at_license
 
-COPY --from=build --chown=keygen:keygen \
+COPY --from=build --chown=at_license:at_license \
   /usr/local/bundle/ /usr/local/bundle
 
 WORKDIR /app
 COPY . /app
 
 RUN chmod +x /app/scripts/entrypoint.sh && \
-  chown -R keygen:keygen /app
+  chown -R at_license:at_license /app
 
-ENV KEYGEN_EDITION="CE" \
-    KEYGEN_MODE="singleplayer" \
+ENV AT_LICENSE_EDITION="CE" \
+    AT_LICENSE_MODE="singleplayer" \
     RAILS_LOG_TO_STDOUT="1" \
     PORT="3000" \
     BIND="0.0.0.0"
 
-USER keygen
+USER at_license
 
 ENTRYPOINT ["/app/scripts/entrypoint.sh"]
 CMD ["web"]

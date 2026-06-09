@@ -236,7 +236,7 @@ Feature: Update webhook endpoint
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a PATCH request to "/accounts/test1/webhook-endpoints/$0" with the following:
       """

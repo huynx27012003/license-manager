@@ -32,7 +32,7 @@ class BroadcastEventService < BaseService
         bearer_id       = Current.bearer_id
         request_id      = Current.request_id
 
-        Keygen.ee do |license|
+        AtLicense.ee do |license|
           next unless
             license.entitled?(:event_logs)
 
@@ -84,7 +84,7 @@ class BroadcastEventService < BaseService
           idempotency_key,
         )
       rescue => e
-        Keygen.logger.exception(e)
+        AtLicense.logger.exception(e)
       end
 
       # broadcast the event to all relevant endpoints

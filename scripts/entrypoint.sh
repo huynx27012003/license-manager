@@ -9,8 +9,8 @@ fi
 case "$@"
 in
 setup)
-  echo "Running command: bundle exec rails keygen:setup"
-  exec bundle exec rails keygen:setup
+  echo "Running command: bundle exec rails at_license:setup"
+  exec bundle exec rails at_license:setup
   ;;
 release)
   echo "Running command: bundle exec rails db:migrate"

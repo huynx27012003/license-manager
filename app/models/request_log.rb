@@ -3,7 +3,7 @@
 class RequestLog < ClickhouseRecord
   self.primary_key = 'id' # for associations
 
-  include Keygen::EE::ProtectedClass[entitlements: %i[request_logs]]
+  include AtLicense::EE::ProtectedClass[entitlements: %i[request_logs]]
   include Environmental
   include Accountable
   include DateRangeable

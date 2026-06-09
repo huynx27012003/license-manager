@@ -21,7 +21,7 @@ Then /^sidekiq should (?:have|process) (\d+) "([^\"]*)" jobs?(?: queued in ([.\d
 
   # Skip request and event log assertions for CE
   next if
-    Keygen.ce? && worker_name.in?(%w[request_log_worker event_log_worker])
+    AtLicense.ce? && worker_name.in?(%w[request_log_worker event_log_worker])
 
   # Drain certain queues before count
   case worker_name

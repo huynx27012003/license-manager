@@ -54,18 +54,18 @@ Before do |scenario|
   # Skip CE tests if we're running in an EE env, and vice-versa
   # for EE tests in a CE env.
   return skip_this_scenario if
-    Keygen.ee? && scenario.tags.any? { it.name == '@ce' } ||
-    Keygen.ce? && scenario.tags.any? { it.name == '@ee' }
+    AtLicense.ee? && scenario.tags.any? { it.name == '@ce' } ||
+    AtLicense.ce? && scenario.tags.any? { it.name == '@ee' }
 
   # Skip multiplayer if we're running in singleplayer mode,
   # and vice-versa for singleplayer in multiplayer mode.
   return skip_this_scenario if
-    Keygen.singleplayer? && scenario.tags.any? { it.name == '@mp' } ||
-    Keygen.multiplayer? && scenario.tags.any? { it.name == '@sp' }
+    AtLicense.singleplayer? && scenario.tags.any? { it.name == '@mp' } ||
+    AtLicense.multiplayer? && scenario.tags.any? { it.name == '@sp' }
 
   # skip clickhouse-specific scenarios if disabled
   return skip_this_scenario if
-    !Keygen.database.clickhouse_enabled? && scenario.tags.any? { it.name == '@clickhouse' }
+    !AtLicense.database.clickhouse_enabled? && scenario.tags.any? { it.name == '@clickhouse' }
 
   # And of course, skip if we need to skip.
   return skip_this_scenario if

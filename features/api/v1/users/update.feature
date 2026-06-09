@@ -662,7 +662,7 @@ Feature: Update user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/users/$2" with the following:
       """
@@ -686,7 +686,7 @@ Feature: Update user
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/users/$1" with the following:
       """
@@ -1645,7 +1645,7 @@ Feature: Update user
           "pointer": "/data/attributes/permissions"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/users/#users-object-attrs-permissions"
+          "about": "https://atlicense.vn/docs/api/users/#users-object-attrs-permissions"
         }
       }
       """
@@ -1749,7 +1749,7 @@ Feature: Update user
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a PATCH request to "/accounts/test1/users/$1" with the following:
       """

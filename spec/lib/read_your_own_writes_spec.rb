@@ -43,7 +43,7 @@ describe ReadYourOwnWrites do
   end
 
   describe '.reading_own_writes?' do
-    def build_request(path:, host: 'api.keygen.example', authorization: 'Bearer test-token', remote_ip: '192.168.1.1', env: {})
+    def build_request(path:, host: 'api.at-license.example', authorization: 'Bearer test-token', remote_ip: '192.168.1.1', env: {})
       instance_double(ActionDispatch::Request, host:, path:, authorization:, remote_ip:, env:)
     end
 
@@ -79,7 +79,7 @@ describe ReadYourOwnWrites do
   describe ReadYourOwnWrites::Resolver::Context do
     let(:redis) { Rails.cache.redis }
 
-    def build_request(path:, host: 'api.keygen.example', authorization: 'Bearer test-token', remote_ip: '192.168.1.1', env: {})
+    def build_request(path:, host: 'api.at-license.example', authorization: 'Bearer test-token', remote_ip: '192.168.1.1', env: {})
       instance_double(ActionDispatch::Request, host:, path:, authorization:, remote_ip:, env:)
     end
 
@@ -192,7 +192,7 @@ describe ReadYourOwnWrites do
       it 'should use replica when request skip key is set' do
         request = instance_double(
           ActionDispatch::Request,
-          host: 'api.keygen.example',
+          host: 'api.at-license.example',
           path: '/v1/accounts/test/licenses/bar',
           authorization: 'Bearer test-token',
           remote_ip: '192.168.1.1',
@@ -343,7 +343,7 @@ describe ReadYourOwnWrites do
   end
 
   describe ReadYourOwnWrites::Controller do
-    def build_request(path:, host: 'api.keygen.example', authorization: 'Bearer test-token', remote_ip: '192.168.1.1', env: {})
+    def build_request(path:, host: 'api.at-license.example', authorization: 'Bearer test-token', remote_ip: '192.168.1.1', env: {})
       instance_double(ActionDispatch::Request, host:, path:, authorization:, remote_ip:, env:)
     end
 

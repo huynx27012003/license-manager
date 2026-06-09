@@ -1,5 +1,5 @@
 <p>
-  As requested, here is a list of Keygen accounts that this email address is associated with:
+  As requested, here is a list of AtLicense accounts that this email address is associated with:
 </p>
 <ul>
   <% @users.each do |user| %>
@@ -12,12 +12,12 @@
       <br>
       <span>
         <strong>Recover:</strong>
-        <a href="https://app.keygen.sh/recover/password?account=<%= user.account.slug %>&email=<%= user.email %>">click here</a>
+        <a href="https://app.atenergy.vn/recover/password?account=<%= user.account.slug %>&email=<%= user.email %>">click here</a>
       </span>
       <br>
       <span>
         <strong>Login:</strong>
-        <a href="https://app.keygen.sh/login?account=<%= user.account.slug %>">click here</a>
+        <a href="https://app.atenergy.vn/login?account=<%= user.account.slug %>">click here</a>
       </span>
     </li>
   <% end %>

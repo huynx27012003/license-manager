@@ -593,19 +593,19 @@ Feature: Search
     And the first "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.sh"
+        "email": "zeke@atlicense.vn"
       }
       """
     And the second "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.net"
+        "email": "zeke@at_license.net"
       }
       """
     And the third "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.dev"
+        "email": "zeke@at_license.dev"
       }
       """
     And I use an authentication token
@@ -615,7 +615,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "@keygen.sh"
+            "email": "@atlicense.vn"
           }
         }
       }
@@ -633,19 +633,19 @@ Feature: Search
     And the first "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.sh"
+        "email": "zeke@atlicense.vn"
       }
       """
     And the second "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.net"
+        "email": "zeke@at_license.net"
       }
       """
     And the third "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.dev"
+        "email": "zeke@at_license.dev"
       }
       """
     And I use an authentication token
@@ -655,7 +655,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "@keygen."
+            "email": "@at_license."
           }
         }
       }
@@ -673,19 +673,19 @@ Feature: Search
     And the first "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.sh"
+        "email": "zeke@atlicense.vn"
       }
       """
     And the second "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.net"
+        "email": "zeke@at_license.net"
       }
       """
     And the third "user" has the following attributes:
       """
       {
-        "email": "zeke@keygen.dev"
+        "email": "zeke@at_license.dev"
       }
       """
     And I use an authentication token
@@ -712,7 +712,7 @@ Feature: Search
     And the current account has 10 "users"
     And the first "user" has the following attributes:
       """
-      { "email": "zeke.123@keygen.sh" }
+      { "email": "zeke.123@atlicense.vn" }
       """
     And I use an authentication token
     When I send a POST request to "/accounts/test1/search" with the following:
@@ -721,7 +721,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "zeke.123@keygen.sh"
+            "email": "zeke.123@atlicense.vn"
           }
         }
       }
@@ -2414,7 +2414,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "test@keygen.example"
+            "email": "test@atlicense.example"
           }
         }
       }
@@ -2435,7 +2435,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "test@keygen.example"
+            "email": "test@atlicense.example"
           }
         }
       }
@@ -2456,7 +2456,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "test@keygen.example"
+            "email": "test@atlicense.example"
           }
         }
       }
@@ -2477,7 +2477,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "test@keygen.example"
+            "email": "test@atlicense.example"
           }
         }
       }
@@ -2495,7 +2495,7 @@ Feature: Search
         "meta": {
           "type": "users",
           "query": {
-            "email": "test@keygen.example"
+            "email": "test@atlicense.example"
           }
         }
       }

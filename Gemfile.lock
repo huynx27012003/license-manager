@@ -7,7 +7,7 @@ GIT
       activerecord (>= 6.0)
 
 GIT
-  remote: https://github.com/keygen-sh/clickhouse-activerecord.git
+  remote: https://github.com/huynx27012003/clickhouse-activerecord.git
   revision: bbad22d10b7a1758d18f62a56d0443b7c8372715
   ref: bbad22d10b7a1758d18f62a56d0443b7c8372715
   specs:

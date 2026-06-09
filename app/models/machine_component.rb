@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MachineComponent < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Environmental
   include Accountable
   include Limitable

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AccountSetting < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Limitable, Orderable, Pageable
   include Accountable, Dirtyable, Aliasable
 

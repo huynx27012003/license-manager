@@ -481,7 +481,7 @@ Feature: Create release
           "pointer": "/data/attributes/backdated"
         },
         "links": {
-          "about": "https://keygen.sh/docs/api/releases/#releases-object-attrs-backdated"
+          "about": "https://atlicense.vn/docs/api/releases/#releases-object-attrs-backdated"
         }
       }
       """
@@ -591,7 +591,7 @@ Feature: Create release
       """
       {
         "title": "Unprocessable resource",
-        "detail": "Your tier's release limit of 10 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing.",
+        "detail": "Your tier's release limit of 10 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atlicense.vn/billing.",
         "source": {
           "pointer": "/data/relationships/account"
         },
@@ -1437,7 +1437,7 @@ Feature: Create release
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/releases" with the following:
       """
@@ -1493,7 +1493,7 @@ Feature: Create release
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1965,7 +1965,7 @@ Feature: Create release
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/releases" with the following:
       """

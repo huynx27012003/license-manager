@@ -1,5 +1,5 @@
 class GroupOwner < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
   include Environmental
   include Accountable
   include Limitable

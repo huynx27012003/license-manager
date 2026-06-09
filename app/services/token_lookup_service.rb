@@ -32,7 +32,7 @@ class TokenLookupService < BaseService
       instance = tokens.find_by(id: m[:token_id])
 
       if instance&.compare_hashed_token(:digest, token, version: 'v1')
-        Keygen.logger.warn { "[token-lookup-service] v1 tokens are deprecated and must be regenerated: bearer_type=#{instance.bearer.class.name.inspect} bearer_id=#{instance.bearer.id.inspect} token_id=#{instance.id.inspect}" }
+        AtLicense.logger.warn { "[token-lookup-service] v1 tokens are deprecated and must be regenerated: bearer_type=#{instance.bearer.class.name.inspect} bearer_id=#{instance.bearer.id.inspect} token_id=#{instance.id.inspect}" }
 
         # FIXME(ezekg) jit rehash token: https://github.com/bcrypt-ruby/bcrypt-ruby/pull/168
         digest = BCrypt::Engine.hash_secret(
@@ -40,7 +40,7 @@ class TokenLookupService < BaseService
           BCrypt::Password.new(instance.digest).salt, # reuse salt
         )
         unless instance.send(:secure_compare, digest, instance.digest)
-          Keygen.logger.warn { "[token-lookup-service] rehashing token: token_id=#{instance.id.inspect}" }
+          AtLicense.logger.warn { "[token-lookup-service] rehashing token: token_id=#{instance.id.inspect}" }
 
           instance.update!(digest:)
         end

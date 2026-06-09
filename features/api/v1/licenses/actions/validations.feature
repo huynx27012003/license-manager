@@ -101,7 +101,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -123,7 +123,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -141,7 +141,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -159,7 +159,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -177,7 +177,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -199,7 +199,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -2301,7 +2301,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -2325,7 +2325,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -2345,7 +2345,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -2369,7 +2369,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -2469,7 +2469,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -2491,7 +2491,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -2509,7 +2509,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -2527,7 +2527,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -2545,7 +2545,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -2567,7 +2567,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -3266,7 +3266,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate" with the following:
       """
@@ -3303,7 +3303,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate" with the following:
       """
@@ -3329,7 +3329,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate" with the following:
       """
@@ -3415,7 +3415,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/validate" with the following:
       """
@@ -8689,7 +8689,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -8713,7 +8713,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "404"
@@ -8734,7 +8734,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -8759,7 +8759,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses/$0/actions/validate"
     Then the response status should be "200"
@@ -9499,7 +9499,7 @@ Feature: License validation actions
     And the current account has 1 isolated "license"
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -9556,7 +9556,7 @@ Feature: License validation actions
     And the current account has 1 shared "license"
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -9642,7 +9642,7 @@ Feature: License validation actions
     And the current account has 1 shared "license"
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -13907,7 +13907,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "invalid" }
+      { "AtLicense-Environment": "invalid" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -13925,7 +13925,7 @@ Feature: License validation actions
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
@@ -13942,7 +13942,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "invalid" }
+      { "AtLicense-Environment": "invalid" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -13960,7 +13960,7 @@ Feature: License validation actions
         "detail": "environment is invalid",
         "code": "ENVIRONMENT_INVALID",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
@@ -13981,7 +13981,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -14014,7 +14014,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -14045,7 +14045,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -14077,7 +14077,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -14109,7 +14109,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -14141,7 +14141,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses/actions/validate-key" with the following:
       """
@@ -14170,7 +14170,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -14199,7 +14199,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -14228,7 +14228,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -14257,7 +14257,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -14286,7 +14286,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """
@@ -14315,7 +14315,7 @@ Feature: License validation actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/actions/validate-key" with the following:
       """

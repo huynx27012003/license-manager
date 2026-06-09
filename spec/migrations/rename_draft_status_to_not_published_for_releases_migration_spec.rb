@@ -20,7 +20,7 @@ describe RenameDraftStatusToNotPublishedForReleasesMigration do
 
   it 'should migrate releases statuses' do
     migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-    data     = Keygen::JSONAPI.render([
+    data     = AtLicense::JSONAPI.render([
       release_without_artifact,
       release_with_artifact,
     ])

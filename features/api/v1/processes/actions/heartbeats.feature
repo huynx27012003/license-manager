@@ -200,7 +200,7 @@ Feature: Process heartbeat actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And time is frozen at "2022-10-16T14:52:48.000Z"
     When I send a POST request to "/accounts/test1/processes/$0/actions/ping"

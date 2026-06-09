@@ -39,13 +39,13 @@ Feature: User group relationship
     And the last "user" has the following attributes:
       """
       {
-        "email": "test@keygen.example",
+        "email": "test@atlicense.example",
         "groupId": "$groups[0]"
       }
       """
     And I am an admin of account "test1"
     And I use an authentication token
-    When I send a GET request to "/accounts/test1/users/test@keygen.example/group"
+    When I send a GET request to "/accounts/test1/users/test@atlicense.example/group"
     Then the response status should be "200"
     And the response body should be a "group"
     And the response should contain a valid signature header for "test1"
@@ -60,7 +60,7 @@ Feature: User group relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/users/$1/group"
     Then the response status should be "200"

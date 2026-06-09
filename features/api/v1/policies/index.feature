@@ -389,8 +389,8 @@ Feature: List policies
     And the response should contain the following headers:
       """
       {
-        "Keygen-Account": "$account",
-        "Keygen-Version": "1.6"
+        "AtLicense-Account": "$account",
+        "AtLicense-Version": "1.6"
       }
       """
 
@@ -420,8 +420,8 @@ Feature: List policies
     And the response should contain the following headers:
       """
       {
-        "Keygen-Account": "$account",
-        "Keygen-Version": "1.4"
+        "AtLicense-Account": "$account",
+        "AtLicense-Version": "1.4"
       }
       """
 
@@ -451,7 +451,7 @@ Feature: List policies
     And the response should contain the following headers:
       """
       {
-        "Keygen-Account-Id": "$account",
-        "Keygen-Version": "1.3"
+        "AtLicense-Account-Id": "$account",
+        "AtLicense-Version": "1.3"
       }
       """

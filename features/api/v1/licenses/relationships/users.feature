@@ -61,7 +61,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/licenses/$0/users"
     Then the response status should be "200"
@@ -172,10 +172,10 @@ Feature: License users relationship
     And the current account has 3 "license-users" for the last "license"
     And the last "user" has the following attributes:
       """
-      { "email": "test@keygen.example" }
+      { "email": "test@atlicense.example" }
       """
     And I use an authentication token
-    When I send a GET request to "/accounts/test1/licenses/$0/users/test@keygen.example"
+    When I send a GET request to "/accounts/test1/licenses/$0/users/test@atlicense.example"
     Then the response status should be "200"
     And the response body should be a "user"
 
@@ -694,7 +694,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -711,7 +711,7 @@ Feature: License users relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 3 "license-users"
     And the current account should have 3 "users"
@@ -730,7 +730,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1185,7 +1185,7 @@ Feature: License users relationship
       """
       {
         "title": "Unprocessable resource",
-        "detail": "Your tier's active licensed user limit of 50 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing.",
+        "detail": "Your tier's active licensed user limit of 50 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atlicense.vn/billing.",
         "code": "ACCOUNT_ALU_LIMIT_EXCEEDED",
         "source": {
           "pointer": "/data/relationships/account"
@@ -1227,7 +1227,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1244,7 +1244,7 @@ Feature: License users relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account should have 3 "license-users"
     And the current account should have 3 "users"
@@ -1262,7 +1262,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1296,7 +1296,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1313,7 +1313,7 @@ Feature: License users relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 3 "license-users"
     And the current account should have 3 "users"
@@ -1331,7 +1331,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1348,7 +1348,7 @@ Feature: License users relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 3 "license-users"
     And the current account should have 3 "users"
@@ -1367,7 +1367,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1384,7 +1384,7 @@ Feature: License users relationship
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 3 "license-users"
     And the current account should have 3 "users"
@@ -1404,7 +1404,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1793,7 +1793,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1823,7 +1823,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/licenses/$0/users" with the following:
       """
@@ -1853,7 +1853,7 @@ Feature: License users relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/licenses/$0/users" with the following:
       """

@@ -110,13 +110,13 @@ Feature: Delete entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a DELETE request to "/accounts/test1/entitlements/$0"
     Then the response status should be "204"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account should have 1 "entitlement"
     And sidekiq should have 1 "webhook" job
@@ -133,13 +133,13 @@ Feature: Delete entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/entitlements/$0"
     Then the response status should be "204"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 1 "entitlement"
     And sidekiq should have 1 "webhook" job
@@ -157,7 +157,7 @@ Feature: Delete entitlements
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a DELETE request to "/accounts/test1/entitlements/$1"
     Then the response status should be "403"
@@ -171,7 +171,7 @@ Feature: Delete entitlements
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs

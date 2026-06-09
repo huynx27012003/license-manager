@@ -18,7 +18,7 @@ development:
   primary: &primary_dev
     <<: *postgres
     url: <%= ENV['DATABASE_URL'] %>
-    database: keygen_dev
+    database: at-license_dev
   <% if ENV.key?('REPLICA_DATABASE_URL') %>
   replica:
     <<: *primary_dev
@@ -29,14 +29,14 @@ development:
   clickhouse:
     <<: *clickhouse
     url: <%= ENV['CLICKHOUSE_DATABASE_URL'] %>
-    database: keygen_clickhouse_dev
+    database: at-license_clickhouse_dev
     debug: true
   <% end %>
 
 test: &test
   primary: &primary_test
     <<: *postgres
-    database: keygen_test<%= ENV['TEST_ENV_NUMBER'] %>
+    database: at-license_test<%= ENV['TEST_ENV_NUMBER'] %>
   replica:
     <<: *primary_test
     url: <%= ENV['REPLICA_DATABASE_URL'] %>
@@ -44,7 +44,7 @@ test: &test
   clickhouse:
     <<: *clickhouse
     url: <%= ENV['CLICKHOUSE_DATABASE_URL'] %>
-    database: keygen_clickhouse_test<%= ENV['TEST_ENV_NUMBER'] %>
+    database: at-license_clickhouse_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   primary:
@@ -60,5 +60,5 @@ production:
   clickhouse:
     <<: *clickhouse
     url: <%= ENV['CLICKHOUSE_DATABASE_URL'] %>
-    database: keygen_clickhouse
+    database: at-license_clickhouse
   <% end %>

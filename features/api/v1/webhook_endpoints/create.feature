@@ -265,7 +265,7 @@ Feature: Create webhook endpoint
         "data": {
           "type": "webhook-endpoint",
           "attributes": {
-            "url": "https://api.keygen.sh/v1/accounts/demo/webhook-events",
+            "url": "https://api.atlicense.vn/v1/accounts/demo/webhook-events",
             "subscriptions": ["*"]
           }
         }
@@ -570,7 +570,7 @@ Feature: Create webhook endpoint
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/webhook-endpoints" with the following:
       """
@@ -600,7 +600,7 @@ Feature: Create webhook endpoint
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "shared" }
+      { "at_license-environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/webhook-endpoints" with the following:
       """
@@ -636,7 +636,7 @@ Feature: Create webhook endpoint
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/webhook-endpoints" with the following:
       """
@@ -666,7 +666,7 @@ Feature: Create webhook endpoint
     And I use an authentication token
     And I send the following headers:
       """
-      { "keygen-environment": "isolated" }
+      { "at_license-environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/webhook-endpoints" with the following:
       """

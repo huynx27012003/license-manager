@@ -95,7 +95,7 @@ Feature: Account subscription actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/actions/manage-subscription"
     Then the response status should be "403"

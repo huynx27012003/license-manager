@@ -20,7 +20,7 @@ module Pageable
 
     # adds UUID validation to the default keyset paginator because pg will raise
     scope :with_keyset_pagination, -> (cursor: nil, size: nil, order: :desc) {
-      raise Keygen::Error::InvalidParameterError.new("page cursor must be a valid UUID (got #{cursor.inspect})", parameter: 'page[cursor]') unless
+      raise AtLicense::Error::InvalidParameterError.new("page cursor must be a valid UUID (got #{cursor.inspect})", parameter: 'page[cursor]') unless
         cursor in UUID_RE | '' | nil
 
       keyset_paginate(cursor:, size:, order:)
@@ -28,10 +28,10 @@ module Pageable
 
     # TODO(ezekg) deprecate offset pagination and replace with keyset pagination
     scope :with_offset_pagination, -> (number:, size:) {
-      raise Keygen::Error::InvalidParameterError.new(parameter: 'page[number]'), 'page number must be a number' unless
+      raise AtLicense::Error::InvalidParameterError.new(parameter: 'page[number]'), 'page number must be a number' unless
         number.respond_to?(:to_i)
 
-      raise Keygen::Error::InvalidParameterError.new(parameter: 'page[size]'), 'page size must be a number' unless
+      raise AtLicense::Error::InvalidParameterError.new(parameter: 'page[size]'), 'page size must be a number' unless
         size.respond_to?(:to_i)
 
       number = number.to_i
@@ -44,11 +44,11 @@ module Pageable
                     "page number must be a number between #{PAGE_LOWER} and #{PAGE_UPPER} (got #{number})"
                   end
 
-        raise Keygen::Error::InvalidParameterError.new(parameter: 'page[number]'), message
+        raise AtLicense::Error::InvalidParameterError.new(parameter: 'page[number]'), message
       end
 
       if size < SIZE_LOWER || size > SIZE_UPPER
-        raise Keygen::Error::InvalidParameterError.new(parameter: 'page[size]'), "page size must be a number between #{SIZE_LOWER} and #{SIZE_UPPER} (got #{size})"
+        raise AtLicense::Error::InvalidParameterError.new(parameter: 'page[size]'), "page size must be a number between #{SIZE_LOWER} and #{SIZE_UPPER} (got #{size})"
       end
 
       paged = offset_paginate(number)

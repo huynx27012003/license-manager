@@ -98,7 +98,7 @@ class ProcessOciImageWorker < BaseWorker
       rescue ActiveRecord::RecordNotUnique => e
         # FIXME(ezekg) sometimes we get the same item more than once when
         #              live-streaming an in-progress upload
-        Keygen.logger.warn { "[workers.process-oci-image-worker] Error: #{e.class.name} - #{e.message}" }
+        AtLicense.logger.warn { "[workers.process-oci-image-worker] Error: #{e.class.name} - #{e.message}" }
       end
     end
 
@@ -116,7 +116,7 @@ class ProcessOciImageWorker < BaseWorker
          Minitar::UnexpectedEOF,
          Minitar::Error,
          IOError => e
-    Keygen.logger.warn { "[workers.process-oci-image-worker] Error: #{e.class.name} - #{e.message}" }
+    AtLicense.logger.warn { "[workers.process-oci-image-worker] Error: #{e.class.name} - #{e.message}" }
 
     artifact.update!(status: 'FAILED')
 

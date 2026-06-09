@@ -100,7 +100,7 @@ describe Pagination, type: :concern do
     it 'should raise for invalid page structure' do
       expect {
         Pagination::Params.new(page: { foo: 1 })
-      }.to raise_error(Keygen::Error::InvalidParameterError, /page must be an object/)
+      }.to raise_error(AtLicense::Error::InvalidParameterError, /page must be an object/)
     end
 
     it 'should parse cursor without size using default' do
@@ -142,7 +142,7 @@ describe Pagination, type: :concern do
     it 'should raise for page without cursor or number' do
       expect {
         Pagination::Params.new(page: { size: 25 })
-      }.to raise_error(Keygen::Error::InvalidParameterError, /page must be an object/)
+      }.to raise_error(AtLicense::Error::InvalidParameterError, /page must be an object/)
     end
   end
 

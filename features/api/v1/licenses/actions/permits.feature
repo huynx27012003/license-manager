@@ -75,7 +75,7 @@ Feature: License permit actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/check-in"
     Then the response status should be "200"
@@ -83,7 +83,7 @@ Feature: License permit actions
     And the response body should be a "license" with a nextCheckIn that is not nil
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -307,7 +307,7 @@ Feature: License permit actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/suspend"
     Then the response status should be "200"
@@ -451,7 +451,7 @@ Feature: License permit actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/reinstate"
     Then the response status should be "200"
@@ -731,7 +731,7 @@ Feature: License permit actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses/$0/actions/renew"
     Then the response status should be "200"
@@ -932,7 +932,7 @@ Feature: License permit actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a DELETE request to "/accounts/test1/licenses/$0/actions/revoke"
     Then the response status should be "204"

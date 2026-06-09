@@ -432,7 +432,7 @@ Rails.application.routes.draw do
     # and mime type constraints. Essentially, we want these routes to be able to be
     # accessed regardless of domain or format. The domain aspect mainly is because
     # auth isn't always forwarded during redirects e.g. when redirecting from
-    # rubygems.pkg.keygen.sh to api.keygen.sh, which breaks downloads.
+    # rubygems.pkg.atenergy.vn to api.atenergy.vn, which breaks downloads.
     scope defaults: { format: :jsonapi } do
       resources :release_artifacts, only: %i[show], path: 'artifacts', constraints: { id: /.*/, format: /.*/ } do
         member do
@@ -488,9 +488,9 @@ Rails.application.routes.draw do
     end
   end
 
-  if Keygen.cloud?
+  if AtLicense.cloud?
     # Simplified short URLs for artifact distribution
-    scope module: :bin, constraints: { domain: Keygen::DOMAIN, subdomain: %w[bin get], format: :jsonapi } do
+    scope module: :bin, constraints: { domain: AtLicense::DOMAIN, subdomain: %w[bin get], format: :jsonapi } do
       version_constraint '<=1.0' do
         scope module: :v1x0 do
           get ':account_id',     constraints: { account_id: /[^\/]*/ },           to: 'release_artifacts#index', as: :bin_artifacts
@@ -505,7 +505,7 @@ Rails.application.routes.draw do
     end
 
     # Routes for Stdout (e.g. unsubscribe, resubscribe)
-    scope module: :stdout, constraints: { domain: Keygen::DOMAIN, subdomain: 'stdout', format: :html } do
+    scope module: :stdout, constraints: { domain: AtLicense::DOMAIN, subdomain: 'stdout', format: :html } do
       get 'unsub/:ciphertext', constraints: { ciphertext: /.*/ }, to: 'subscribers#unsubscribe', as: :stdout_unsubscribe
       get 'resub/:ciphertext', constraints: { ciphertext: /.*/ }, to: 'subscribers#resubscribe', as: :stdout_resubscribe
     end
@@ -519,9 +519,9 @@ Rails.application.routes.draw do
         get :webhooks, to: 'health#webhook_health'
       end
 
-      constraints domain: Keygen::DOMAIN do
-        constraints subdomain: Keygen::SUBDOMAIN do
-          if Keygen.cloud?
+      constraints domain: AtLicense::DOMAIN do
+        constraints subdomain: AtLicense::SUBDOMAIN do
+          if AtLicense.cloud?
             post :stripe, to: 'stripe#callback', as: :stripe_callback
             post :slack,  to: 'slack#callback',  as: :slack_callback
 
@@ -537,9 +537,9 @@ Rails.application.routes.draw do
 
             # Account
             case
-            when Keygen.multiplayer?
+            when AtLicense.multiplayer?
               resources :accounts, param: :account_id, only: %i[show create update destroy]
-            when Keygen.singleplayer?
+            when AtLicense.singleplayer?
               resources :accounts, param: :account_id, only: %i[show update destroy]
             end
           end
@@ -549,8 +549,8 @@ Rails.application.routes.draw do
         # routes are also available in singleplayer mode for compatibility.
         scope 'accounts/:account_id', as: :account do
           scope constraints: MimeTypeConstraint.new(:jsonapi, :json, raise_on_no_match: true), defaults: { format: :jsonapi } do
-            constraints subdomain: Keygen::SUBDOMAIN do
-              if Keygen.cloud?
+            constraints subdomain: AtLicense::SUBDOMAIN do
+              if AtLicense.cloud?
                 scope module: 'accounts/relationships' do
                   resource :billing, only: %i[show update]
                   resource :plan,    only: %i[show update]
@@ -582,58 +582,58 @@ Rails.application.routes.draw do
   end
 
   # Subdomains for our supported distribution engines (i.e. package managers)
-  scope constraints: { domain: Keygen::DOMAIN, subdomain: /\.pkg$/ } do
+  scope constraints: { domain: AtLicense::DOMAIN, subdomain: /\.pkg$/ } do
     scope module: 'api/v1/release_engines', constraints: { subdomain: 'pypi.pkg' } do
       case
-      when Keygen.multiplayer?
+      when AtLicense.multiplayer?
         scope ':account_id', as: :account do
           concerns :pypi
         end
-      when Keygen.singleplayer?
+      when AtLicense.singleplayer?
         concerns :pypi
       end
     end
 
     scope module: 'api/v1/release_engines', constraints: { subdomain: 'tauri.pkg' } do
       case
-      when Keygen.multiplayer?
+      when AtLicense.multiplayer?
         scope ':account_id', as: :account do
           concerns :tauri
         end
-      when Keygen.singleplayer?
+      when AtLicense.singleplayer?
         concerns :tauri
       end
     end
 
     scope module: 'api/v1/release_engines', constraints: { subdomain: 'raw.pkg' } do
       case
-      when Keygen.multiplayer?
+      when AtLicense.multiplayer?
         scope ':account_id', as: :account do
           concerns :raw
         end
-      when Keygen.singleplayer?
+      when AtLicense.singleplayer?
         concerns :raw
       end
     end
 
     scope module: 'api/v1/release_engines', constraints: { subdomain: 'rubygems.pkg' } do
       case
-      when Keygen.multiplayer?
+      when AtLicense.multiplayer?
         scope ':account_id', as: :account do
           concerns :rubygems
         end
-      when Keygen.singleplayer?
+      when AtLicense.singleplayer?
         concerns :rubygems
       end
     end
 
     scope module: 'api/v1/release_engines', constraints: { subdomain: 'npm.pkg' } do
       case
-      when Keygen.multiplayer?
+      when AtLicense.multiplayer?
         scope ':account_id', as: :account do
           concerns :npm
         end
-      when Keygen.singleplayer?
+      when AtLicense.singleplayer?
         concerns :npm
       end
     end
@@ -646,11 +646,11 @@ Rails.application.routes.draw do
         match '/', via: %i[head get], to: -> env { [200, {'Docker-Distribution-Api-Version': 'registry/2.0'}, []] }
 
         case
-        when Keygen.multiplayer?
+        when AtLicense.multiplayer?
           scope ':account_id', as: :account do
             concerns :oci
           end
-        when Keygen.singleplayer?
+        when AtLicense.singleplayer?
           concerns :oci
         end
       end
@@ -658,7 +658,7 @@ Rails.application.routes.draw do
   end
 
   # subdomains for authentication e.g. SSO
-  scope constraints: { domain: Keygen::DOMAIN, subdomain: 'auth' } do
+  scope constraints: { domain: AtLicense::DOMAIN, subdomain: 'auth' } do
     scope module: :auth do
       concerns :sso
     end
@@ -675,12 +675,12 @@ Rails.application.routes.draw do
 
   # route helpers for redirecting to Portal
   direct :portal do |segment, options|
-    Keygen::Portal.url_for(segment, **options)
+    AtLicense::Portal.url_for(segment, **options)
   end
 
   # route helpers for redirecting to docs
   direct :docs do |segment, options|
-    Keygen::Docs.url_for(segment, **options)
+    AtLicense::Docs.url_for(segment, **options)
   end
 
   %w[500 503].each do |code|

@@ -40,29 +40,29 @@ describe AsyncUpdatable, type: :concern do
     end
 
     it 'includes dirty attributes in the update' do
-      person = Person.create!(name: 'test', email: 'test@keygen.example')
+      person = Person.create!(name: 'test', email: 'test@at-license.example')
 
-      person.email = 'updated@keygen.example'
+      person.email = 'updated@at-license.example'
 
       perform_enqueued_jobs { person.update_async(name: 'updated') }
 
       person.reload
 
-      expect(person.email).to eq 'updated@keygen.example'
+      expect(person.email).to eq 'updated@at-license.example'
       expect(person.name).to eq 'updated'
     end
 
     it 'only updates changed attributes' do
-      person = Person.create!(name: 'test', email: 'test@keygen.example')
+      person = Person.create!(name: 'test', email: 'test@at-license.example')
 
-      person.email = 'updated@keygen.example'
+      person.email = 'updated@at-license.example'
 
       expect { person.update_async(name: 'updated') }.to have_enqueued_job(
         AsyncUpdatable::UpdateAsyncJob,
       ).with(
         class_name: 'Person',
         id: person.id,
-        attributes: { 'email' => 'updated@keygen.example', 'name' => 'updated' },
+        attributes: { 'email' => 'updated@at-license.example', 'name' => 'updated' },
       )
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StdoutMailer < ApplicationMailer
-  default from: 'Zeke at Keygen <zeke@keygen.sh>'
+  default from: 'ATEnergy Team <support@atenergy.vn>'
   default precedence: 'bulk'
 
   def issue_eleven(subscriber:)
@@ -12,7 +12,7 @@ class StdoutMailer < ApplicationMailer
     return if
       enc_email.nil?
 
-    unsub_link = stdout_unsubscribe_url(enc_email, protocol: 'https', host: 'stdout.keygen.sh')
+    unsub_link = stdout_unsubscribe_url(enc_email, protocol: 'https', host: 'stdout.atenergy.vn')
     greeting   = if subscriber.first_name?
                     "Hey, #{subscriber.first_name}"
                   else
@@ -24,23 +24,23 @@ class StdoutMailer < ApplicationMailer
       to: subscriber.email,
       subject: "New pricing, Slack support, custom permissions, audit logs, and SSO!",
       body: <<~TXT
-        (You're receiving this email because you or your team signed up for a Keygen account. If you don't find this email useful, you can unsubscribe below.)
+        (You're receiving this email because you or your team signed up for a AtLicense account. If you don't find this email useful, you can unsubscribe below.)
 
           #{unsub_link}
 
         --
 
-        Zeke here, founder of Keygen. Been a bit. Quick update on what's new in Keygen, as well as what's next.
+        Zeke here, founder of AtLicense. Been a bit. Quick update on what's new in AtLicense, as well as what's next.
 
         Let's dive straight in --
 
-        ## Keygen turns 9
+        ## AtLicense turns 9
 
-        Last month, Keygen celebrated its **9th** birthday! Absolutely crazy to think about! Doesn't seem like that long, but at the same time it's hard to remember my professional life without Keygen.
+        Last month, AtLicense celebrated its **9th** birthday! Absolutely crazy to think about! Doesn't seem like that long, but at the same time it's hard to remember my professional life without AtLicense.
 
-        I'd like to give a special thanks to every current and past customer of Keygen. Y'all have made this a joy.
+        I'd like to give a special thanks to every current and past customer of AtLicense. Y'all have made this a joy.
 
-        Initial commit: https://github.com/keygen-sh/keygen-api/commit/84e8ccc35ea4accaf45d8bf529ba554650465644
+        Initial commit: https://github.com/ATEnergy/at-license-api/commit/84e8ccc35ea4accaf45d8bf529ba554650465644
 
         ## New pricing
 
@@ -52,17 +52,17 @@ class StdoutMailer < ApplicationMailer
 
         The pricing update will help make some of our tiers more sustainable and overtime put us into more healthy margins, which will first and foremost help facilitate growing the team from just me so that we can accomplish more and at a faster pace (and good news: already working on our first hire!)
 
-        Keygen is still 100% bootstrapped, revenue-funded, and profitable, and I'm super proud of where it's at. The new pricing reflects my commitment to making sure Keygen can continue to grow, remain healthy, and most importantly not be limited by the output of a single person (me). It's been an incredible journey doing this solo for 9 years, but I'm ready to have a team beside me to make sure Keygen can continue to scale and meet the requirements of the new age of AI computing.
+        AtLicense is still 100% bootstrapped, revenue-funded, and profitable, and I'm super proud of where it's at. The new pricing reflects my commitment to making sure AtLicense can continue to grow, remain healthy, and most importantly not be limited by the output of a single person (me). It's been an incredible journey doing this solo for 9 years, but I'm ready to have a team beside me to make sure AtLicense can continue to scale and meet the requirements of the new age of AI computing.
 
         **Once again: this pricing change *DOES NOT* affect existing customers -- y'all are "grandfathered in," so to speak, as usual when we make pricing updates!**
 
         (Though do note that all future downgrades/upgrades will be on the new pricing tiers moving forward, also as usual.)
 
-        Link: https://keygen.sh/pricing/
+        Link: https://atenergy.vn/pricing/
 
         ## Slack support
 
-        I want to make sure everybody using Keygen is successful, and I want to try something other than just email, so I've started offering Slack support for customers registered with a work email.
+        I want to make sure everybody using AtLicense is successful, and I want to try something other than just email, so I've started offering Slack support for customers registered with a work email.
 
         Slack support is in addition to email support. Happy to answer questions, offer integration support, or just talk shop re: licensing/distribution/business.
 
@@ -70,13 +70,13 @@ class StdoutMailer < ApplicationMailer
 
         ## Custom permissions
 
-        As part of prepping for Keygen Portal, our new UI, we've rolled out custom permissions to all customers. Your dashboard should have a new `permissions` attribute on various resources like users, licenses, and tokens.
+        As part of prepping for AtLicense Portal, our new UI, we've rolled out custom permissions to all customers. Your dashboard should have a new `permissions` attribute on various resources like users, licenses, and tokens.
 
         In addition, you should see options for configuring default permission sets for users and licenses soon under your /settings page.
 
         Custom permissions used to be an Ent-only feature, now it's GA'd and available on all Dev and Std tiers!
 
-        Link: https://keygen.sh/docs/api/authorization/
+        Link: https://atenergy.vn/docs/api/authorization/
 
         ## Audit logs
 
@@ -86,7 +86,7 @@ class StdoutMailer < ApplicationMailer
 
         Audit logs used to be an Ent-only feature, now GA'd! Win-win for security and observability.
 
-        Link: https://keygen.sh/docs/api/event-logs/
+        Link: https://atenergy.vn/docs/api/event-logs/
 
         ## SAML/SSO
 
@@ -94,11 +94,11 @@ class StdoutMailer < ApplicationMailer
 
         SAML/SSO is not available on our older Ent pricing tiers, due to cost misalignment. SAML/SSO will be available in Portal.
 
-        Link: https://keygen.sh/docs/sso/
+        Link: https://atenergy.vn/docs/sso/
 
         ## What's next
 
-        We're hard at work on Portal, our brand new UI. Super excited to share more in the coming months (I've already shared a few early screenshots in Discord: https://keygen.sh/discord/).
+        We're hard at work on Portal, our brand new UI. Super excited to share more in the coming months (I've already shared a few early screenshots in Discord: https://atenergy.vn/discord/).
 
         Hoping to have Portal out -- or at least in some sort of beta form -- by Q3/Q4. But this project has been long, so don't take that as a promise or hard release date just yet.
 
@@ -108,18 +108,18 @@ class StdoutMailer < ApplicationMailer
 
         As always, for more in-depth information on what's changed and what's new over the last few months, check out our changelog!
 
-        Link: https://keygen.sh/changelog/
+        Link: https://atenergy.vn/changelog/
 
         ---
 
         Let me know if you have any questions, have feedback for me on things we can do better, or just things you'd like us to build.
 
-        I appreciate every single one of you, and I'm honored that you trust Keygen. As always, I'll be here (and now in Slack!)
+        I appreciate every single one of you, and I'm honored that you trust AtLicense. As always, I'll be here (and now in Slack!)
 
         Here's to another 9 years. *cheers*
 
         --
-        Zeke, Founder <https://keygen.sh>
+        ATEnergy Team <https://atenergy.vn>
 
         p.s. don't forget about the Slack Connect invite! reply to this email to get one.
       TXT
@@ -138,7 +138,7 @@ class StdoutMailer < ApplicationMailer
 
     enc
   rescue => e
-    Keygen.logger.error "[stdout.encrypt] Encrypt failed: err=#{e.message}"
+    AtLicense.logger.error "[stdout.encrypt] Encrypt failed: err=#{e.message}"
 
     nil
   end

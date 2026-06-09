@@ -2446,11 +2446,11 @@ Feature: List license
     And the current account has 2 "users"
     And the second "user" has the following attributes:
       """
-      { "email": "zeke@keygen.example" }
+      { "email": "zeke@atlicense.example" }
       """
     And the third "user" has the following attributes:
       """
-      { "email": "luca@keygen.example" }
+      { "email": "luca@atlicense.example" }
       """
     And the current account has 6 "licenses"
     And the first "license" has the following attributes:
@@ -2474,7 +2474,7 @@ Feature: List license
       { "userId": "$users[1]" }
       """
     And I use an authentication token
-    When I send a GET request to "/accounts/test1/licenses?user=luca@keygen.example"
+    When I send a GET request to "/accounts/test1/licenses?user=luca@atlicense.example"
     Then the response status should be "200"
     And the response body should be an array with 1 "license"
 
@@ -3213,7 +3213,7 @@ Feature: List license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/licenses"
     Then the response status should be "200"
@@ -3229,7 +3229,7 @@ Feature: List license
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
 
   @ee
@@ -3264,5 +3264,5 @@ Feature: List license
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """

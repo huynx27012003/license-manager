@@ -10,7 +10,7 @@ module Billings
     def call
       Billings::Event.retrieve(event)
     rescue Billings::Error => e
-      Keygen.logger.exception(e)
+      AtLicense.logger.exception(e)
 
       nil
     end

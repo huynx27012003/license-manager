@@ -396,7 +396,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -425,7 +425,7 @@ Feature: Create license
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
@@ -490,7 +490,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses" with the following:
       """
@@ -524,7 +524,7 @@ Feature: Create license
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And the current account should have 1 "license"
     And sidekiq should have 1 "webhook" job
@@ -543,7 +543,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses" with the following:
       """
@@ -577,7 +577,7 @@ Feature: Create license
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 1 "license"
     And sidekiq should have 1 "webhook" job
@@ -624,7 +624,7 @@ Feature: Create license
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And the current account should have 1 "license"
     And sidekiq should have 1 "webhook" job
@@ -643,7 +643,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses" with the following:
       """
@@ -693,7 +693,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses" with the following:
       """
@@ -727,7 +727,7 @@ Feature: Create license
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 1 "license"
     And sidekiq should have 1 "webhook" job
@@ -822,7 +822,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/ent1/licenses" with the following:
       """
@@ -876,7 +876,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/ent1/licenses" with the following:
       """
@@ -913,7 +913,7 @@ Feature: Create license
     And the response should contain a valid signature header for "ent1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And the current account should have 1 "license"
     And sidekiq should have 1 "webhook" job
@@ -1022,7 +1022,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -1052,14 +1052,14 @@ Feature: Create license
         "detail": "is unsupported",
         "code": "ENVIRONMENT_NOT_SUPPORTED",
         "source": {
-          "header": "Keygen-Environment"
+          "header": "AtLicense-Environment"
         }
       }
       """
     And the response should contain a valid signature header for "test1"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": null }
+      { "AtLicense-Environment": null }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs
@@ -1075,7 +1075,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -1113,7 +1113,7 @@ Feature: Create license
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1130,7 +1130,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -1180,7 +1180,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -1227,7 +1227,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -1265,7 +1265,7 @@ Feature: Create license
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1282,7 +1282,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -1332,7 +1332,7 @@ Feature: Create license
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
       """
@@ -3282,7 +3282,7 @@ Feature: Create license
     And the response body should a "license" that contains a valid "RSA_2048_JWT_RS256" key with the following dataset:
       """
       {
-        "iss": "https://keygen.sh",
+        "iss": "https://atlicense.vn",
         "aud": "$licenses[0].account_id",
         "sub": "$licenses[0].id",
         "exp": $licenses[0].expiry.to_i,
@@ -5664,7 +5664,7 @@ Feature: Create license
             "pointer": "/data/attributes/permissions"
           },
           "links": {
-            "about": "https://keygen.sh/docs/api/licenses/#licenses-object-attrs-permissions"
+            "about": "https://atlicense.vn/docs/api/licenses/#licenses-object-attrs-permissions"
           }
         }
       """
@@ -5713,7 +5713,7 @@ Feature: Create license
             "pointer": "/data/attributes/permissions"
           },
           "links": {
-            "about": "https://keygen.sh/docs/api/licenses/#licenses-object-attrs-permissions"
+            "about": "https://atlicense.vn/docs/api/licenses/#licenses-object-attrs-permissions"
           }
         }
       """
@@ -5762,7 +5762,7 @@ Feature: Create license
             "pointer": "/data/attributes/permissions"
           },
           "links": {
-            "about": "https://keygen.sh/docs/api/licenses/#licenses-object-attrs-permissions"
+            "about": "https://atlicense.vn/docs/api/licenses/#licenses-object-attrs-permissions"
           }
         }
       """
@@ -5811,7 +5811,7 @@ Feature: Create license
             "pointer": "/data/attributes/permissions"
           },
           "links": {
-            "about": "https://keygen.sh/docs/api/licenses/#licenses-object-attrs-permissions"
+            "about": "https://atlicense.vn/docs/api/licenses/#licenses-object-attrs-permissions"
           }
         }
       """
@@ -6112,7 +6112,7 @@ Feature: Create license
       """
       {
         "Authorization": "Bearer 852da78f-1444-4462-8863-d7b9fff9e003",
-        "Origin": "https://app.keygen.sh"
+        "Origin": "https://app.atlicense.vn"
       }
       """
     When I send a POST request to "/accounts/test1/licenses" with the following:
@@ -6425,7 +6425,7 @@ Feature: Create license
       """
       {
         "title": "Unprocessable resource",
-        "detail": "Your tier's active licensed user limit of 50 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing.",
+        "detail": "Your tier's active licensed user limit of 50 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atlicense.vn/billing.",
         "code": "ACCOUNT_ALU_LIMIT_EXCEEDED",
         "source": {
           "pointer": "/data/relationships/account"
@@ -6469,7 +6469,7 @@ Feature: Create license
       """
       {
         "title": "Unprocessable resource",
-        "detail": "Your tier's active licensed user limit of 50 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing.",
+        "detail": "Your tier's active licensed user limit of 50 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atlicense.vn/billing.",
         "code": "ACCOUNT_ALU_LIMIT_EXCEEDED",
         "source": {
           "pointer": "/data/relationships/account"
@@ -7427,7 +7427,7 @@ Feature: Create license
     And the current account has 1 "user"
     And the last "user" has the following attributes:
       """
-      { "email": "test@keygen.example" }
+      { "email": "test@atlicense.example" }
       """
     And I use an authentication token
     When I send a POST request to "/accounts/test1/licenses" with the following:
@@ -7463,7 +7463,7 @@ Feature: Create license
       """
       {
         "id": "75481f3c-bf58-4d3f-8457-eea2b7291f4e",
-        "email": "test@keygen.example",
+        "email": "test@atlicense.example",
         "expiry": ""
       }
       """
@@ -7488,7 +7488,7 @@ Feature: Create license
     And the current account has 1 "user"
     And the last "user" has the following attributes:
       """
-      { "email": "test@keygen.example" }
+      { "email": "test@atlicense.example" }
       """
     And I use an authentication token
     When I send a POST request to "/accounts/test1/licenses" with the following:

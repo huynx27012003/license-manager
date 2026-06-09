@@ -296,7 +296,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.6" }
+      { "AtLicense-Version": "1.6" }
       """
 
   Scenario: Admin retrieves a policy with a machine uniqueness strategy (v1.4)
@@ -316,7 +316,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.4" }
+      { "AtLicense-Version": "1.4" }
       """
 
   Scenario: Admin retrieves a policy with a machine uniqueness strategy (v1.3)
@@ -336,7 +336,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.3" }
+      { "AtLicense-Version": "1.3" }
       """
 
   Scenario: Admin retrieves a policy with a machine uniqueness strategy (v1.2)
@@ -356,7 +356,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.2" }
+      { "AtLicense-Version": "1.2" }
       """
 
   Scenario: Admin retrieves a policy with a machine uniqueness strategy (v1.1)
@@ -376,7 +376,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.1" }
+      { "AtLicense-Version": "1.1" }
       """
 
   Scenario: Admin retrieves a policy with a machine uniqueness strategy (v1.0)
@@ -396,7 +396,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.0" }
+      { "AtLicense-Version": "1.0" }
       """
 
   Scenario: Admin retrieves a policy with a machine matching strategy (v1.4)
@@ -416,7 +416,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.4" }
+      { "AtLicense-Version": "1.4" }
       """
 
   Scenario: Admin retrieves a policy with a machine matching strategy (v1.3)
@@ -436,7 +436,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.3" }
+      { "AtLicense-Version": "1.3" }
       """
 
   Scenario: Admin retrieves a policy with a machine matching strategy (v1.2)
@@ -456,7 +456,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.2" }
+      { "AtLicense-Version": "1.2" }
       """
 
   Scenario: Admin retrieves a policy with a machine matching strategy (v1.1)
@@ -476,7 +476,7 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.1" }
+      { "AtLicense-Version": "1.1" }
       """
 
   Scenario: Admin retrieves a policy with a machine matching strategy (v1.0)
@@ -496,6 +496,6 @@ Feature: Show policy
       """
     Then the response should contain the following headers:
       """
-      { "Keygen-Version": "1.0" }
+      { "AtLicense-Version": "1.0" }
       """
 

@@ -1,6 +1,6 @@
 class Environment < ApplicationRecord
-  include Keygen::EE::ProtectedClass[entitlements: %i[environments]]
-  include Keygen::PortableClass
+  include AtLicense::EE::ProtectedClass[entitlements: %i[environments]]
+  include AtLicense::PortableClass
   include Accountable
   include Limitable
   include Orderable

@@ -6,10 +6,10 @@ import { join } from 'node:path'
 const app = express()
 const PORT = 4000
 
-const KEYGEN_API = 'http://192.168.4.67:3000/v1'
-const KEYGEN_EMAIL = 'admin@example.com'
-const KEYGEN_PASSWORD = 'cac574a29b02b389cfe43d8d'
-const KEYGEN_ACCOUNT = '9d98fe60-dd63-4b7e-a8c9-26725058567b'
+const AT_LICENSE_API = 'http://192.168.4.67:3000/v1'
+const AT_LICENSE_EMAIL = 'admin@example.com'
+const AT_LICENSE_PASSWORD = 'cac574a29b02b389cfe43d8d'
+const AT_LICENSE_ACCOUNT = '9d98fe60-dd63-4b7e-a8c9-26725058567b'
 
 let adminToken = null
 
@@ -26,14 +26,14 @@ const licenses = {}
 app.use(express.json())
 app.use(express.static(join(import.meta.dirname, 'public')))
 
-async function loginKeygen() {
-  const res = await fetch(`${KEYGEN_API}/tokens`, {
+async function loginAtLicense() {
+  const res = await fetch(`${AT_LICENSE_API}/tokens`, {
     method: 'POST',
     headers: {
-      Authorization: 'Basic ' + Buffer.from(`${KEYGEN_EMAIL}:${KEYGEN_PASSWORD}`).toString('base64'),
+      Authorization: 'Basic ' + Buffer.from(`${AT_LICENSE_EMAIL}:${AT_LICENSE_PASSWORD}`).toString('base64'),
       'Content-Type': 'application/vnd.api+json',
       Accept: 'application/vnd.api+json',
-      'Keygen-Version': '1.8',
+      'AtLicense-Version': '1.8',
     },
     body: JSON.stringify({ data: { type: 'tokens', attributes: {} } }),
   })
@@ -42,20 +42,20 @@ async function loginKeygen() {
   return adminToken
 }
 
-async function keygenRequest(path, { method = 'GET', body } = {}) {
-  if (!adminToken) await loginKeygen()
+async function at-licenseRequest(path, { method = 'GET', body } = {}) {
+  if (!adminToken) await loginAtLicense()
   const headers = {
     Accept: 'application/vnd.api+json',
     'Content-Type': 'application/vnd.api+json',
-    'Keygen-Version': '1.8',
+    'AtLicense-Version': '1.8',
     Authorization: `Bearer ${adminToken}`,
   }
-  let res = await fetch(`${KEYGEN_API}${path}`, { method, headers, body: body && JSON.stringify(body) })
+  let res = await fetch(`${AT_LICENSE_API}${path}`, { method, headers, body: body && JSON.stringify(body) })
 
   if (res.status === 401) {
-    await loginKeygen()
+    await loginAtLicense()
     headers.Authorization = `Bearer ${adminToken}`
-    res = await fetch(`${KEYGEN_API}${path}`, { method, headers, body: body && JSON.stringify(body) })
+    res = await fetch(`${AT_LICENSE_API}${path}`, { method, headers, body: body && JSON.stringify(body) })
   }
 
   const text = await res.text()
@@ -108,7 +108,7 @@ app.post('/api/activate', requireAuth, async (req, res) => {
     return res.json({ ok: true, alreadyActivated: true, licenseKey: existing.key, machineId: existing.machineId })
   }
 
-  const validate = await keygenRequest('/licenses/actions/validate-key', {
+  const validate = await at-licenseRequest('/licenses/actions/validate-key', {
     method: 'POST',
     body: { meta: { key: licenseKey, scope: { fingerprint } } },
   })
@@ -119,25 +119,25 @@ app.post('/api/activate', requireAuth, async (req, res) => {
     return res.status(400).json({ error: validate.data?.meta?.detail || `License not valid: ${code}`, code })
   }
 
-  const lookup = await keygenRequest(`/licenses?key=${encodeURIComponent(licenseKey)}`)
-  const keygenLicense = lookup.data?.data?.[0]
-  if (!keygenLicense) return res.status(400).json({ error: 'License not found' })
-  const keygenLicenseId = keygenLicense.id
+  const lookup = await at-licenseRequest(`/licenses?key=${encodeURIComponent(licenseKey)}`)
+  const at-licenseLicense = lookup.data?.data?.[0]
+  if (!at-licenseLicense) return res.status(400).json({ error: 'License not found' })
+  const at-licenseLicenseId = at-licenseLicense.id
 
-  const existingMachines = await keygenRequest(`/machines?license=${keygenLicenseId}`)
+  const existingMachines = await at-licenseRequest(`/machines?license=${at-licenseLicenseId}`)
   const matchedMachine = existingMachines.data?.data?.find(m => m.attributes?.fingerprint === fingerprint)
 
   let machineId
   if (matchedMachine) {
     machineId = matchedMachine.id
   } else {
-    const createMachine = await keygenRequest('/machines', {
+    const createMachine = await at-licenseRequest('/machines', {
       method: 'POST',
       body: {
         data: {
           type: 'machines',
           attributes: { fingerprint, name: req.session.user.name + ' browser', metadata: { browserDeviceId } },
-          relationships: { license: { data: { type: 'licenses', id: keygenLicenseId } } },
+          relationships: { license: { data: { type: 'licenses', id: at-licenseLicenseId } } },
         },
       },
     })
@@ -149,15 +149,15 @@ app.post('/api/activate', requireAuth, async (req, res) => {
 
   licenses[userId] = {
     key: licenseKey,
-    keygenLicenseId,
+    at-licenseLicenseId,
     machineId,
     fingerprint,
     activated: true,
     activatedAt: new Date().toISOString(),
-    policyName: keygenLicense.relationships?.policy?.data?.id || '',
+    policyName: at-licenseLicense.relationships?.policy?.data?.id || '',
   }
 
-  res.json({ ok: true, machineId, keygenLicenseId })
+  res.json({ ok: true, machineId, at-licenseLicenseId })
 })
 
 app.get('/api/license/status', requireAuth, (req, res) => {
@@ -183,14 +183,14 @@ app.get('/api/data', requireAuth, requireLicense, async (req, res) => {
     return res.status(403).json({ error: 'Fingerprint does not match activated machine', code: 'FINGERPRINT_MISMATCH' })
   }
 
-  const keygenLicense = await keygenRequest(`/licenses/${req.license.keygenLicenseId}`)
-  const status = keygenLicense.data?.data?.attributes?.status
+  const at-licenseLicense = await at-licenseRequest(`/licenses/${req.license.at-licenseLicenseId}`)
+  const status = at-licenseLicense.data?.data?.attributes?.status
   if (status === 'SUSPENDED' || status === 'BANNED') {
     return res.status(403).json({ error: `License is ${status}`, code: `LICENSE_${status}` })
   }
 
-  const machineCount = keygenLicense.data?.data?.relationships?.machines?.meta?.count || 0
-  const maxMachines = keygenLicense.data?.data?.attributes?.maxMachines || 0
+  const machineCount = at-licenseLicense.data?.data?.relationships?.machines?.meta?.count || 0
+  const maxMachines = at-licenseLicense.data?.data?.attributes?.maxMachines || 0
 
   res.json({
     secret: 'This is protected data only for activated license!',
@@ -203,12 +203,12 @@ app.get('/api/data', requireAuth, requireLicense, async (req, res) => {
 })
 
 app.get('/api/admin/licenses', requireAuth, async (req, res) => {
-  const result = await keygenRequest('/licenses')
+  const result = await at-licenseRequest('/licenses')
   res.json(result.data)
 })
 
 app.get('/api/admin/machines', requireAuth, async (req, res) => {
-  const result = await keygenRequest('/machines')
+  const result = await at-licenseRequest('/machines')
   res.json(result.data)
 })
 

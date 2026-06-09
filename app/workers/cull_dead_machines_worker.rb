@@ -14,18 +14,18 @@ class CullDeadMachinesWorker < BaseWorker
       jid = SecureRandom.hex(12) # precalc jid so we can set it on machine beforehand
       job = MachineHeartbeatWorker.set(jid:)
 
-      Keygen.logger.info {
+      AtLicense.logger.info {
         "[machine.heartbeat.cull] account_id=#{machine.account_id} machine_id=#{machine.id}" \
           " machine_status=#{machine.heartbeat_status} machine_interval=#{machine.heartbeat_duration}" \
           " machine_jid=#{jid} machine_jid_was=#{machine.heartbeat_jid}"
       }
 
       unless machine.update(heartbeat_jid: jid)
-        Keygen.logger.warn { "[machine.heartbeat.cull] failed to attach: machine_id=#{machine.id} jid=#{jid}" }
+        AtLicense.logger.warn { "[machine.heartbeat.cull] failed to attach: machine_id=#{machine.id} jid=#{jid}" }
       end
 
       unless job.perform_async(machine.id)
-        Keygen.logger.warn { "[machine.heartbeat.cull] failed to queue: machine_id=#{machine.id} jid=#{jid}" }
+        AtLicense.logger.warn { "[machine.heartbeat.cull] failed to queue: machine_id=#{machine.id} jid=#{jid}" }
       end
     end
   end

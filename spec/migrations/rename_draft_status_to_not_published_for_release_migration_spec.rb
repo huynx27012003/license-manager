@@ -23,7 +23,7 @@ describe RenameDraftStatusToNotPublishedForReleaseMigration do
 
     it "should migrate a release's status" do
       migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to include(
         data: include(
@@ -50,7 +50,7 @@ describe RenameDraftStatusToNotPublishedForReleaseMigration do
 
     it "should not migrate a release's status" do
       migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-      data     = Keygen::JSONAPI.render(subject)
+      data     = AtLicense::JSONAPI.render(subject)
 
       expect(data).to include(
         data: include(

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RolePermission < ApplicationRecord
-  include Keygen::PortableClass
+  include AtLicense::PortableClass
 
   belongs_to :role
   belongs_to :permission

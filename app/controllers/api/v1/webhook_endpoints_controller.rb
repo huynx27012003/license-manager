@@ -34,7 +34,7 @@ module Api::V1
           param :signature_algorithm, type: :string, optional: true
         end
         param :relationships, type: :hash, optional: true do
-          Keygen.ee do |license|
+          AtLicense.ee do |license|
             next unless
               license.entitled?(:environments)
 

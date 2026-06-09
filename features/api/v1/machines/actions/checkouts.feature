@@ -1363,7 +1363,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/machines/$0/actions/check-out" with the following:
       """
@@ -1380,7 +1380,7 @@ Feature: Machine checkout actions
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1397,7 +1397,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/machines/$0/actions/check-out?include=environment"
     Then the response status should be "200"
@@ -1411,7 +1411,7 @@ Feature: Machine checkout actions
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1677,7 +1677,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a GET request to "/accounts/test1/machines/$0/actions/check-out"
     Then the response status should be "200"
@@ -1697,7 +1697,7 @@ Feature: Machine checkout actions
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1714,7 +1714,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     When I send a POST request to "/accounts/test1/machines/$0/actions/check-out"
     Then the response status should be "200"
@@ -1734,7 +1734,7 @@ Feature: Machine checkout actions
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "isolated" }
+      { "AtLicense-Environment": "isolated" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1752,7 +1752,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a GET request to "/accounts/test1/machines/$0/actions/check-out?include=environment,license"
     Then the response status should be "200"
@@ -1776,7 +1776,7 @@ Feature: Machine checkout actions
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1794,7 +1794,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/machines/$0/actions/check-out" with the following:
       """
@@ -1821,7 +1821,7 @@ Feature: Machine checkout actions
       """
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 1 "webhook" job
     And sidekiq should have 1 "event-log" job
@@ -1838,7 +1838,7 @@ Feature: Machine checkout actions
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     When I send a POST request to "/accounts/test1/machines/$0/actions/check-out" with the following:
       """
@@ -1847,7 +1847,7 @@ Feature: Machine checkout actions
     Then the response status should be "403"
     And the response should contain the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And sidekiq should have 0 "webhook" jobs
     And sidekiq should have 0 "event-log" jobs

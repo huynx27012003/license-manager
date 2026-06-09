@@ -42,7 +42,7 @@ Feature: License user relationship
     And I use an authentication token
     And I send the following headers:
       """
-      { "Keygen-Environment": "shared" }
+      { "AtLicense-Environment": "shared" }
       """
     And I use API version "1.5"
     When I send a GET request to "/accounts/test1/licenses/$0/user"

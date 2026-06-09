@@ -26,7 +26,7 @@ describe RenameFilenameExtErrorCodeForReleaseMigration do
               pointer: '/data/relationships/artifact/data/attributes/filename',
             },
             links: {
-              about: 'https://keygen.sh/docs/api/releases/#releases-object-relationships-artifact',
+              about: 'https://atenergy.vn/docs/api/releases/#releases-object-relationships-artifact',
             },
           },
           {

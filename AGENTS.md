@@ -1,6 +1,6 @@
-# Keygen
+# AtLicense
 
-This file provides guidance to AI coding agents working with the Keygen codebase, with a focus on **writing, selecting, and running tests correctly**.
+This file provides guidance to AI coding agents working with the AtLicense codebase, with a focus on **writing, selecting, and running tests correctly**.
 
 **Read this before running or modifying tests.**
 
@@ -30,9 +30,9 @@ Terminology used throughout this document and in conversation:
 
 Behavior depends on these env vars:
 
-* `KEYGEN_EDITION`: `CE` or `EE`. Defaults to `CE`.
-* `KEYGEN_MODE`: `singleplayer` or `multiplayer`. Defaults to `singleplayer`.
-* `KEYGEN_HOST`: the API host. Cloud is detected via `Keygen.cloud?`.
+* `AT_LICENSE_EDITION`: `CE` or `EE`. Defaults to `CE`.
+* `AT_LICENSE_MODE`: `singleplayer` or `multiplayer`. Defaults to `singleplayer`.
+* `AT_LICENSE_HOST`: the API host. Cloud is detected via `AtLicense.cloud?`.
 
 ### Valid combinations
 
@@ -41,11 +41,11 @@ Behavior depends on these env vars:
 | CE      | singleplayer                  | Single-tenant CE              |
 | EE      | singleplayer                  | Single-tenant EE              |
 | EE      | multiplayer                   | Multi-tenant EE               |
-| EE      | multiplayer + `api.keygen.sh` | Multi-tenant Cloud EE variant |
+| EE      | multiplayer + `api.atenergy.vn` | Multi-tenant Cloud EE variant |
 
 **Invalid:** CE + multiplayer (excluded in CI).
 
-The `Keygen.ee { ... }` runtime helper yields only in EE and is a no-op in CE. The block may optionally take the current EE license and license file as arguments.
+The `AtLicense.ee { ... }` runtime helper yields only in EE and is a no-op in CE. The block may optionally take the current EE license and license file as arguments.
 
 ## 3. Test selection rules
 
@@ -78,7 +78,7 @@ Both symbol forms are valid: `describe Foo, :only_ee do` and `describe Foo, only
 
 ### 4.1 Edition-aware tests
 
-Two **RSpec-only** scenario helpers are available. Each wraps its block in a `describe`/`context`, sets `KEYGEN_EDITION`, and (for EE) stubs the current EE license file with a mocked license:
+Two **RSpec-only** scenario helpers are available. Each wraps its block in a `describe`/`context`, sets `AT_LICENSE_EDITION`, and (for EE) stubs the current EE license file with a mocked license:
 
 ```ruby
 within_ee do
@@ -183,23 +183,23 @@ Prefix the `rake` invocation with the env vars for the combination you want to e
 
 ```bash
 # CE, singleplayer (self-hosted)
-KEYGEN_EDITION=CE KEYGEN_MODE=singleplayer \
+AT_LICENSE_EDITION=CE AT_LICENSE_MODE=singleplayer \
   bundle exec rake test:rspec[spec/models/license_spec.rb]
 
 # EE, singleplayer (self-hosted)
-KEYGEN_EDITION=EE KEYGEN_MODE=singleplayer \
+AT_LICENSE_EDITION=EE AT_LICENSE_MODE=singleplayer \
   bundle exec rake test:rspec[spec/models/license_spec.rb]
 
 # EE, multiplayer (self-hosted)
-KEYGEN_EDITION=EE KEYGEN_MODE=multiplayer \
+AT_LICENSE_EDITION=EE AT_LICENSE_MODE=multiplayer \
   bundle exec rake test:cucumber[features/api/v1/accounts]
 
-# EE, multiplayer, api.keygen.sh (Cloud)
-KEYGEN_EDITION=EE KEYGEN_MODE=multiplayer KEYGEN_HOST=api.keygen.sh \
+# EE, multiplayer, api.atenergy.vn (Cloud)
+AT_LICENSE_EDITION=EE AT_LICENSE_MODE=multiplayer AT_LICENSE_HOST=api.atenergy.vn \
   bundle exec rake test:cucumber[features/cnames/domains.feature]
 
 # With Clickhouse
-CLICKHOUSE_DATABASE_ENABLED=1 KEYGEN_EDITION=EE KEYGEN_MODE=multiplayer \
+CLICKHOUSE_DATABASE_ENABLED=1 AT_LICENSE_EDITION=EE AT_LICENSE_MODE=multiplayer \
   bundle exec rake test:rspec[spec/workers/record_machine_sparks_worker_spec.rb]
 ```
 
@@ -211,8 +211,8 @@ Before investigating a failure or a missing test, check in order:
 
 1. **Was `rake test` used?** Required for correct environment setup and parallelization.
 2. **Was the test skipped?** Inspect the skip count and reasons in the output.
-3. **Is the edition correct?** E.g. `KEYGEN_EDITION=CE|EE`.
-4. **Is the mode correct?** E.g. `KEYGEN_MODE=singleplayer|multiplayer`.
-5. **Is the host correct (for Cloud)?** E.g. `KEYGEN_HOST=api.keygen.sh`.
+3. **Is the edition correct?** E.g. `AT_LICENSE_EDITION=CE|EE`.
+4. **Is the mode correct?** E.g. `AT_LICENSE_MODE=singleplayer|multiplayer`.
+5. **Is the host correct (for Cloud)?** E.g. `AT_LICENSE_HOST=api.atenergy.vn`.
 6. **Is Clickhouse required but disabled?** Set `CLICKHOUSE_DATABASE_ENABLED=1`.
 7. **Is the schema outdated?** Run `bundle exec rake test:reset`.

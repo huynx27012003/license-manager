@@ -22,7 +22,7 @@ describe RenameMachineMatchingStrategyToFingerprintMatchingStrategyForPolicyMigr
 
   it "should migrate a policy's machine matching strategy" do
     migrator = RequestMigrations::Migrator.new(from: '1.0', to: '1.0')
-    data     = Keygen::JSONAPI.render(subject)
+    data     = AtLicense::JSONAPI.render(subject)
 
     expect(data).to include(
       data: include(

@@ -12,6 +12,6 @@ class RecoveryMailer < ApplicationMailer
                  .where('EXISTS (SELECT null FROM "accounts" WHERE "accounts"."id" = "users"."account_id")')
     return unless @users.any?
 
-    mail to: email, subject: "Keygen account recovery for #{email}"
+    mail to: email, subject: "AtLicense account recovery for #{email}"
   end
 end

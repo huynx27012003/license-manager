@@ -27,7 +27,7 @@ class V1x0::ReleaseUploadService < BaseService
 
   def call
     signer = artifact.presigner
-    ttl    = 1.hour # High TTL for slow upload connections: keygen => redirect => aws
+    ttl    = 1.hour # High TTL for slow upload connections: at-license => redirect => aws
     url    = signer.presigned_url(:put_object, bucket: artifact.bucket, key: artifact.key, expires_in: ttl.to_i)
     link   = release.upload_links.create!(account: account, url: url, ttl: ttl)
 

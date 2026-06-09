@@ -10,12 +10,12 @@ class ResolveEnvironmentService < BaseService
 
   def call
     return unless
-      Keygen.ee?
+      AtLicense.ee?
 
     with_cache do
       FindByAliasService.call(account.environments, id: environment, aliases: %i[code])
-    rescue Keygen::Error::NotFoundError
-      raise Keygen::Error::InvalidEnvironmentError, 'environment is invalid'
+    rescue AtLicense::Error::NotFoundError
+      raise AtLicense::Error::InvalidEnvironmentError, 'environment is invalid'
     end
   end
 

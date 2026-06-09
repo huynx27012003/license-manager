@@ -1,9 +1,9 @@
 class PruneWebhookEventsWorker < BaseWorker
-  BACKLOG_DAYS      = ENV.fetch('KEYGEN_PRUNE_WEBHOOK_BACKLOG_DAYS') { 30 }.to_i
-  STATEMENT_TIMEOUT = ENV.fetch('KEYGEN_PRUNE_STATEMENT_TIMEOUT')    { '1min' }
-  EXEC_TIMEOUT      = ENV.fetch('KEYGEN_PRUNE_EXEC_TIMEOUT')         { 1.hour.to_i }.to_f
-  BATCH_SIZE        = ENV.fetch('KEYGEN_PRUNE_BATCH_SIZE')           { 1_000 }.to_i
-  SLEEP_DURATION    = ENV.fetch('KEYGEN_PRUNE_SLEEP_DURATION')       { 1 }.to_f
+  BACKLOG_DAYS      = ENV.fetch('AT_LICENSE_PRUNE_WEBHOOK_BACKLOG_DAYS') { 30 }.to_i
+  STATEMENT_TIMEOUT = ENV.fetch('AT_LICENSE_PRUNE_STATEMENT_TIMEOUT')    { '1min' }
+  EXEC_TIMEOUT      = ENV.fetch('AT_LICENSE_PRUNE_EXEC_TIMEOUT')         { 1.hour.to_i }.to_f
+  BATCH_SIZE        = ENV.fetch('AT_LICENSE_PRUNE_BATCH_SIZE')           { 1_000 }.to_i
+  SLEEP_DURATION    = ENV.fetch('AT_LICENSE_PRUNE_SLEEP_DURATION')       { 1 }.to_f
 
   sidekiq_options queue: :cron,
                   cronitor_enabled: true,
@@ -17,14 +17,14 @@ class PruneWebhookEventsWorker < BaseWorker
     cutoff_start_date = WebhookEvent.where(created_at: ..cutoff_end_date.end_of_day).minimum('created_at::date') || cutoff_end_date
     start_time        = Time.parse(ts)
 
-    Keygen.logger.info "[workers.prune-webhook-events] Starting: start=#{start_time} cutoff_start=#{cutoff_start_date} cutoff_end=#{cutoff_end_date}"
+    AtLicense.logger.info "[workers.prune-webhook-events] Starting: start=#{start_time} cutoff_start=#{cutoff_start_date} cutoff_end=#{cutoff_end_date}"
 
     (cutoff_start_date...cutoff_end_date).each do |date|
       accounts = Account.where_assoc_exists(:webhook_events,
         created_at: date.all_day,
       )
 
-      Keygen.logger.info "[workers.prune-webhook-events] Pruning day: accounts=#{accounts.count} date=#{date}"
+      AtLicense.logger.info "[workers.prune-webhook-events] Pruning day: accounts=#{accounts.count} date=#{date}"
 
       accounts.unordered.find_each do |account|
         events = account.webhook_events.where(created_at: date.all_day)
@@ -35,11 +35,11 @@ class PruneWebhookEventsWorker < BaseWorker
         batches = (total / BATCH_SIZE) + 1
         batch   = 0
 
-        Keygen.logger.info "[workers.prune-webhook-events] Pruning #{total} rows: account_id=#{account.id} date=#{date} batches=#{batches}"
+        AtLicense.logger.info "[workers.prune-webhook-events] Pruning #{total} rows: account_id=#{account.id} date=#{date} batches=#{batches}"
 
         loop do
           unless (t = Time.current).before?(start_time + EXEC_TIMEOUT.seconds)
-            Keygen.logger.info "[workers.prune-webhook-events] Pausing: date=#{date} start=#{start_time} end=#{t}"
+            AtLicense.logger.info "[workers.prune-webhook-events] Pausing: date=#{date} start=#{start_time} end=#{t}"
 
             return # we'll pick up on the next cron
           end
@@ -51,7 +51,7 @@ class PruneWebhookEventsWorker < BaseWorker
           sum   += count
           batch += 1
 
-          Keygen.logger.info "[workers.prune-webhook-events] Pruned #{sum}/#{total} rows: account_id=#{account.id} date=#{date} batch=#{batch}/#{batches}"
+          AtLicense.logger.info "[workers.prune-webhook-events] Pruned #{sum}/#{total} rows: account_id=#{account.id} date=#{date} batch=#{batch}/#{batches}"
 
           sleep SLEEP_DURATION
 
@@ -59,7 +59,7 @@ class PruneWebhookEventsWorker < BaseWorker
         end
       end
 
-      Keygen.logger.info "[workers.prune-webhook-events] Done: date=#{date}"
+      AtLicense.logger.info "[workers.prune-webhook-events] Done: date=#{date}"
     end
   end
 end

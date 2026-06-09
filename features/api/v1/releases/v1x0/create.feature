@@ -30,8 +30,8 @@ Feature: Create release
         "data": {
           "type": "releases",
           "attributes": {
-            "name": "Keygen v1.0",
-            "filename": "Keygen-1.0.0.dmg",
+            "name": "AtLicense v1.0",
+            "filename": "at_license-1.0.0.dmg",
             "filetype": "dmg",
             "filesize": 209715200,
             "platform": "darwin",
@@ -56,8 +56,8 @@ Feature: Create release
     And the response body should be a "release" with the following attributes:
       """
       {
-        "name": "Keygen v1.0",
-        "filename": "Keygen-1.0.0.dmg",
+        "name": "AtLicense v1.0",
+        "filename": "at_license-1.0.0.dmg",
         "filetype": "dmg",
         "filesize": 209715200,
         "platform": "darwin",
@@ -102,8 +102,8 @@ Feature: Create release
         "data": {
           "type": "releases",
           "attributes": {
-            "name": "Keygen v1.0",
-            "filename": "Keygen-1.0.0.dmg",
+            "name": "AtLicense v1.0",
+            "filename": "at_license-1.0.0.dmg",
             "filetype": "dmg",
             "filesize": 209715200,
             "platform": "darwin",
@@ -128,8 +128,8 @@ Feature: Create release
     And the response body should be a "release" with the following attributes:
       """
       {
-        "name": "Keygen v1.0",
-        "filename": "Keygen-1.0.0.dmg",
+        "name": "AtLicense v1.0",
+        "filename": "at_license-1.0.0.dmg",
         "filetype": "dmg",
         "filesize": 209715200,
         "platform": "darwin",
@@ -271,7 +271,7 @@ Feature: Create release
       """
       {
         "title": "Unprocessable resource",
-        "detail": "Your tier's release limit of 10 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.keygen.sh/billing.",
+        "detail": "Your tier's release limit of 10 has been reached for your account. Please upgrade to a paid tier and add a payment method at https://app.atlicense.vn/billing.",
         "source": {
           "pointer": "/data/relationships/account"
         },
