@@ -39,6 +39,23 @@
 # Compilation caches
 /.sass-cache
 
+# Node.js dependencies
+node_modules/
+demo-app/node_modules/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Test coverage
+/coverage/
+
+# Compiled assets
+/public/assets/
+/public/packs/
+
 # Other
 .DS_Store
 .vscode
