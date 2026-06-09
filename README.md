@@ -1,33 +1,33 @@
 <a href="https://atenergy.vn?ref=at-license-api">
   <div>
-    <img src="https://atenergy.vn/images/logo-pill.png" width="200" alt="AtLicense">
+    <img src="https://atenergy.vn/images/logo-pill.png" width="200" alt="AT-License">
   </div>
 </a>
 <br>
 
-[![AtLicense CI](https://github.com/ATEnergy/at-license-api/actions/workflows/test.yml/badge.svg)](https://github.com/ATEnergy/at-license-api/actions)
+[![AT-License CI](https://github.com/ATEnergy/at-license-api/actions/workflows/test.yml/badge.svg)](https://github.com/ATEnergy/at-license-api/actions)
 [![Discord Community](https://img.shields.io/badge/discord-community-blue)][discord]
 
-# AtLicense
+# AT-License
 
-AtLicense is a fair source software licensing and distribution API, built
-for developers, by developers. Use AtLicense to add license key validation,
+AT-License is a fair source software licensing and distribution API, built
+for developers, by developers. Use AT-License to add license key validation,
 entitlements, and device activation to your business's desktop apps,
 server applications, on-premise software, and other products.
 
 ## Software licensing for everyone
 
-AtLicense comes in two editions. AtLicense CE is our Community Edition, and is
-free (as in beer) to self-host for personal and commercial use. AtLicense
+AT-License comes in two editions. AT-License CE is our Community Edition, and is
+free (as in beer) to self-host for personal and commercial use. AT-License
 EE is our Enterprise Edition, and it requires a license key to use.
-AtLicense EE comes with dedicated support, as well as enterprise-grade features
+AT-License EE comes with dedicated support, as well as enterprise-grade features
 like request logs, audit logs, permissions, environments, and more.
 
-We built AtLicense to make software licensing accessible to everyone.
+We built AT-License to make software licensing accessible to everyone.
 
-## Managed hosting with AtLicense Cloud
+## Managed hosting with AT-License Cloud
 
-The easiest way to get started with AtLicense is with [our official managed
+The easiest way to get started with AT-License is with [our official managed
 service in the cloud][at-license-cloud]. We'll handle the hard stuff — high
 availability, backups, security, and maintenance — while you focus on
 product.
@@ -35,76 +35,76 @@ product.
 Our managed hosting can save a substantial amount of developer time and
 resources. For most businesses, this ends up being the best value
 option and the revenue goes to funding the maintenance and further
-development of AtLicense. So you’ll be supporting [Fair Source](https://fair.io)
+development of AT-License. So you’ll be supporting [Fair Source](https://fair.io)
 software and getting a great service!
 
-## Self hosting with AtLicense CE
+## Self hosting with AT-License CE
 
-AtLicense is a fair source software licensing and distribution API, and we have a
-free (as in beer) [self-hosted solution][self-hosting]. AtLicense Community
-Edition (CE) is exactly the same code base as our managed solution, AtLicense
+AT-License is a fair source software licensing and distribution API, and we have a
+free (as in beer) [self-hosted solution][self-hosting]. AT-License Community
+Edition (CE) is exactly the same code base as our managed solution, AT-License
 Cloud, but with a less frequent release schedule (think of it as an LTS
 release).
 
-Bug fixes and new features are released to AtLicense Cloud several times
-per week. Features are battle-tested in AtLicense Cloud, which allows us to fix
+Bug fixes and new features are released to AT-License Cloud several times
+per week. Features are battle-tested in AT-License Cloud, which allows us to fix
 any bugs before the general self-hosted release. Every 6 months or so, we
 combine all the changes into a new self-hosted release.
 
-AtLicense CE does lack a few features from AtLicense Cloud, most of which are
-available in AtLicense EE.
+AT-License CE does lack a few features from AT-License Cloud, most of which are
+available in AT-License EE.
 
-Interested in self-hosting AtLicense? Take a look at our [self-hosting docs][self-hosting].
+Interested in self-hosting AT-License? Take a look at our [self-hosting docs][self-hosting].
 
-## Self hosting with AtLicense EE
+## Self hosting with AT-License EE
 
-AtLicense is also enterprise-grade, and battle-tested in AtLicense Cloud with some of
+AT-License is also enterprise-grade, and battle-tested in AT-License Cloud with some of
 the best brands in the world. The following features are available in
-AtLicense Enterprise Edition (EE):
+AT-License Enterprise Edition (EE):
 
 - **Request logs**: keep a historical record of API requests, along with who
   made the request, the request body, response body, status code, IP address,
   and other information.
 - **Event logs**: keep an audit trail of every single event that happens on a
-  AtLicense account.
-- **Environments**: manage separate environments within an AtLicense account, from
+  AT-License account.
+- **Environments**: manage separate environments within an AT-License account, from
   test environments, to a sandbox, to QA, to production.
 - **Permissions**: enterprise-grade roles and permissions.
-- **Import/export**: migrate from AtLicense Cloud to AtLicense EE (and vice-versa).
-- **OCI/Docker**: license and distribute private container images via AtLicense's
+- **Import/export**: migrate from AT-License Cloud to AT-License EE (and vice-versa).
+- **OCI/Docker**: license and distribute private container images via AT-License's
   license-gated, OCI-compliant container registry.
 - **SSO/SAML**: support for SSO/SAML.
 
-In addition, AtLicense EE customers are entitled to dedicated self-hosting
+In addition, AT-License EE customers are entitled to dedicated self-hosting
 support. We're here to make sure you're successful.
 
-AtLicense uses AtLicense EE in production to run AtLicense Cloud, which is used to
-license AtLicense EE. It's ~~turtles~~ AtLicenses all the way down (we love
+AT-License uses AT-License EE in production to run AT-License Cloud, which is used to
+license AT-License EE. It's ~~turtles~~ AT-Licenses all the way down (we love
 dogfooding our own products).
 
 To obtain a license key, please [reach out][sales].
 
 ## Sustainability
 
-Our only sources of funding for AtLicense is our premium, managed service for
-running AtLicense in the Cloud, and AtLicense EE. But if you're looking for an
+Our only sources of funding for AT-License is our premium, managed service for
+running AT-License in the Cloud, and AT-License EE. But if you're looking for an
 alternative way to support the project, we've put together [some
 sponsorship options][sponsor].
 
-If you choose to self-host AtLicense CE, you can [become a sponsor][sponsor],
+If you choose to self-host AT-License CE, you can [become a sponsor][sponsor],
 which is a great way to give back to the community and to contribute
 to the long-term sustainability of the project.
 
 ## Support
 
-AtLicense CE is a community supported project and there are **no guarantees** that
-you will receive support from the creators of AtLicense to troubleshoot your
-self-hosting issues. AtLicense offers **best-effort** support for AtLicense CE. There
+AT-License CE is a community supported project and there are **no guarantees** that
+you will receive support from the creators of AT-License to troubleshoot your
+self-hosting issues. AT-License offers **best-effort** support for AT-License CE. There
 is [a community-supported Discord server][discord] and [a forum][forum] where
 you can ask for help with self-hosting.
 
-If you do need support guantantees, consider becoming a [AtLicense Cloud][at-license-cloud]
-customer, or [purchasing AtLicense EE][sales].
+If you do need support guantantees, consider becoming a [AT-License Cloud][at-license-cloud]
+customer, or [purchasing AT-License EE][sales].
 
 ## Developing
 
@@ -133,7 +133,7 @@ To install dependencies, run:
 bundle
 ```
 
-To setup AtLicense, run:
+To setup AT-License, run:
 
 ```bash
 bundle exec rails at-license:setup
@@ -201,9 +201,9 @@ bundle exec rake test:rspec[spec/models]
 
 ## License
 
-AtLicense is licensed under the [Fair Core License](https://fcl.dev). The Fair
+AT-License is licensed under the [Fair Core License](https://fcl.dev). The Fair
 Core License, or FCL, provides the best balance between user freedom and
-developer sustainability for a project like AtLicense that monetizes via SaaS and
+developer sustainability for a project like AT-License that monetizes via SaaS and
 self-hosting. The FCL is a mostly-permissive non-compete [Fair Source](https://fair.io)
 license that eventually contributes to Open Source after 2 years.
 
@@ -212,7 +212,7 @@ through pushing a Git commit, tagging a release on GitHub, or publishing an
 image to Docker Hub. After 2 years, the code licensed under the FCL becomes
 Open Source under the Apache 2.0 license.
 
-To obtain an Open Source version of AtLicense, run the following:
+To obtain an Open Source version of AT-License, run the following:
 
 ```bash
 git clone https://github.com/ATEnergy/at-license-api && cd at-license-api
@@ -225,11 +225,11 @@ the Apache 2.0 license.
 
 You can...
 
-1. self-host AtLicense EE to license your enterprise applications.
-2. embed AtLicense CE in your on-premise applications.
-3. run AtLicense CE on a private network.
-3. modify AtLicense to add additional functionality.
-4. fork AtLicense into a private repo.
+1. self-host AT-License EE to license your enterprise applications.
+2. embed AT-License CE in your on-premise applications.
+3. run AT-License CE on a private network.
+3. modify AT-License to add additional functionality.
+4. fork AT-License into a private repo.
 
 If the FCL happens to not work for your company or use-case, please [reach out][sales].
 
@@ -245,7 +245,7 @@ The CLA is available [here](https://atenergy.vn/cla/).
 
 ## Security
 
-We take security at AtLicense very seriously. We try to perform annual pen-tests
+We take security at AT-License very seriously. We try to perform annual pen-tests
 on our code base and infrastructure. In addition, we regularly perform both
 internal and external code audits.
 
