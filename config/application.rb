@@ -1,0 +1,180 @@
+# frozen_string_literal: true
+
+require_relative 'boot'
+
+require 'rails'
+require 'sidekiq/rails'
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_view/railtie'
+require 'action_cable/engine'
+require 'rails/test_unit/railtie'
+
+require_relative '../lib/keygen'
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require *Rails.groups
+
+module Keygen
+  class Application < Rails::Application
+    Dir[Rails.root / 'lib' / 'ext' / '*'].each { require it } # load core extensions early
+
+    config.load_defaults 8.0
+
+    config.generators do |generator|
+      # Use UUIDs for table primary keys
+      generator.orm :active_record, primary_key_type: :uuid
+      # Skip test generation (we do it manually)
+      generator.test_framework false
+    end
+
+    # Only loads a smaller set of middleware suitable for API only apps.
+    # Middleware like session, flash, cookies can be added back manually.
+    # Skip views, helpers and assets when generating a new resource.
+    config.api_only = true
+
+    # remove unneeded Rack middleware
+    config.middleware.delete Rack::ConditionalGet
+    config.middleware.delete Rack::ETag
+    config.middleware.delete Rack::Sendfile
+    config.middleware.delete Rack::Runtime
+
+    # remove unneeded Rails middleware
+    config.middleware.delete ActionDispatch::ShowExceptions
+
+    # readd support for cookies
+    config.middleware.use ActionDispatch::Cookies
+
+    # move database selector to after cookies
+    config.middleware.move_after ActionDispatch::Cookies, ActiveRecord::Middleware::DatabaseSelector
+
+    # ignore X-Forwarded-For header
+    config.middleware.insert_before 0, Keygen::Middleware::IgnoreForwardedHost
+
+    # rewrite * to */* Accept header
+    config.middleware.insert_before 0, Keygen::Middleware::RewriteAcceptAll
+
+    # FIXME(ezekg) partitioned cookies do not have wide browser support yet
+    # add partitioned cookie support
+    config.middleware.insert_before 0, Keygen::Middleware::PartitionedCookies
+
+    # FIXME(ezekg) Catch any JSON/URI parse errors, routing errors, etc. We're
+    #              inserting this middleware twice because Rails is stupid and
+    #              emits errors at multiple layers in the stack, resulting
+    #              in this ugly hack.
+    config.middleware.insert_before 0, Keygen::Middleware::RequestErrorWrapper
+
+    # Add a default JSON content type
+    config.middleware.use Keygen::Middleware::DefaultContentType
+
+    # Protect against DDOS and other abuses
+    unless ENV.key?('NO_RACK_ATTACK')
+      # Prevent duplicate middleware from being added via rack-attack's railtie.
+      #
+      # See: https://github.com/rack/rack-attack/issues/459
+      Rack::Attack::Railtie.initializers.clear rescue nil
+
+      config.middleware.use Rack::Attack
+    end
+
+    # See above comment about having to use this multiple
+    config.middleware.use Keygen::Middleware::RequestErrorWrapper
+
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
+    config.log_level = ENV.fetch('RAILS_LOG_LEVEL') { :info }.to_sym
+
+    # FIXME(ezekg) Should we migrate to credentials?
+    config.active_record.encryption.primary_key         = ENV.fetch('ENCRYPTION_PRIMARY_KEY')
+    config.active_record.encryption.deterministic_key   = ENV.fetch('ENCRYPTION_DETERMINISTIC_KEY')
+    config.active_record.encryption.key_derivation_salt = ENV.fetch('ENCRYPTION_KEY_DERIVATION_SALT')
+
+    # See: https://github.com/rails/rails/issues/48204
+    config.active_record.encryption.hash_digest_class                             = OpenSSL::Digest::SHA256
+    config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
+
+    config.active_record.encryption.support_unencrypted_data = ENV.true?('ENCRYPTION_SUPPORT_UNENCRYPTED_DATA')
+    config.active_record.encryption.extend_queries           = ENV.true?('ENCRYPTION_SUPPORT_UNENCRYPTED_DATA')
+
+    # FIXME(ezekg) Remove after we upgrade to Rails 7.1.4.
+    # See: https://github.com/rails/rails/issues/50604
+    ActiveRecord::Encryption.configure(
+      **config.active_record.encryption,
+    )
+
+    # Show all attributes in Rails console
+    config.active_record.attributes_for_inspect = :all
+
+    # Update async destroy batch size
+    config.active_record.destroy_association_async_batch_size = 1_000
+
+    # FIXME(ezekg) Use 7.0 cache format until we can roll over to 7.1.
+    config.active_support.cache_format_version 7.0
+
+    # explicit cookie salts (fallbacks are rails defaults)
+    config.action_dispatch.authenticated_encrypted_cookie_salt = ENV.fetch('COOKIE_AUTHENTICATED_ENCRYPTED_SALT') { 'authenticated encrypted cookie' }
+    config.action_dispatch.encrypted_signed_cookie_salt        = ENV.fetch('COOKIE_ENCRYPTED_SIGNED_SALT')        { 'signed encrypted cookie' }
+    config.action_dispatch.encrypted_cookie_salt               = ENV.fetch('COOKIE_ENCRYPTED_SALT')               { 'encrypted cookie' }
+    config.action_dispatch.signed_cookie_salt                  = ENV.fetch('COOKIE_SIGNED_SALT')                  { 'signed cookie' }
+
+    # explicit cookie settings
+    config.action_dispatch.use_authenticated_cookie_encryption = true
+    config.action_dispatch.use_cookies_with_metadata           = true
+    config.action_dispatch.always_write_cookie                 = true
+    config.action_dispatch.encrypted_cookie_cipher             = 'aes-256-gcm'
+    config.action_dispatch.signed_cookie_digest                =
+    config.action_dispatch.cookies_digest                      = 'SHA256'
+
+    # We don't need this: https://guides.rubyonrails.org/security.html#unsafe-query-generation
+    config.action_dispatch.perform_deep_munge = false
+
+    # we don't want to ever show exceptions
+    config.action_dispatch.exceptions_app  = self.routes
+    config.action_dispatch.show_exceptions = :none
+
+    # Add support for trusted proxies
+    config.action_dispatch.trusted_proxies =
+      ActionDispatch::RemoteIp::TRUSTED_PROXIES + ENV.fetch('TRUSTED_PROXIES') { '' }
+                                                     .split(',')
+                                                     .map { IPAddr.new(it.strip) }
+
+    # Use mailers queue
+    config.action_mailer.deliver_later_queue_name = :mailers
+
+    # Use Sidekiq for background jobs
+    config.active_job.queue_adapter = :sidekiq
+
+    # Raise on unsafe redirects
+    config.action_controller.action_on_open_redirect = :raise
+
+    # Include all helpers
+    config.action_controller.include_all_helpers = true
+
+    # Force UTF-8 encoding
+    config.encoding = 'utf-8'
+
+    # Add lib, extensions, services, validators, etc. to autoload path
+    config.autoload_lib(ignore: %w[ext tasks])
+    config.autoload_paths += %W[
+      #{config.root}/app/serializers
+      #{config.root}/app/validators
+      #{config.root}/app/services
+    ]
+
+    config.before_initialize do |app|
+      # Set default URL options before server boots
+      app.default_url_options = { protocol: 'https' }.tap do |options|
+        options[:host] = ENV['KEYGEN_HOST'] if ENV.key?('KEYGEN_HOST')
+      end
+    end
+
+    config.after_initialize do |app|
+      # Print env info when server boots
+      Keygen::Console.welcome!
+    end
+  end
+end

@@ -1,0 +1,286 @@
+# frozen_string_literal: true
+
+require 'active_support'
+require 'active_record'
+
+module ReadYourOwnWrites
+  RESPONSE_WRITE_AT_HEADER   = 'X-Ryow-Last-Write-At'
+  RESPONSE_EXPIRES_AT_HEADER = 'X-Ryow-Last-Write-Expires-At'
+  RESPONSE_EXPIRES_IN_HEADER = 'X-Ryow-Last-Write-Expires-In'
+  RESPONSE_SELECTION_HEADER  = 'X-Ryow-Selection'
+  RESPONSE_CLIENT_HEADER     = 'X-Ryow-Client'
+  RESPONSE_DELAY_HEADER      = 'X-Ryow-Delay'
+  REQUEST_SKIP_KEY           = 'ryow.skip'
+  REDIS_KEY_PREFIX           = 'ryow'
+
+  # immutable struct representing the unique identity of a client
+  Client = Data.define :fingerprint do
+    def to_s = fingerprint.to_s
+  end
+
+  class Configuration
+    # the primary database key (defaults to :primary)
+    attr_accessor :primary_database_key
+
+    # the replica database key (defaults to :replica)
+    attr_accessor :read_replica_database_key
+
+    # whether the read replica is available (defaults to true)
+    attr_writer :read_replica_available
+
+    # whether the read replica is enabled (defaults to true)
+    attr_writer :read_replica_enabled
+
+    # how long after a write to route reads to primary
+    attr_reader :database_selector_delay
+
+    # redis key prefix for storing write timestamps
+    attr_accessor :redis_key_prefix
+
+    # time-to-live for write timestamp entries in Redis
+    #
+    # defaults to database_selector_delay * 2
+    attr_writer :redis_ttl
+
+    # path patterns that should always read from replica regardless of recent writes
+    #
+    # this is useful for read-only POST endpoints like search
+    attr_accessor :ignored_request_paths
+
+    # client identifier should be a proc that returns a Client
+    #
+    # defaults to Authorization header and remote IP
+    #
+    # NB(ezekg) this is run BEFORE the Rails app via Rails' DatabaseSelector
+    #           middleware i.e. things like route params are NOT available
+    attr_accessor :client_identifier
+
+    # whether to include useful response headers for debugging
+    #
+    # defaults to Rails.env.local?
+    attr_writer :debug
+
+    def initialize
+      @primary_database_key      = :primary
+      @read_replica_database_key = :replica
+      @read_replica_available    = true
+      @read_replica_enabled      = true
+      @database_selector_delay   = 2.seconds
+      @redis_key_prefix          = REDIS_KEY_PREFIX
+      @redis_ttl                 = nil
+      @ignored_request_paths     = []
+      @debug                     = Rails.env.local?
+      @client_identifier         = -> request {
+        fingerprint = Digest::SHA2.hexdigest [request.host, request.remote_ip, request.authorization].join(':')
+
+        Client.new(fingerprint:)
+      }
+    end
+
+    def writing_role = ActiveRecord.writing_role
+    def reading_role = ActiveRecord.reading_role
+    def redis_ttl    = @redis_ttl || @database_selector_delay * 2
+
+    def read_replica_available? = (@read_replica_available in Proc) ? @read_replica_available.call : !!@read_replica_available
+    def read_replica_enabled?   = (@read_replica_enabled in Proc) ? @read_replica_enabled.call : !!@read_replica_enabled
+    def debug?                  = (@debug in Proc) ? @debug.call : !!@debug
+
+    private
+
+    def database_selector_delay=(delay)
+      database_selector_delay = delay
+    end
+  end
+
+  class << self
+    def configuration = @configuration ||= Configuration.new
+    def configuration=(config)
+      @configuration = config
+    end
+
+    def configure
+      yield configuration
+    end
+
+    def current_database = ActiveRecord::Base.connection_db_config.name.to_sym
+    def current_role     = ActiveRecord::Base.current_role.to_sym
+
+    # check if the request is reading its own recent writes
+    def reading_own_writes?(request)
+      context = Resolver::Context.new(request)
+
+      context.recent_writes?
+    end
+  end
+
+  module Model
+    extend ActiveSupport::Concern
+
+    class_methods do
+      # FIXME(ezekg) this doubles the connection pool for the primary in the case of no read
+      #              replica, but it's the only way to use the same code paths, because
+      #              without this, the :reading role is unavailable for the primary.
+      def connects_to_read_replica_if_configured(config: ReadYourOwnWrites.configuration)
+        if config.read_replica_available? && config.read_replica_enabled?
+          connects_to database: { config.writing_role => config.primary_database_key, config.reading_role => config.read_replica_database_key }
+        else
+          connects_to database: { config.writing_role => config.primary_database_key, config.reading_role => config.primary_database_key }
+        end
+      end
+    end
+
+    included do
+      connects_to_read_replica_if_configured
+    end
+  end
+
+  module Controller
+    extend ActiveSupport::Concern
+
+    class_methods do
+      # use_primary always connects to the primary database (useful for GET requests that perform writes)
+      def use_primary(**) = prepend_around_action(:with_primary_connection, **)
+
+      # use_read_replica always connects to the replica database by default (useful for readonly POSTs)
+      def use_read_replica(always: true, **)
+        prepend_around_action(always ? :with_read_replica_connection : :with_read_replica_connection_unless_reading_own_writes, **)
+      end
+
+      # prefer_read_replica respects ryow behavior (i.e. prefer replica unless recent write)
+      def prefer_read_replica(**) = use_read_replica(**, always: false)
+    end
+
+    def with_primary_connection
+      ActiveRecord::Base.connected_to(role: ReadYourOwnWrites.configuration.writing_role) do
+        yield
+      end
+    end
+
+    def with_read_replica_connection_unless_reading_own_writes
+      unless reading_own_writes?
+        ActiveRecord::Base.connected_to(role: ReadYourOwnWrites.configuration.reading_role) do
+          yield
+        end
+      else
+        yield # connection handled by database selector middleware
+      end
+    end
+
+    def with_read_replica_connection
+      ActiveRecord::Base.connected_to(role: ReadYourOwnWrites.configuration.reading_role) do
+        yield
+      end
+    end
+
+    private
+
+    def reading_own_writes? = ReadYourOwnWrites.reading_own_writes?(request)
+  end
+
+  class Resolver < ActiveRecord::Middleware::DatabaseSelector::Resolver
+    def reading_request?(request) = super || context.ignored?
+
+    class Context
+      EPOCH = Time.at(0)
+
+      attr_reader :request,
+                  :config
+
+      # NB(ezekg) this odd service-object-but-not-really call pattern is required
+      #           by the database selector middleware
+      def self.call(...) = new(...)
+
+      def initialize(request, config: ReadYourOwnWrites.configuration)
+        @request = request
+        @config  = config
+      end
+
+      def last_write_timestamp = @last_write_timestamp ||= begin
+        return EPOCH if ignored?
+
+        value = redis { it.get(redis_key) }
+        return EPOCH if value.nil?
+
+        Time.at(value.to_i)
+      end
+
+      def update_last_write_timestamp
+        return if ignored?
+
+        # clear memo
+        @last_write_timestamp = value = Time.current
+
+        redis { it.setex(redis_key, config.redis_ttl, value.to_i) }
+
+        value
+      end
+
+      def recent_writes?
+        Time.current - last_write_timestamp < config.database_selector_delay
+      end
+
+      def ignored?
+        return true if request.env[REQUEST_SKIP_KEY]
+
+        config.ignored_request_paths.any? { it.match?(request.path) }
+      end
+
+      def save(rack_response)
+        _status, headers, _body = *rack_response # FIXME(ezekg) not sure why it's a rack response...
+
+        add_debug_headers(headers)
+
+        rack_response
+      end
+
+      private
+
+      def redis_key = "#{config.redis_key_prefix}:client:#{client_id}"
+      def redis(&)
+        Rails.cache.redis.then(&)
+      rescue Redis::BaseError, Errno::ECONNREFUSED
+        nil # fail open if redis is unreachable
+      end
+
+      def client_id = @client_id ||= begin
+        client = config.client_identifier.call(request)
+
+        raise TypeError, "client_identifier must return a Client, got #{client.class}" unless
+          client in Client
+
+        client.to_s
+      end
+
+      def add_debug_headers(headers)
+        return unless config.debug? # only for debugging (everything else is saved in redis)
+
+        if recent_writes?
+          expires_at = last_write_timestamp + config.database_selector_delay
+          expires_in = [(expires_at - Time.current).to_f.ceil, 0].max
+
+          headers[RESPONSE_WRITE_AT_HEADER]   = last_write_timestamp.httpdate
+          headers[RESPONSE_EXPIRES_AT_HEADER] = expires_at.httpdate
+          headers[RESPONSE_EXPIRES_IN_HEADER] = expires_in
+          headers[RESPONSE_SELECTION_HEADER]  = config.primary_database_key
+        else
+          headers[RESPONSE_SELECTION_HEADER] = config.read_replica_database_key
+        end
+
+        headers[RESPONSE_CLIENT_HEADER] = client_id
+        headers[RESPONSE_DELAY_HEADER]  = config.database_selector_delay.to_i
+
+        headers
+      end
+    end
+  end
+
+  # using after_initialize instead of on_load(:active_record) to make sure we pick up any
+  # changes to the database selector delay inside of initializers, e.g. multi_db.rb.
+  Rails.application.config.after_initialize do
+    if (selector = Rails.application.config.active_record.database_selector)
+      ReadYourOwnWrites.configuration.send(:database_selector_delay=, selector[:delay])
+    end
+
+    ActiveRecord::Base.include ReadYourOwnWrites::Model
+  end
+end

@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: keygen_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - keygen-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d keygen_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8-alpine
+    environment:
+      CLICKHOUSE_DB: keygen_clickhouse
+      CLICKHOUSE_USER: keygen
+      CLICKHOUSE_PASSWORD: keygen
+    ports:
+      - "8123:8123"
+    volumes:
+      - keygen-clickhouse:/var/lib/clickhouse
+    healthcheck:
+      test: ["CMD-SHELL", "clickhouse-client --user keygen --password keygen --query 'select 1' >/dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  setup:
+    build: .
+    profiles: [setup]
+    command: setup
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/keygen_dev
+      CLICKHOUSE_DATABASE_URL: ""
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  release:
+    build: .
+    profiles: [release]
+    command: release
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/keygen_dev
+      CLICKHOUSE_DATABASE_URL: ""
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build: .
+    command: web
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/keygen_dev
+      CLICKHOUSE_DATABASE_URL: clickhouse://keygen:keygen@clickhouse:8123
+      CLICKHOUSE_DATABASE_ENABLED: "0"
+      CLICKHOUSE_TLS_DISABLED: "1"
+      RAILS_LOG_TO_STDOUT: "1"
+      RAILS_EAGER_LOAD: "0"
+      REDIS_POOL_SIZE: "10"
+      BIND: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+
+  worker:
+    build: .
+    profiles: [worker]
+    command: worker
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/keygen_dev
+      CLICKHOUSE_DATABASE_URL: clickhouse://keygen:keygen@clickhouse:8123
+      CLICKHOUSE_DATABASE_ENABLED: "0"
+      CLICKHOUSE_TLS_DISABLED: "1"
+      RAILS_LOG_TO_STDOUT: "1"
+      RAILS_EAGER_LOAD: "0"
+      REDIS_POOL_SIZE: "10"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+
+volumes:
+  keygen-postgres:
+  keygen-clickhouse:

@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+module Analytics
+  class Gauge
+    class Licenses
+      def initialize(account:, environment:)
+        @account     = account
+        @environment = environment
+      end
+
+      def metrics = %w[licenses]
+      def count
+        count  = account.licenses.for_environment(environment).count
+        metric = metrics.sole
+
+        { metric => count }
+      end
+
+      private
+
+      attr_reader :account, :environment
+    end
+  end
+end

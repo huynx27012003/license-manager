@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>License Demo App</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; display: grid; place-items: center; background: #0a0f14; color: #e0f0e8; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .card { width: min(520px, calc(100vw - 32px)); border: 1px solid #1e3038; border-radius: 20px; padding: 32px; background: linear-gradient(180deg, #0e1519 0%, #0a0f14 100%); }
+    h1 { font-size: 26px; margin-bottom: 6px; }
+    h2 { font-size: 20px; margin-bottom: 4px; }
+    .sub { color: #8ba0ac; margin-bottom: 24px; font-size: 14px; }
+    label { display: block; margin-bottom: 6px; font-size: 13px; color: #a0b8c2; }
+    input { width: 100%; padding: 13px 15px; border: 1px solid #243a42; border-radius: 12px; background: #060a0d; color: #e0f0e8; font-size: 15px; outline: none; margin-bottom: 16px; }
+    input:focus { border-color: #5ce690; box-shadow: 0 0 0 3px #5ce69018; }
+    .actions { display: flex; gap: 10px; margin-top: 4px; }
+    button { flex: 1; padding: 13px 16px; border: 0; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; }
+    .btn-primary { background: #5ce690; color: #041208; }
+    .btn-secondary { background: #152028; color: #b0ccd8; border: 1px solid #283c44; }
+    button:disabled { opacity: .5; cursor: wait; }
+    .msg { padding: 12px 15px; border-radius: 12px; margin-bottom: 16px; font-size: 13px; white-space: pre-wrap; }
+    .msg.ok { background: #0c2a1a; color: #5ce690; border: 1px solid #1a5030; }
+    .msg.err { background: #2a0c0c; color: #e65c5c; border: 1px solid #501a1a; }
+    .msg.info { background: #0c1a2a; color: #5c9ee6; border: 1px solid #1a3050; }
+    .row { display: flex; gap: 12px; margin-bottom: 10px; }
+    .row .label { color: #8ba0ac; font-size: 13px; min-width: 100px; }
+    .row .value { color: #e0f0e8; font-size: 13px; word-break: break-all; }
+    .divider { height: 1px; background: #1e3038; margin: 20px 0; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .badge.ok { background: #0c2a1a; color: #5ce690; }
+    .badge.err { background: #2a0c0c; color: #e65c5c; }
+    .fingerprint { font-family: monospace; font-size: 12px; color: #6a8892; word-break: break-all; margin-bottom: 20px; padding: 10px; background: #060a0d; border-radius: 8px; border: 1px solid #1a2a30; }
+  </style>
+</head>
+<body>
+  <div class="card" id="app"></div>
+  <script>
+    const API = ''
+    let state = { screen: 'login', user: null, sessionId: null, license: null, fingerprint: null, deviceId: null }
+
+    function getDeviceId() {
+      let id = localStorage.getItem('demo_device_id')
+      if (!id) {
+        id = crypto.randomUUID()
+        localStorage.setItem('demo_device_id', id)
+      }
+      return id
+    }
+
+    function generateFingerprint() {
+      const parts = [
+        navigator.userAgent,
+        navigator.language,
+        screen.width + 'x' + screen.height,
+        screen.colorDepth,
+        new Date().getTimezoneOffset(),
+        navigator.hardwareConcurrency || '',
+        navigator.platform,
+      ]
+      const raw = parts.join('|')
+      let hash = 0
+      for (let i = 0; i < raw.length; i++) {
+        const chr = raw.charCodeAt(i)
+        hash = ((hash << 5) - hash) + chr
+        hash |= 0
+      }
+      return 'web-' + Math.abs(hash).toString(16).padStart(8, '0') + '-' + getDeviceId().slice(0, 8)
+    }
+
+    async function api(path, { method = 'GET', body, auth = true } = {}) {
+      const headers = { 'Content-Type': 'application/json' }
+      if (auth && state.sessionId) headers['Authorization'] = 'Bearer ' + state.sessionId
+      const res = await fetch(API + path, { method, headers, body: body && JSON.stringify(body) })
+      const text = await res.text()
+      let data = null
+      try { data = text ? JSON.parse(text) : {} } catch { data = { error: 'Server returned: ' + text.slice(0, 200) } }
+      return { status: res.status, ...data }
+    }
+
+    function render(html) {
+      document.getElementById('app').innerHTML = html
+    }
+
+    function renderLogin() {
+      render(`
+        <h1>Login</h1>
+        <p class="sub">Đăng nhập vào Demo App để sử dụng license.</p>
+        <div id="login-msg"></div>
+        <label>Email</label>
+        <input id="email" type="email" placeholder="alice@example.com" value="alice@example.com" />
+        <label>Password</label>
+        <input id="pass" type="password" placeholder="123456" value="123456" />
+        <div class="actions">
+          <button class="btn-primary" onclick="doLogin()">Login</button>
+        </div>
+      `)
+    }
+
+    async function doLogin() {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('pass').value
+      const msgEl = document.getElementById('login-msg')
+      msgEl.innerHTML = '<div class="msg info">Logging in...</div>'
+      const res = await api('/api/login', { method: 'POST', body: { email, password }, auth: false })
+      if (res.error) {
+        msgEl.innerHTML = '<div class="msg err">' + res.error + '</div>'
+        return
+      }
+      state.user = res.user
+      state.sessionId = res.sessionId
+      checkLicense()
+    }
+
+    async function checkLicense() {
+      const res = await api('/api/license/status')
+      if (!res.activated) {
+        state.license = null
+        renderActivate()
+      } else {
+        state.license = res
+        renderDashboard()
+      }
+    }
+
+    function renderActivate() {
+      state.fingerprint = generateFingerprint()
+      render(`
+        <h1>Activate License</h1>
+        <p class="sub">Xin chào ${state.user.name}. Nhập license key để kích hoạt.</p>
+        <div id="act-msg"></div>
+        <label>License Key</label>
+        <input id="licenseKey" placeholder="XXXXXX-XXXXXX-XXXXXX" value="" />
+        <div class="fingerprint">
+          <strong>Fingerprint:</strong> ${state.fingerprint}
+        </div>
+        <div class="actions">
+          <button class="btn-primary" onclick="doActivate()">Activate</button>
+          <button class="btn-secondary" onclick="doLogout()">Logout</button>
+        </div>
+      `)
+    }
+
+    async function doActivate() {
+      const key = document.getElementById('licenseKey').value.trim()
+      const msgEl = document.getElementById('act-msg')
+      if (!key) { msgEl.innerHTML = '<div class="msg err">Nhập license key</div>'; return }
+      msgEl.innerHTML = '<div class="msg info">Activating...</div>'
+      const res = await api('/api/activate', {
+        method: 'POST',
+        body: { licenseKey: key, fingerprint: state.fingerprint, browserDeviceId: getDeviceId() },
+      })
+      if (res.error) {
+        msgEl.innerHTML = '<div class="msg err">' + res.error + '</div>'
+        return
+      }
+      state.license = { activated: true, licenseKey: key, machineId: res.machineId, activatedAt: new Date().toISOString() }
+      renderDashboard()
+    }
+
+    async function renderDashboard() {
+      state.fingerprint = generateFingerprint()
+      const dataRes = await api('/api/data?fingerprint=' + encodeURIComponent(state.fingerprint))
+      render(`
+        <h1>Dashboard</h1>
+        <p class="sub">Xin chào ${state.user.name}. License đã active.</p>
+        <div class="divider"></div>
+        <h2>License Info</h2>
+        <div style="margin-bottom: 16px">
+          <div class="row"><span class="label">Key</span><span class="value">${state.license.licenseKey}</span></div>
+          <div class="row"><span class="label">Machine ID</span><span class="value">${state.license.machineId || '(n/a)'}</span></div>
+          <div class="row"><span class="label">Activated</span><span class="value">${state.license.activatedAt || ''}</span></div>
+          <div class="row"><span class="label">Fingerprint</span><span class="value" style="font-family:monospace;font-size:12px">${state.fingerprint}</span></div>
+        </div>
+        <div class="divider"></div>
+        <h2>Protected Data</h2>
+        <div id="data-msg"></div>
+        <div class="actions">
+          <button class="btn-primary" onclick="fetchData()">Refresh Data</button>
+          <button class="btn-secondary" onclick="renderActivate()">Change License</button>
+          <button class="btn-secondary" onclick="doLogout()">Logout</button>
+        </div>
+      `)
+      const dataMsg = document.getElementById('data-msg')
+      if (dataRes.error) {
+        dataMsg.innerHTML = '<div class="msg err">' + dataRes.error + '</div>'
+      } else {
+        dataMsg.innerHTML = `
+          <div class="msg ok">ACCESS GRANTED</div>
+          <div class="row"><span class="label">Secret</span><span class="value">${dataRes.secret}</span></div>
+          <div class="row"><span class="label">User</span><span class="value">${dataRes.user}</span></div>
+          <div class="row"><span class="label">Machines</span><span class="value">${dataRes.machineCount} / ${dataRes.maxMachines}</span></div>
+          <div class="row"><span class="label">Your Machine</span><span class="value">${dataRes.machineId}</span></div>
+        `
+      }
+    }
+
+    async function fetchData() {
+      const dataMsg = document.getElementById('data-msg')
+      dataMsg.innerHTML = '<div class="msg info">Fetching...</div>'
+      const res = await api('/api/data?fingerprint=' + encodeURIComponent(state.fingerprint))
+      if (res.error) {
+        dataMsg.innerHTML = '<div class="msg err">' + res.error + '</div>'
+      } else {
+        dataMsg.innerHTML = `
+          <div class="msg ok">ACCESS GRANTED</div>
+          <div class="row"><span class="label">Secret</span><span class="value">${res.secret}</span></div>
+          <div class="row"><span class="label">User</span><span class="value">${res.user}</span></div>
+          <div class="row"><span class="label">Machines</span><span class="value">${res.machineCount} / ${res.maxMachines}</span></div>
+          <div class="row"><span class="label">Your Machine</span><span class="value">${res.machineId}</span></div>
+        `
+      }
+    }
+
+    async function doLogout() {
+      state = { screen: 'login', user: null, sessionId: null, license: null, fingerprint: null, deviceId: null }
+      renderLogin()
+    }
+
+    renderLogin()
+  </script>
+</body>
+</html>

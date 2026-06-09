@@ -1,0 +1,9 @@
+{
+  "name": "keygen-test-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "activate": "node index.mjs",
+    "web": "node web.mjs"
+  }
+}

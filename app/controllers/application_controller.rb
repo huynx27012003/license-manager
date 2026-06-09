@@ -1,0 +1,681 @@
+# frozen_string_literal: true
+
+class ApplicationController < ActionController::API
+  include ReadYourOwnWrites::Controller
+  include Rendering::JSON
+  include CurrentRequestAttributes
+  include DefaultUrlOptions
+  include RateLimiting
+  include TypedParams::Controller
+  include ActionPolicy::Controller
+  include Authentication
+  include Authorization
+  include Cookies
+
+  # NOTE(ezekg) The remaining concerns use around_action, so the order
+  #             here is very explicit.
+
+  # 1. Requests are counted at the very end of the around_action chain,
+  #    so the concern is added first.
+  include RequestCounter
+
+  # 2. Requests are logged after all migrations and errors. Again, this
+  #    is run near the end of the around_action chain.
+  include RequestLogger
+
+  # 3. Responses are signed after migrations and errors.
+  include SignatureHeaders
+
+  # 4a. Migrations are run after errors have been caught.
+  include RequestMigrations::Controller::Migrations
+
+  # 4b. Rescue invalid versions outside of below error handler via around action.
+  rescue_from RequestMigrations::UnsupportedVersionError, with: -> {
+    render_bad_request(
+      detail: 'unsupported API version requested',
+      code: 'INVALID_API_VERSION',
+      links: {
+        about: 'https://keygen.sh/docs/api/versioning/',
+      },
+    )
+  }
+
+  # NOTE(ezekg) We're using an around_action here so that our request
+  #             logger concern can log the resulting response body.
+  #             Otherwise, the logged response may be incorrect.
+  #
+  # 5. Errors are caught and handled before migrations.
+  around_action :rescue_from_exceptions
+
+  # 6. Headers are added before migrations, so they can be migrated
+  #    if needed, with the exception of the signature headers.
+  include DefaultHeaders
+
+  attr_accessor :current_http_scheme
+  attr_accessor :current_http_token
+  attr_accessor :current_account
+  attr_accessor :current_environment
+  attr_accessor :current_session
+  attr_accessor :current_bearer
+  attr_accessor :current_token
+
+  # Action policy authz contexts
+  authorize :account,     through: :current_account
+  authorize :environment, through: :current_environment
+  authorize :session,     through: :current_session
+  authorize :bearer,      through: :current_bearer
+  authorize :token,       through: :current_token
+
+  verify_authorized
+
+  def jsonapi_expose
+    {
+      url_helpers: Rails.application.routes.url_helpers,
+      account: current_account,
+      bearer: current_bearer,
+      token: current_token,
+    }
+  end
+
+  def current_api_version
+    RequestMigrations.config.request_version_resolver.call(request)
+  end
+
+  private
+
+  # NOTE(ezekg) Remove memoization of authorization context. This allows us
+  #             to use authorized_scope() before authorize!() in controllers
+  #             for nested resources, e.g. /v1/releases/:id/artifacts.
+  #
+  # See: https://github.com/palkan/action_policy/issues/217
+  def authorization_context = build_authorization_context
+
+  def render_meta(meta)
+    render json: { meta: meta.deep_transform_keys { it.to_s.camelize :lower } }
+  end
+
+  def render_no_content(**kwargs)
+    render status: :no_content
+  end
+
+  def render_forbidden(*errors, **error)
+    skip_verify_authorized!
+
+    # expire session cookies on certain terminal authz error codes
+    if error in code: 'SESSION_NOT_ALLOWED' | 'USER_BANNED'
+      unset_session_cookies(current_session)
+      unset_session_cookie(
+        session_cookie_name_for(current_environment),
+      )
+    end
+
+    respond_to do |format|
+      format.any {
+        render status: :forbidden, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Access denied',
+            detail: 'You do not have permission to complete the request',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Forbidden', status: :forbidden
+      }
+      format.text {
+        head :forbidden
+      }
+    end
+  end
+
+  def render_unauthorized(*errors, **error)
+    skip_verify_authorized!
+
+    # FIXME(ezekg) docker wants to do a jwt token dance unless we stick to a basic
+    #              auth scheme (which is fine since our basic auth scheme only
+    #              supports license keys and tokens, not passwords!)
+    default_challenge_scheme = oci? ? 'Basic' : 'Bearer'
+
+    challenge_scheme = authentication_scheme&.capitalize || default_challenge_scheme
+    challenge_realm  = 'keygen'
+    challenge        = %(#{challenge_scheme} realm="#{challenge_realm}")
+
+    response.headers['WWW-Authenticate'] = challenge
+
+    # expire session cookies on invalid authn
+    unset_session_cookies(current_session)
+    unset_session_cookie(
+      session_cookie_name_for(current_environment),
+    )
+
+    respond_to do |format|
+      format.any {
+        render status: :unauthorized, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Unauthorized',
+            detail: 'You must be authenticated to complete the request',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Unauthorized', status: :unauthorized
+      }
+      format.text {
+        head :unauthorized
+      }
+    end
+  end
+
+  def render_unprocessable_entity(*errors, **error)
+    skip_verify_authorized!
+
+    respond_to do |format|
+      format.any {
+        render status: :unprocessable_entity, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Unprocessable entity',
+            detail: 'The request could not be completed',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Unprocessable Entity', status: :unprocessable_entity
+      }
+      format.text {
+        head :unprocessable_entity
+      }
+    end
+  end
+
+  def render_not_found(*errors, **error)
+    skip_verify_authorized!
+
+    respond_to do |format|
+      format.any {
+        render status: :not_found, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Not found',
+            detail: 'The requested endpoint was not found (check your HTTP method, Accept header, and URL path)',
+            code: 'NOT_FOUND',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Not Found', status: :not_found
+      }
+      format.text {
+        head :not_found
+      }
+    end
+  end
+
+  def render_bad_request(*errors, **error)
+    skip_verify_authorized!
+
+    respond_to do |format|
+      format.any {
+        render status: :bad_request, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Bad request',
+            detail: 'The request could not be completed',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Bad Request', status: :bad_request
+      }
+      format.text {
+        head :bad_request
+      }
+    end
+  end
+
+  def render_conflict(*errors, **error)
+    skip_verify_authorized!
+
+    respond_to do |format|
+      format.any {
+        render status: :conflict, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Conflict',
+            detail: 'The request could not be completed because of a conflict',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Conflict', status: :conflict
+      }
+      format.text {
+        head :conflict
+      }
+    end
+  end
+
+  def render_payment_required(*errors, **error)
+    skip_verify_authorized!
+
+    respond_to do |format|
+      format.any {
+        render status: :payment_required, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Payment required',
+            detail: 'The request could not be completed',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Payment Required', status: :payment_required
+      }
+      format.text {
+        head :payment_required
+      }
+    end
+  end
+
+  def render_not_supported(*errors, **error)
+    skip_verify_authorized!
+
+    response.headers['Allow'] = '' # we support nothing
+
+    respond_to do |format|
+      format.any {
+        render status: :method_not_allowed, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Not supported',
+            detail: 'The request could not be completed',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Not Supported', status: :method_not_allowed
+      }
+      format.text {
+        head :method_not_allowed
+      }
+    end
+  end
+
+  def render_internal_server_error(*errors, **error)
+    skip_verify_authorized!
+
+    # capture last exception for debugging
+    request.set_header 'action_dispatch.exception', $!
+
+    respond_to do |format|
+      format.any {
+        render status: :internal_server_error, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Internal server error',
+            detail: 'Looks like something went wrong! Our engineers have been notified. If you continue to have problems, please contact support@keygen.sh.',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Internal Server Error', status: :internal_server_error
+      }
+      format.text {
+        head :internal_server_error
+      }
+    end
+  end
+
+  def render_service_unavailable(*errors, **error)
+    skip_verify_authorized!
+
+    respond_to do |format|
+      format.any {
+        render status: :service_unavailable, json: {
+          meta: { id: request.request_id },
+          errors: errors.presence || [{
+            title: 'Service unavailable',
+            detail: 'Our services are currently unavailable. Please see https://status.keygen.sh for our uptime status and contact support@keygen.sh with any questions.',
+            **error,
+          }],
+        }
+      }
+      format.html {
+        render html: 'Service Unavailable', status: :service_unavailable
+      }
+      format.text {
+        head :service_unavailable
+      }
+    end
+  end
+
+  def render_unprocessable_resource(resource)
+    errors = resource.errors.as_jsonapi
+    meta   = { id: request.request_id }
+
+    # NOTE(ezekg) We're using #reverse_each here so that we can delete errors
+    #             in-place, e.g. in the case of a non-public error, without
+    #             botching the iterator's indexes.
+    errors.reverse_each do |error|
+      # Fixup various error codes and pointers to match our objects, e.g.
+      # some relationships are invisible, exposed as attributes.
+      case error
+      in source: { pointer: %r{^/data/relationships/users/(.*+)} } if resource in Account
+        error.source = { pointer: "/data/relationships/admins/#{$1}" }
+      in source: { pointer: %r{^/data/attributes/permission_?ids$}i },
+         code: /^PERMISSION_IDS_(.+)/
+        error.source = { pointer: '/data/attributes/permissions' }
+        error.code   = "PERMISSIONS_#{$1}"
+      in source: { pointer: %r{^/data/relationships/role/data/attributes/permission_?ids}i },
+         code: /^ROLE_PERMISSION_IDS_(.+)/
+        error.source = { pointer: '/data/attributes/permissions' }
+        error.code   = "PERMISSIONS_#{$1}"
+      in source: { pointer: %r{^/data/relationships/permissions}i }
+        error.source = { pointer: '/data/attributes/permissions' }
+      in source: { pointer: %r{^/data/relationships/role} }
+        error.source = { pointer: '/data/attributes/role' }
+      in source: { pointer: %r{^/data/relationships/filetype} }
+        error.source = { pointer: '/data/attributes/filetype' }
+      in source: { pointer: %r{^/data/relationships/channel} }
+        error.source = { pointer: '/data/attributes/channel' }
+      in source: { pointer: %r{^/data/relationships/platform} }
+        error.source = { pointer: '/data/attributes/platform' }
+      in source: { pointer: %r{^/data/relationships/engine} }
+        error.source = { pointer: '/data/attributes/engine' }
+      in source: { pointer: %r{^/data/relationships/arch} }
+        error.source = { pointer: '/data/attributes/arch' }
+      in source: { pointer: %r{^/data/attributes/admins} }
+        error.source = { pointer: '/data/relationships/admins' }
+      in source: { pointer: %r{^/data/attributes/backdatedTo} },
+         code: /^BACKDATED_TO_(.+)/
+        error.source = { pointer: '/data/attributes/backdated' }
+        error.code   = "BACKDATED_#{$1}"
+      in code: /^(?:LICENSE_)?USERS?_LIMIT_EXCEEDED$/ # normalize user limit errors
+        error.source = { pointer: '/data/relationships/users' }
+        error.code   = 'USER_LIMIT_EXCEEDED'
+      in code: /ACCOUNT_NOT_ALLOWED$/ # private error
+        errors.delete(error)
+      else
+      end
+
+      # Add a helpful link to the docs when possible.
+      # FIXME(ezekg) Adjust topic to match our docs.
+      topic = case resource
+              in LicenseEntitlement | PolicyEntitlement
+                'entitlements'
+              in LicenseUser
+                'licenses'
+              in MachineComponent
+                'components'
+              in MachineProcess
+                'processes'
+              in ReleaseArtifact
+                'artifacts'
+              in ReleaseEngine
+                'engines'
+              in ReleaseChannel
+                'channels'
+              in ReleasePlatform
+                'platforms'
+              in ReleaseArch
+                'arches'
+              else
+                resource.class.name.underscore
+                                   .dasherize
+                                   .pluralize
+              end
+
+      hash = "#{topic}-object".then { |s|
+        case error
+        in source: { pointer: %r{/relationships/([^/]+)} }
+          s << '-relationships-' << $1
+        in source: { pointer: %r{/attributes/([^/]+)} }
+          s << '-attrs-' << $1
+        else
+          s
+        end
+      }
+
+      error.links = {
+        about: "https://keygen.sh/docs/api/#{topic}/##{hash}",
+      }
+    end
+
+    # Special cases where a certain limit has been met on the free tier
+    status = if errors.any? { it.code == 'ACCOUNT_ALU_LIMIT_EXCEEDED' }
+               :payment_required
+             else
+               :unprocessable_entity
+             end
+
+    render status:, json: {
+      errors:,
+      meta:,
+    }
+  end
+
+  def rescue_from_exceptions
+    yield
+  rescue TypedParams::UnpermittedParameterError,
+         TypedParams::InvalidParameterError => e
+    source = e.source == :query ? :parameter : :pointer
+    path   = e.source == :query ? e.path.to_bracket_notation : e.path.to_json_pointer
+
+    render_bad_request detail: e.message, source: { source => path }
+  rescue Keygen::Error::BadRequestError,
+         ActionController::UnpermittedParameters,
+         ActionController::ParameterMissing => e
+    render_bad_request detail: e.message
+  rescue Keygen::Error::UnsupportedParameterError,
+         Keygen::Error::InvalidParameterError,
+         Keygen::Error::UnsupportedHeaderError,
+         Keygen::Error::InvalidHeaderError => e
+    kwargs = { detail: e.message, source: e.source }
+
+    kwargs[:code] = e.code if
+      e.code.present?
+
+    render_bad_request(**kwargs)
+  rescue KeysetPagination::InvalidParameterError => e
+    render_bad_request(detail: e.message, source: { parameter: e.parameter })
+  rescue Keygen::Error::InvalidSingleSignOnError => e
+    Keygen.logger.warn { "[sso] error=#{e.class.inspect} code=#{e.code.inspect} message=#{e.message.inspect}" }
+
+    # we want to redirect to Portal to display the SSO error message in a helpful way
+    redirect_to portal_url('/sso/error', query: { code: e.code }), status: :see_other, allow_other_host: true
+  rescue Keygen::Error::UnauthorizedError => e
+    kwargs = { code: e.code }
+
+    kwargs[:detail] = e.detail if
+      e.detail.present?
+
+    kwargs[:source] = e.source if
+      e.source.present?
+
+    kwargs[:links] = e.links if
+      e.links.present?
+
+    # add additional properties based on code
+    case e.code
+    when 'LICENSE_NOT_ALLOWED',
+         'LICENSE_INVALID'
+      kwargs.deep_merge!(links: { about: docs_url(:authentication, anchor: 'license-authentication') })
+    when 'TOKEN_NOT_ALLOWED',
+         'TOKEN_INVALID',
+         'TOKEN_FORMAT_INVALID'
+      kwargs.deep_merge!(links: { about: docs_url(:authentication, anchor: 'token-authentication') })
+    when 'TOKEN_MISSING'
+      kwargs.deep_merge!(links: { about: docs_url(:authentication) })
+    end
+
+    render_unauthorized(**kwargs)
+  rescue Keygen::Error::ForbiddenError => e
+    kwargs = { code: e.code }
+
+    kwargs[:detail] = e.detail if
+      e.detail.present?
+
+    kwargs[:source] = e.source if
+      e.source.present?
+
+    kwargs[:links] = e.links if
+      e.links.present?
+
+    # add additional properties based on code
+    case e.code
+    when 'LICENSE_NOT_ALLOWED'
+      kwargs.deep_merge!(links: { about: docs_url(:authentication, anchor: 'license-authentication') })
+    when 'TOKEN_NOT_ALLOWED'
+      kwargs.deep_merge!(links: { about: docs_url(:authentication, anchor: 'token-authentication') })
+    end
+
+    render_forbidden(**kwargs)
+  rescue Keygen::Error::NotFoundError,
+         ActiveRecord::RecordNotFound => e
+    if e.model.present?
+      resource = e.model.constantize.model_name.singular.humanize(capitalize: false)
+
+      if e.id.present?
+        id = Array.wrap(e.id).first
+
+        render_not_found detail: "The requested #{resource} '#{id}' was not found"
+      else
+        render_not_found detail: "The requested #{resource} was not found"
+      end
+    else
+      render_not_found detail: 'The requested resource was not found'
+    end
+  rescue Keygen::Error::InvalidAccountDomainError,
+         Keygen::Error::InvalidAccountIdError => e
+    render_not_found detail: e.message
+  rescue Keygen::Error::InvalidEnvironmentError => e
+    render_bad_request detail: e.message, code: 'ENVIRONMENT_INVALID', source: { header: 'Keygen-Environment' }
+  rescue ActiveModel::RangeError
+    render_bad_request detail: "integer is too large"
+  rescue ActiveRecord::StatementInvalid => e
+    # Bad encodings, Invalid UUIDs, non-base64'd creds, etc.
+    case e.cause
+    in PG::InvalidTextRepresentation | PG::CharacterNotInRepertoire | PG::UntranslatableCharacter
+      render_bad_request detail: 'The request could not be completed because it contains an invalid byte sequence (check encoding)', code: 'ENCODING_INVALID'
+    in PG::Error if e.message in /incomplete multibyte character/ | /invalid multibyte character/
+      render_bad_request detail: 'The request could not be completed because it contains an invalid byte sequence (check encoding)', code: 'ENCODING_INVALID'
+    in PG::UniqueViolation
+      Keygen.logger.warn { "[conflict] request_id=#{request.request_id} class=#{e.class} message=#{e.message}" }
+
+      render_conflict
+    else
+      Keygen.logger.exception(e)
+
+      render_internal_server_error
+    end
+  rescue PG::Error => e
+    case e.message
+    when /incomplete multibyte character/,
+         /invalid multibyte character/
+      render_bad_request detail: 'The request could not be completed because it contains an invalid byte sequence (check encoding)', code: 'ENCODING_INVALID'
+    else
+      Keygen.logger.exception(e)
+
+      render_internal_server_error
+    end
+  rescue ActiveRecord::RecordNotSaved,
+         ActiveRecord::RecordInvalid => e
+    render_unprocessable_resource e.record
+  rescue ActiveRecord::RecordNotUnique => e
+    Keygen.logger.warn { "[conflict] request_id=#{request.request_id} class=#{e.class} message=#{e.message}" }
+
+    render_conflict # Race condition on unique index
+  rescue ActiveRecord::NestedAttributes::TooManyRecords
+    render_unprocessable_entity detail: 'too many records'
+  rescue ActiveModel::ValidationError => e
+    render_unprocessable_resource e.model
+  rescue Encoding::CompatibilityError,
+         ArgumentError => e
+    case e.message
+    when /invalid byte sequence in UTF-8/,
+         /incomplete multibyte character/,
+         /invalid multibyte character/
+      render_bad_request detail: 'The request could not be completed because it contains an invalid byte sequence (check encoding)', code: 'ENCODING_INVALID'
+    when /string contains null byte/
+      render_bad_request detail: 'The request could not be completed because it contains an unexpected null byte (check encoding)', code: 'ENCODING_INVALID'
+    else
+      Keygen.logger.exception(e)
+
+      render_internal_server_error
+    end
+  rescue ActionPolicy::NotFound => e
+    Keygen.logger.warn { "[action_policy] message=#{e.message}" }
+    Keygen.logger.exception(e)
+
+    render_internal_server_error
+  rescue ActionPolicy::Unauthorized => e
+    Keygen.logger.warn { "[action_policy] policy=#{e.policy} rule=#{e.rule} message=#{e.message} reasons=#{e.result.reasons&.reasons}" }
+
+    # FIXME(ezekg) Does Action Policy provide a better API for fetching the reason?
+    reasons = [].tap do |accum|
+      e.result.reasons.details.each do |policy, rules|
+        case rules
+        in [Symbol, *] => symbols
+          # We should always use inline_reasons: when calling allowed_to?().
+          # Consider symbol reasons a bug, as they are noncommunicative.
+          symbols.each do |symbol|
+            Keygen.logger.warn { "[action_policy] policy=#{policy} symbol=#{symbol}" }
+          end
+        in [String, *]
+          rules.each { accum << it }
+        in [Hash, *]
+          rules.each do |rule|
+            rule.values.each { accum << it }
+          end
+        end
+      end
+    rescue => e
+      Keygen.logger.exception(e)
+    end
+
+    detail = case
+             when reasons.any?
+               "You do not have permission to complete the request (#{reasons.first})"
+             when current_bearer.present?
+               'You do not have permission to complete the request (ensure the token or license is allowed to access all resources)'
+             else
+               'You do not have permission to complete the request (ensure a token or license is present and valid)'
+             end
+
+    render_forbidden(detail:)
+  end
+
+  def oci? = request.subdomain == 'oci.pkg'
+
+  def prefers?(preference)
+    preferences = request.headers.fetch('Prefer') { request.query_parameters.fetch(:prefer, '').to_s }
+                                 .split(',')
+                                 .map(&:strip)
+
+    return false if
+      preferences.empty?
+
+    preferences.include?(preference.to_s)
+  end
+
+  def require_ee!(entitlements: [])
+    return if
+      Keygen.ee? && Keygen.ee { it.entitled?(*entitlements) }
+
+    if entitlements.any?
+      render_forbidden(detail: "must have an EE license with the following entitlements to access this resource: #{entitlements.join(', ')}")
+    else
+      render_forbidden(detail: "must have an EE license to access this resource")
+    end
+  end
+end

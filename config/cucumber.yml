@@ -1,0 +1,11 @@
+default:
+  - --publish-quiet
+  - --fail-fast
+  - --strict
+  - --<%= if ENV.key?('CI') then 'no-color' else 'color' end %>
+  - --format=<%= ENV.fetch('CUCUMBER_FORMAT', 'progress') %>
+  - --tags=not @wip
+
+wip:
+  - --profile=default
+  - --tags=@wip

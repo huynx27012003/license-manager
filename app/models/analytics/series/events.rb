@@ -1,0 +1,52 @@
+# frozen_string_literal: true
+
+module Analytics
+  class Series
+    class Events
+      def initialize(account:, environment:, event:, resource_type: nil, resource_id: nil)
+        @account       = account
+        @environment   = environment
+        @event         = event
+        @resource_type = resource_type
+        @resource_id   = resource_id
+      end
+
+      def metrics = @metrics ||= event_types.collect(&:event)
+      def count(start_date:, end_date:)
+        scope = account.event_logs.for_environment(environment)
+                                  .where(created_date: start_date..end_date)
+                                  .where(event_type_id: event_type_ids)
+
+        if resource_type.present? && resource_id.present?
+          scope = scope.where(
+            resource_type: resource_type.underscore.classify,
+            resource_id:,
+          )
+        end
+
+        counts = scope.group(:event_type_id, :created_date)
+                      .count
+
+        # series expects [metric, date] => count
+        mapping = event_types.index_by(&:id).transform_values(&:event)
+
+        counts.each_with_object({}) do |((event_type_id, date), count), hash|
+          metric = mapping[event_type_id]
+
+          hash[[metric, date]] = count
+        end
+      end
+
+      private
+
+      attr_reader :account,
+                  :environment,
+                  :event,
+                  :resource_type,
+                  :resource_id
+
+      def event_types    = @event_types ||= EventType.by_pattern(event)
+      def event_type_ids = event_types.collect(&:id)
+    end
+  end
+end

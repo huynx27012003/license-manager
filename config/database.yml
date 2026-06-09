@@ -1,0 +1,64 @@
+default: &postgres
+  adapter: postgresql
+  pool: <%= ENV['DATABASE_CONNECTION_POOL'] || ENV['DB_POOL'] || (Sidekiq.server? ? ENV.fetch('SIDEKIQ_CONCURRENCY', 10) : ENV.fetch('RAILS_MAX_THREADS', 2)) %>
+  timeout: <%= ENV['DATABASE_CONNECTION_TIMEOUT'] || ENV['DB_TIMEOUT'] || 5000 %>
+  prepared_statements: false
+  variables:
+    statement_timeout: <%= ENV['DATABASE_STATEMENT_TIMEOUT'] || ENV['DB_STATEMENT_TIMEOUT'] || '15s' %>
+
+clickhouse: &clickhouse
+  adapter: clickhouse
+  keep_alive_timeout: <%= ENV['CLICKHOUSE_KEEP_ALIVE_TIMEOUT'] || 10 %>
+  read_timeout: <%= ENV['CLICKHOUSE_READ_TIMEOUT'] || 30 %>
+  write_timeout: <%= ENV['CLICKHOUSE_WRITE_TIMEOUT'] || 30 %>
+  migrations_paths: db/clickhouse
+  ssl: <%= ENV.false?('CLICKHOUSE_TLS_DISABLED') %>
+
+development:
+  primary: &primary_dev
+    <<: *postgres
+    url: <%= ENV['DATABASE_URL'] %>
+    database: keygen_dev
+  <% if ENV.key?('REPLICA_DATABASE_URL') %>
+  replica:
+    <<: *primary_dev
+    url: <%= ENV['REPLICA_DATABASE_URL'] %>
+    replica: true
+  <% end %>
+  <% if ENV['CLICKHOUSE_DATABASE_URL'].to_s != '' %>
+  clickhouse:
+    <<: *clickhouse
+    url: <%= ENV['CLICKHOUSE_DATABASE_URL'] %>
+    database: keygen_clickhouse_dev
+    debug: true
+  <% end %>
+
+test: &test
+  primary: &primary_test
+    <<: *postgres
+    database: keygen_test<%= ENV['TEST_ENV_NUMBER'] %>
+  replica:
+    <<: *primary_test
+    url: <%= ENV['REPLICA_DATABASE_URL'] %>
+    replica: true
+  clickhouse:
+    <<: *clickhouse
+    url: <%= ENV['CLICKHOUSE_DATABASE_URL'] %>
+    database: keygen_clickhouse_test<%= ENV['TEST_ENV_NUMBER'] %>
+
+production:
+  primary:
+    <<: *postgres
+    url: <%= ENV['DATABASE_CONNECTION_POOL_URL'] || ENV['DATABASE_URL'] %>
+  <% if ENV.key?('REPLICA_DATABASE_CONNECTION_POOL_URL') || ENV.key?('REPLICA_DATABASE_URL') %>
+  replica:
+    <<: *postgres
+    url: <%= ENV['REPLICA_DATABASE_CONNECTION_POOL_URL'] || ENV['REPLICA_DATABASE_URL'] %>
+    replica: true
+  <% end %>
+  <% if ENV['CLICKHOUSE_DATABASE_URL'].to_s != '' %>
+  clickhouse:
+    <<: *clickhouse
+    url: <%= ENV['CLICKHOUSE_DATABASE_URL'] %>
+    database: keygen_clickhouse
+  <% end %>

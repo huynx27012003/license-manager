@@ -1,0 +1,114 @@
+# frozen_string_literal: true
+
+begin
+  require 'rspec/core/rake_task'
+  require 'parallel_tests'
+
+  Rake::Task['test'].clear # Clear default test task
+
+  desc 'run test suite'
+  task test: %i[
+    test:environment
+    log:clear
+    test:rspec
+    test:cucumber
+  ]
+
+  namespace :test do
+    task :environment do
+      ENV['PARALLEL_TEST_OPTIONS'] ||= ENV.true?('DEBUG') ? '--fail-fast --verbose' : '--fail-fast'
+
+      # We want to make sure that we stay within Redis' default 16 database limit,
+      # without using database /0 (our potential development database).
+      #
+      # Thus, we need to keep this in the range of 1..14 for /1../15.
+      ENV['PARALLEL_TEST_PROCESSORS'] ||= Parallel.processor_count.clamp(1, 14)
+                                                                  .to_s
+
+      # We don't want to interfere with our development/test databases.
+      ENV['PARALLEL_TEST_FIRST_IS_1'] = '1'
+
+      # Ensure we always have a test number set (various parts of our suite rely on it).
+      #
+      # See: https://github.com/grosser/parallel_tests/issues/505
+      ENV['TEST_ENV_NUMBER'] ||= '1'
+
+      # Ensure we always have enough database connections.
+      ENV['DATABASE_CONNECTION_POOL'] ||= '1024'
+
+      # Ensure we're always in the test environment.
+      ENV['RAILS_ENV'] = Rails.env = 'test'
+    end
+
+    desc 'setup test suite'
+    task setup: %i[
+      test:environment
+      log:clear
+      parallel:setup
+      parallel:seed
+    ]
+
+    desc 'reset test suite'
+    task reset: %i[
+      test:environment
+      log:clear
+      parallel:drop
+      setup
+    ]
+
+    desc 'run rspec test suite'
+    task :rspec, %i[pattern] => %i[test:environment log:clear] do |_, args|
+      pattern = args[:pattern]&.delete_prefix('./') # parallel_tests doesn't support this prefix
+      options = ['--group-by=filesize', ENV['PARALLEL_TEST_OPTIONS']].compact.join(" ")
+
+      if pattern&.match?(/((\[\d+(:\d+)*\])|(:\d+))$/) # parallel_tests doesn't support line numbers/example IDs
+        RSpec::Core::RakeTask.new(:spec) unless Rake::Task.task_defined?('spec') # make sure task always exists
+
+        rspec = Rake::Task['spec']
+
+        # FIXME(ezekg) Remove [ from GLOB_PATTERN so spec/foo_spec.rb[1:2:3:4] patterns are supported
+        #              See: https://github.com/rspec/rspec-core/issues/3062
+        Rake::FileList.tap do |klass|
+          klass.send(:remove_const, :GLOB_PATTERN) # replaces const without warning
+          klass.const_set(:GLOB_PATTERN, %r{[*?\{]})
+        end
+
+        ENV['SPEC'] = pattern
+
+        rspec.invoke
+      else
+        Rake::Task['parallel:spec'].invoke(
+          nil,
+          pattern,
+          nil,
+          options,
+        )
+      end
+    end
+
+    desc 'run cucumber test suite'
+    task :cucumber, %i[pattern] => %i[test:environment log:clear] do |_, args|
+      pattern = args[:pattern]&.delete_prefix('./') # parallel_tests doesn't support this prefix
+      options = ['--group-by=scenarios', ENV['PARALLEL_TEST_OPTIONS']].compact.join(" ")
+
+      if pattern&.match?(/:\d+$/) # parallel_tests doesn't support line numbers
+        cucumber = Rake::Task['cucumber']
+
+        ENV['FEATURE'] = pattern
+
+        cucumber.invoke
+      else
+        Rake::Task['parallel:features'].invoke(
+          nil,
+          pattern,
+          nil,
+          options,
+        )
+      end
+    end
+  end
+rescue LoadError
+  # NOTE(ezekg) Wrapping this in a rescue clause so that we can use our
+  #             Rakefile in an environment where RSpec is unavailable
+  #             e.g. in the production env.
+end
