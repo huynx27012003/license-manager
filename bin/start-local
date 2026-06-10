@@ -16,19 +16,20 @@ cleanup() {
 }
 trap cleanup EXIT
 
-"${compose[@]}" build web setup
-"${compose[@]}" up -d postgres clickhouse
+"${compose[@]}" build web
+"${compose[@]}" up -d clickhouse
 
-if ! "${compose[@]}" exec -T postgres psql -U postgres -d at_license_dev -tAc "select 1 from accounts where id = '${AT_LICENSE_ACCOUNT_ID}'" 2>/dev/null | grep -q 1; then
-  "${compose[@]}" --profile setup run --rm setup
+if ! psql -d "postgres:///at_license_dev" -tAc "select 1 from accounts where id = '${AT_LICENSE_ACCOUNT_ID}'" 2>/dev/null | grep -q 1; then
+  echo "Running setup..."
+  bundle exec rails at_license:setup
 fi
 
 "${compose[@]}" up -d web
 
 echo ""
 echo "========================================"
-echo " AtLicense API:  http://localhost:3000"
-echo " AtLicense Portal: http://localhost:5173"
+echo " AT-License API:  http://localhost:3000"
+echo " AT-License Portal: http://localhost:5173"
 echo " Sidekiq UI: http://localhost:3000/-/sidekiq/"
 echo "========================================"
 echo ""

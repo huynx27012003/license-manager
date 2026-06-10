@@ -1,20 +1,4 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: at-license_dev
-    ports:
-      - "5432:5432"
-    volumes:
-      - at-license-postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d at-license_dev"]
-      interval: 5s
-      timeout: 5s
-      retries: 20
-
   clickhouse:
     image: clickhouse/clickhouse-server:24.8-alpine
     environment:
@@ -37,11 +21,11 @@ services:
     command: setup
     env_file: .env
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/at-license_dev
+      DATABASE_URL: postgres://huynx@host.docker.internal:5432/at_license_dev
       CLICKHOUSE_DATABASE_URL: ""
       DISABLE_DATABASE_ENVIRONMENT_CHECK: "1"
     depends_on:
-      postgres:
+      clickhouse:
         condition: service_healthy
 
   release:
@@ -50,11 +34,11 @@ services:
     command: release
     env_file: .env
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/at-license_dev
+      DATABASE_URL: postgres://huynx@host.docker.internal:5432/at_license_dev
       CLICKHOUSE_DATABASE_URL: ""
       DISABLE_DATABASE_ENVIRONMENT_CHECK: "1"
     depends_on:
-      postgres:
+      clickhouse:
         condition: service_healthy
 
   web:
@@ -62,7 +46,7 @@ services:
     command: web
     env_file: .env
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/at-license_dev
+      DATABASE_URL: postgres://huynx@host.docker.internal:5432/at_license_dev
       CLICKHOUSE_DATABASE_URL: clickhouse://at_license:at_license@clickhouse:8123
       CLICKHOUSE_DATABASE_ENABLED: "0"
       CLICKHOUSE_TLS_DISABLED: "1"
@@ -74,8 +58,6 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      postgres:
-        condition: service_healthy
       clickhouse:
         condition: service_healthy
 
@@ -85,7 +67,7 @@ services:
     command: worker
     env_file: .env
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/at-license_dev
+      DATABASE_URL: postgres://huynx@host.docker.internal:5432/at_license_dev
       CLICKHOUSE_DATABASE_URL: clickhouse://at_license:at_license@clickhouse:8123
       CLICKHOUSE_DATABASE_ENABLED: "0"
       CLICKHOUSE_TLS_DISABLED: "1"
@@ -93,11 +75,8 @@ services:
       RAILS_EAGER_LOAD: "0"
       REDIS_POOL_SIZE: "10"
     depends_on:
-      postgres:
-        condition: service_healthy
       clickhouse:
         condition: service_healthy
 
 volumes:
-  at-license-postgres:
   at-license-clickhouse:
